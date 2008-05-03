@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<link rel="stylesheet" type="text/css" href="/static/style/main.css"/>
+<script src="/static/js/prototype.js" type="text/javascript"></script>
+<script src="/static/js/scriptaculous.js" type="text/javascript"></script>
+
+<title>Blag</title>
+</head>
+
+<body>
+<div id="all">
+    <div id="header">
+	<div id="title">
+		Blag
+	</div>
+    </div>
+    <div id="tabs">
+		<ul>
+			<li class="here"><a href="#">Tab One</a></li>
+			<li><a href="#">Tab Two</a></li>
+			<li><a href="#">Tab Three</a></li>
+			<li><a href="#">Tab Four</a></li>
+		</ul>
+    </div>
+	<div id="content">
+		<p>Gallery Manager > gallery 2</p>
+		<form name="adminForm" method="post" action="index.html">
+		<table id="adminTable">
+			<tbody>
+				<tr>
+					<th>#</th>
+					<th>
+						<input type="checkbox" value="" name="toggle"/>
+					</th>
+					<th>&nbsp;</th>
+					<th>Image Name</th>
+					<th>Filename</th>
+				</tr>
+				{% for image in object_list %}			
+					<tr>
+						<td>{{ forloop.counter }}</td>
+						<td>
+							<input type="checkbox" value="" name="toggle"/>
+						</td>
+						<td>
+							<img src="{{ image.thumbnail.getPath }}" 
+							alt="{{ image.description }}" name="{{ image.name }}"/>
+						</td>
+						<td>{{ image.name }}</td>
+						<td>{{ image.thumbnail.name }}</td>
+					</tr>				
+				{% endfor %}
+			</tbody>
+		</table>
+		</form>
+	</div>
+</div>
+
+</body>
+
+
+</html>
