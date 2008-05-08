@@ -7,7 +7,7 @@ class Folder(models.Model):
 	#folder path is relative to the parent.  If root, absolute
 	path = models.CharField(max_length = 200)
 	parentFolder = models.ForeignKey('self', db_column = 'parent_folder', null=True)
-	webEnabled = models.BooleanField()
+	webEnabled = models.BooleanField(default = False)
 	
 	def __unicode__(self):
 		return self.name
@@ -47,6 +47,10 @@ class Media(models.Model):
 		
 	def getPath(self):
 		return self.folder.getPath() + os.sep + self.name
+		
+	def getUrl(self):
+		webSep = "/"
+		return webSep + self.folder.getUrl() + webSep + self.name
 		
 
 		
