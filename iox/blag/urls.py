@@ -6,6 +6,7 @@ info_dict = {
 }
 
 # The generic views
-urlpatterns = patterns('django.views.generic',
-	(r'^$', 'list_detail.object_list', info_dict),
+urlpatterns = patterns('',
+	(r'^$', 'django.views.generic.list_detail.object_list', info_dict),
+	(r'^/uploadImage', 'iox.blag.views.uploadImage'),
 )

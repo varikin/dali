@@ -75,32 +75,8 @@ li {
 }
 
 
-#tabs ul {
-	margin-left: 0;
-	padding-left: 0;
-	display: inline;
-	} 
-
-#tabs ul li {
-	margin-left: 0;
-	margin-bottom: 0;
-	padding: 2px 15px 5px;
-	border: 1px solid #000;
-	list-style: none;
-	display: inline;
-	}
-	
-		
-#tabs ul li.here {
-	border-bottom: 1px solid #ffc;
-	list-style: none;
-	display: inline;
-	}
-
-#adminTable {
-	width: 100%;
-	cellspacing: 4;
-	border: 0;
+#imageList img {
+	padding: 10px;
 }
 
 #hr {
