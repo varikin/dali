@@ -11,7 +11,7 @@ class Folder(models.Model):
 	
 	def __unicode__(self):
 		return self.name
-		
+
 	def getPath(self):
 		current = self
 		path = current.path
@@ -60,6 +60,7 @@ class Media(models.Model):
 		
 class Gallery(models.Model):
 	name = models.CharField(max_length = 200)
+	webName = models.CharField(max_length=200, unique = True)
 	description = models.TextField()
 	parentGallery = models.ForeignKey('self', null=True)
 	
@@ -68,6 +69,7 @@ class Gallery(models.Model):
 
 class Image(models.Model):
 	name = models.CharField(max_length = 200)
+	webName = models.CharField(max_length = 200, unique = True)
 	original = models.ForeignKey(Media, related_name = "original")
 	viewable = models.ForeignKey(Media, related_name = "viewable")
 	thumbnail = models.ForeignKey(Media, related_name = "thumbnail")
