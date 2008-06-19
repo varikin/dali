@@ -52,10 +52,8 @@ class Media(models.Model):
 		webSep = "/"
 		return webSep + self.folder.getUrl() + webSep + self.name
 		
-	def saveFile(self, fileContent):
-		outFile = open(getPath(), "wb")
-		outFile.write(fileContent)
-		outFile.close()
+	def saveFile(self, image):
+		image.save( self.getPath(), "PNG")
 
 		
 class Gallery(models.Model):

@@ -10,10 +10,15 @@ def createImage(request):
 			[ 'name', 'description', 'webName', 'gallery' ])
 		validImage = hasValidImage(request.FILES, 'imageFile')  
 		if requiredValues and validImage:
-			filename = request.FILES['imageFile']['filename']
-			if request.FILES['imageFile']dd['content-type'].startswith('image'):
-				filename = '/Users/varikin/code/blag/iox/blag/gallery/thumbnail/i' + filename
-	
+			name = request.POST['name']
+			description = request.POST['description']
+			webName = request.POST['webName']
+			gallery = request.POST['gallery']
+			imageFile = request.FILES['imageFile']
+
+			image = handlers.createImage(name, webName, description, gallery, imageFile)
+
+
 	galleries = Gallery.objects.all()
 	return render_to_response('blag/createImage.html', {'galleries': galleries})
 
