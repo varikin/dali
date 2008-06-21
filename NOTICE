@@ -1,5 +1,11 @@
-   Blag
-   Copyright 2008 John C. Shimek 
+   	Blag
+	Copyright 2008 John C. Shimek 
 
-   This product includes software developed by 
-   John C. Shimek
+	This software uses the Django framework, 
+	http://www.djangoproject.com, which is released under the 
+	BSD license, 
+	http://code.djangoproject.com/browser/django/trunk/LICENSE.
+
+	This software uses the jQuery Javascript library, 
+	http://jquery.com/, which is released under the MIT License,
+	http://dev.jquery.com/browser/trunk/jquery/MIT-LICENSE.txt.
