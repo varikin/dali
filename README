@@ -1,3 +1,34 @@
 A small blogging/gallery site in django.  Very alpha and not working at the moment.  It uses the jQuery javascript library.  
 
 Written by John C. Shimek <varikin at gmail dot com>
+
+The following enviroment variables need to be set:
+
+PYTHONPATH=/Path/to/top/level/blag:/Path/to/django/settings/directory
+DJANGO_SETTINGS_MODULE=settings
+
+PYTHONPATH should be set to the top level blag directory and the 
+directory that contains the django settings file and url file.  
+DJANGO_SETTINGS_MODULE needs to be set to the name of the django 
+settings file without the .py extension.  This is settings or 
+settings.py by default, but can named anything.
+
+For example, I have the following directories:
+
+$ ls /Users/varikin/code/blag
+LICENSE      README       example-conf templates
+NOTICE       blag         static
+
+$ ls /Users/varikin/code/djangosettings/
+django.db    settings.py  urls.py
+
+And the following enviroment variables:
+
+ $ echo $PYTHONPATH
+/Users/varikin/code/blag/:/Users/varikin/code/djangosettings/:
+
+ $ echo $DJANGO_SETTINGS_MODULE
+settings
+
+
+
