@@ -1,4 +1,4 @@
-from iox.blag.models import Gallery, Image, Folder, Media
+from blag.models import Gallery, Image, Folder, Media
 import StringIO
 from PIL import Image as PImage
 

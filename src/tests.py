@@ -1,5 +1,5 @@
 import unittest
-from iox.blag.models import *
+from blag.models import *
 
 class FolderTestCase(unittest.TestCase):
 	

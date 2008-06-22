@@ -1,5 +1,5 @@
 from django.conf.urls.defaults import *
-from iox.blag.models import *
+from blag.models import *
 
 image_dict = {
 	'queryset': Image.objects.all(),
