@@ -4,6 +4,9 @@ from django.http import Http404
 from iox.blag.models import Image, Media, Gallery, Folder
 from iox.blag import handlers
         
+def admin(request):
+	return render_to_response('blag/admin.html', {})
+
 def createImage(request):
 	if request.method == 'POST':
 		requiredValues = hasRequiredValues(request.POST, \
