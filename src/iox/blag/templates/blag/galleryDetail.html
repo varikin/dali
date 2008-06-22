@@ -7,12 +7,12 @@
 	<span>{{ gallery.webName }}</span><br/>
 	<span>{{ gallery.description }} </span><br/>
 	<span>The parent gallery is 
-		<a href="/blag/gallery/{{ gallery.parentGallery.webName }}">
+		<a href="/gallery/{{ gallery.parentGallery.webName }}">
 			{{ gallery.parentGallery.name }} 
 		</a>
 	</span>
 </div>
 <div>
-	<a href="/blag/gallery">Return to the gallery list.</a>
+	<a href="/gallery">Return to the gallery list.</a>
 </div>
 {% endblock %}

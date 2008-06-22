@@ -4,13 +4,13 @@
 
 <div>
 	<h2>Galleries!</h2>
-	<span><a href="/blag/create/gallery">Create new gallery</a></span>
+	<span><a href="/create/gallery">Create new gallery</a></span>
 </div>
 <div id="galleryList">
 	<ul>
 		{% for gallery in object_list %}								
 			<li> 
-				<a href="/blag/gallery/{{ gallery.webName }}">{{ gallery.name }}</a>
+				<a href="/gallery/{{ gallery.webName }}">{{ gallery.name }}</a>
 			</li>
 		{% endfor %}
 	</ul>

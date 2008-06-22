@@ -1,5 +1,4 @@
 from django.conf.urls.defaults import *
-from django.views.generic.list_detail import object_list 
 from iox.blag.models import *
 
 image_dict = {
@@ -10,13 +9,19 @@ gallery_dict = {
 	'queryset': Gallery.objects.all(),
 }
 
-urlpatterns = patterns('',
-	(r'^$', 'iox.blag.views.admin'),
+
+#Generic views
+urlpatterns = patterns('django.views.generic.list_detail',
 	(r'^image$', 'object_list', image_dict),
 	(r'^gallery$', 'object_list', gallery_dict),
-	(r'^gallery/(?P<webName>\w+)$', 'iox.blag.views.galleryDetail'),
-	(r'^create/gallery$', 'iox.blag.views.createGallery'),
-	(r'^create/image$', 'iox.blag.views.createImage'),
+)
+
+#iox.blag.views views
+urlpatterns += patterns('iox.blag.views',
+	(r'^$', 'admin'),
+	(r'^gallery/(?P<webName>\w+)$', 'galleryDetail'),
+	(r'^create/gallery$', 'createGallery'),
+	(r'^create/image$', 'createImage'),
 )
 
 
