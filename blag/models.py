@@ -64,6 +64,14 @@ class Gallery(models.Model):
 	
 	def __unicode__(self):
 		return self.name
+		
+	def getRandomImage(self):
+	    try:
+	        image = Image.objects.filter(gallery = self).order_by('?')[0:1].get()
+	    except Image.DoesNotExist:
+	        image = None
+	    
+	    return image
 
 class Image(models.Model):
 	name = models.CharField(max_length = 200)

@@ -1,16 +1,27 @@
 {% extends "base.html" %}
 
+
 {% block content %}
 
 <div>
 	<span>{{ gallery.name }}</span><br/>
 	<span>{{ gallery.webName }}</span><br/>
 	<span>{{ gallery.description }} </span><br/>
-	<span>The parent gallery is 
-		<a href="/gallery/{{ gallery.parentGallery.webName }}">
-			{{ gallery.parentGallery.name }} 
-		</a>
-	</span>
+
+	{% if gallery.parentGallery %}
+		<span>The parent gallery is 
+		 	<a href="/gallery/{{ gallery.parentGallery.webName }}">
+		 		{{ gallery.parentGallery.name }} 
+		 	</a>
+		</span>
+	{% endif %}
+</div>
+
+<div id="imageList">
+   {% for image in images %}								
+   		<img src="{{ image.thumbnail.getUrl }}" 
+		alt="{{ image.description }}" name="{{ image.name }}" />
+	{% endfor %}
 </div>
 <div>
 	<a href="/gallery">Return to the gallery list.</a>

@@ -16,9 +16,10 @@ urlpatterns = patterns('django.views.generic.list_detail',
 	(r'^gallery$', 'object_list', gallery_dict),
 )
 
-#iox.blag.views views
-urlpatterns += patterns('iox.blag.views',
-	(r'^$', 'admin'),
+#blag.views views
+urlpatterns += patterns('blag.views',
+    (r'^$', 'home'),
+	(r'^admin$', 'admin'),
 	(r'^gallery/(?P<webName>\w+)$', 'galleryDetail'),
 	(r'^create/gallery$', 'createGallery'),
 	(r'^create/image$', 'createImage'),

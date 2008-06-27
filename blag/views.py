@@ -5,7 +5,10 @@ from blag.models import Image, Media, Gallery, Folder
 from blag import handlers
         
 def admin(request):
-	return render_to_response('blag/admin.html', {})
+	return render_to_response('blag/admin.html')
+
+def home(request):
+    return render_to_response('blag/home.html')
 
 def createImage(request):
 	if request.method == 'POST':
@@ -24,9 +27,6 @@ def createImage(request):
 
 	galleries = Gallery.objects.all()
 	return render_to_response('blag/createImage.html', {'galleries': galleries})
-
-
-		
 	
 
 def createGallery(request):
@@ -49,11 +49,12 @@ def createGallery(request):
 def galleryDetail(request, webName):
 
 	try:
-		g = Gallery.objects.get(webName__exact=webName)
+		gallery = Gallery.objects.get(webName__exact = webName)
+		images = Image.objects.filter(gallery = gallery).order_by('order')
 	except Gallery.DoesNotExist:
 		raise Http404
 	
-	return render_to_response('blag/galleryDetail.html', {'gallery': g})
+	return render_to_response('blag/galleryDetail.html', {'gallery': gallery, 'images': images})
 
 def hasRequiredValues(post, requiredValues):
 	result = True

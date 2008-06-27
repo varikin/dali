@@ -12,9 +12,10 @@ def createGallery(name, webName, description, parent):
 	return gallery
 
 def getObject(model, objectId):
-	object = None
-	if objectId is not None:
+	if ( objectId is not None ) and ( objectId is not u'' ):
 		object = model.objects.get(id = objectId)
+	else:
+	    object = None
 	
 	return object
 
