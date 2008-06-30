@@ -1,5 +1,18 @@
 {% extends "base.html" %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="/static/fancybox/fancy.css" type="text/css" media="screen" />
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="/static/fancybox/jquery.fancybox-1.0.0.js"></script>
+{% endblock %}
+
+
+{% block docReadyJS %}
+	$("div#imageList a").fancybox();
+{% endblock %}
+
 
 {% block content %}
 
@@ -9,18 +22,19 @@
 	<span>{{ gallery.description }} </span><br/>
 
 	{% if gallery.parentGallery %}
-		<span>The parent gallery is 
+		<span>The parent gallery is
 		 	<a href="/gallery/{{ gallery.parentGallery.webName }}">
-		 		{{ gallery.parentGallery.name }} 
+		 		{{ gallery.parentGallery.name }}
 		 	</a>
 		</span>
 	{% endif %}
 </div>
 
 <div id="imageList">
-   {% for image in images %}								
-   		<img src="{{ image.thumbnail.getUrl }}" 
-		alt="{{ image.description }}" name="{{ image.name }}" />
+   {% for image in images %}
+		<a href="{{ image.viewable.getUrl }}" title="{{ image.description }}" rel="group">
+   		   <img src="{{ image.thumbnail.getUrl }}" alt="{{ image.description }}" name="{{ image.name }}" />
+        </a>
 	{% endfor %}
 </div>
 <div>
