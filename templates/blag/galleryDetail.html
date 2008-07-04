@@ -10,7 +10,10 @@
 
 
 {% block docReadyJS %}
-	$("div#imageList a").fancybox();
+	$("div#imageList a").fancybox({
+        'overlayShow': true,
+        'overlayOpacity': 0.5
+    });
 {% endblock %}
 
 

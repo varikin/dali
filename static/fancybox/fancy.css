@@ -4,7 +4,7 @@ div#fancy_overlay {
 	left: 0;
 	z-index: 90;
 	width: 100%;
-	background-color: #333;
+	background-color: #000;
 }
 
 div#fancy_loading {
