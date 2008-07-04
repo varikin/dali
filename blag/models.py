@@ -72,7 +72,12 @@ class Gallery(models.Model):
 	        image = None
 	    
 	    return image
-
+	
+	def getImageCount(self):
+	    ''' Returns the number of images in the gallery; return an integer '''
+	    count = Image.objects.filter(gallery = self).count()
+	    return count
+	    
 class Image(models.Model):
 	name = models.CharField(max_length = 200)
 	webName = models.CharField(max_length = 200, unique = True)

@@ -4,12 +4,6 @@ from django.http import Http404
 from blag.models import Image, Media, Gallery, Folder
 from blag import handlers
         
-def admin(request):
-	return render_to_response('blag/admin.html')
-
-def home(request):
-    return render_to_response('blag/home.html')
-
 def createImage(request):
 	if request.method == 'POST':
 		requiredValues = hasRequiredValues(request.POST, \
@@ -46,7 +40,7 @@ def createGallery(request):
 	return render_to_response('blag/createGallery.html', {'galleries': galleries})
 
 
-def galleryDetail(request, webName):
+def gallery_detail(request, webName):
 
 	try:
 		gallery = Gallery.objects.get(webName__exact = webName)

@@ -5,18 +5,22 @@
 <div>
 	<h2>Galleries!</h2>
 </div>
-<div id="galleryList">
+<div id="gallery_list">
 	<ul>
 		{% for gallery in object_list %}								
 		<li> 
-			{% with gallery.getRandomImage as image %}
-				{% if image %}
-				<a href="/gallery/{{ gallery.webName }}">
-					<img src="{{ image.thumbnail.getUrl }}" />
-				</a>
-				{% endif %}
-			{% endwith %} 
-			<a href="/gallery/{{ gallery.webName }}">{{ gallery.name }}</a>
+			<div id="gallery_item">
+				{% with gallery.getRandomImage as image %}
+					{% if image %}
+					<a href="/gallery/{{ gallery.webName }}">
+						<img src="{{ image.thumbnail.getUrl }}" />
+					</a>
+					{% endif %}
+				{% endwith %} 
+				<a href="/gallery/{{ gallery.webName }}">{{ gallery.name }}</a>
+				{{ gallery.getImageCount }} Images
+				{{ gallery.description }}
+			</div>
 		</li>
 		{% endfor %}
 	</ul>

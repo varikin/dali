@@ -11,14 +11,6 @@ p {
     padding: 0px;
 }
 
-a {
-    color: #cc6600;
-}
-
-a:hover {
-    border-bottom: 1px dotted #cc6600;
-}
-
 li {
 	list-style-type: none;
 	list-style-position: outside;
@@ -58,6 +50,10 @@ li {
     float: left;
     margin: 10px 0 10px 0;
     text-align: left;
+}
+
+#gallery_list li {
+    padding: 10px;    
 }
 
 #body p {
