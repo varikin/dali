@@ -9,3 +9,9 @@
 	This software uses the jQuery Javascript library, 
 	http://jquery.com/, which is released under the MIT License,
 	http://dev.jquery.com/browser/trunk/jquery/MIT-LICENSE.txt.
+
+	This software uses FancyBox, a simple jQuery plugin for fancy image zooming: 
+	http://fancy.klade.lv/
+	Copyright (c) 2008 Janis Skarnelis
+	Licensed under the MIT License: http://www.opensource.org/licenses/mit-license.php
+

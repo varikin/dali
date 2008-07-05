@@ -77,7 +77,13 @@ class Gallery(models.Model):
 	    ''' Returns the number of images in the gallery; return an integer '''
 	    count = Image.objects.filter(gallery = self).count()
 	    return count
-	    
+
+	getImageCount.short_description = 'Number of Images'
+	
+	class Admin:
+		list_display = ('name', 'webName', 'getImageCount', 'parentGallery')
+		search_fields = ('name', 'webName',)
+
 class Image(models.Model):
 	name = models.CharField(max_length = 200)
 	webName = models.CharField(max_length = 200, unique = True)
@@ -91,7 +97,10 @@ class Image(models.Model):
 	def __unicode__(self):
 		return self.name
 	
-	
+
+	class Admin:
+		pass
+
 class Link(models.Model):
 	url = models.URLField(max_length = 200, verify_exists = False)
 	text = models.CharField(max_length = 200)
