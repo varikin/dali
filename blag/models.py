@@ -24,9 +24,12 @@ class Gallery(models.Model):
 	    """
 	    count = Image.objects.filter(gallery = self).count()
 	    return count
+
+	getImageCount.short_description = 'Number of Images'
 	
 	class Admin:
-	    pass
+		list_display = ('name', 'webName', 'getImageCount', 'parentGallery')
+		search_fields = ('name', 'webName',)
 
 class Image(models.Model):
 	name = models.CharField(max_length = 200)
