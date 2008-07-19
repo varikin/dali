@@ -35,8 +35,8 @@
 
 <div id="imageList">
    {% for image in images %}
-		<a href="{{ image.viewable.getUrl }}" title="{{ image.description }}" rel="group">
-   		   <img src="{{ image.thumbnail.getUrl }}" alt="{{ image.description }}" name="{{ image.name }}" />
+		<a href="/{{ image.get_viewable_url }}" title="{{ image.description }}" rel="group">
+   		   <img src="/{{ image.get_thumbnail_url }}" alt="{{ image.description }}" name="{{ image.name }}" />
         </a>
 	{% endfor %}
 </div>
