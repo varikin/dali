@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<form name="uploadImage" enctype="multipart/form-data" action="/create/image" method="post">
+<form name="uploadPicture" enctype="multipart/form-data" action="/create/Picture" method="post">
     <table>
 		<tr>
 			<th><label for="name">Name:</label></th>
@@ -25,8 +25,8 @@
 			</select></td>
 		</tr>
         <tr>
-            <th><label for="imageFile">Please choose an image file:</label></th>
-            <td><input type="file" name="imageFile" id="imageFile" /></td>
+            <th><label for="PictureFile">Please choose an Picture file:</label></th>
+            <td><input type="file" name="PictureFile" id="PictureFile" /></td>
         </tr>
     </table>
     <input type="submit" name="submit" value="Submit"/>

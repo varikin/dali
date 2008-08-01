@@ -1,5 +1,5 @@
 from django.conf.urls.defaults import *
-from blag.models import *
+from blag.models import Gallery
 
 gallery_dict = {
 	'queryset': Gallery.objects.all(),

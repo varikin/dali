@@ -10,7 +10,7 @@
 
 
 {% block docReadyJS %}
-	$("div#imageList a").fancybox({
+	$("div#PictureList a").fancybox({
         'overlayShow': true,
         'overlayOpacity': 0.5
     });
@@ -33,10 +33,10 @@
 	{% endif %}
 </div>
 
-<div id="imageList">
-   {% for image in images %}
-		<a href="/{{ image.get_viewable_url }}" title="{{ image.description }}" rel="group">
-   		   <img src="/{{ image.get_thumbnail_url }}" alt="{{ image.description }}" name="{{ image.name }}" />
+<div id="PictureList">
+   {% for Picture in Pictures %}
+		<a href="/{{ Picture.get_viewable_url }}" title="{{ Picture.description }}" rel="group">
+   		   <img src="/{{ Picture.get_thumbnail_url }}" alt="{{ Picture.description }}" name="{{ Picture.name }}" />
         </a>
 	{% endfor %}
 </div>

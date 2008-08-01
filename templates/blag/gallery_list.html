@@ -10,15 +10,15 @@
 		{% for gallery in object_list %}								
 		<li> 
 			<div id="gallery_item">
-				{% with gallery.getRandomImage as image %}
-					{% if image %}
+				{% with gallery.getRandomPicture as Picture %}
+					{% if Picture %}
 					<a href="/gallery/{{ gallery.webName }}">
-						<img src="/{{ image.get_thumbnail_url }}" />
+						<img src="/{{ Picture.get_thumbnail_url }}" />
 					</a>
 					{% endif %}
 				{% endwith %} 
 				<a href="/gallery/{{ gallery.webName }}">{{ gallery.name }}</a>
-				{{ gallery.getImageCount }} Images
+				{{ gallery.getPictureCount }} Pictures
 				{{ gallery.description }}
 			</div>
 		</li>
