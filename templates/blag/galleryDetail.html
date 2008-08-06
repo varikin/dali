@@ -35,8 +35,8 @@
 
 <div id="PictureList">
    {% for Picture in Pictures %}
-		<a href="/{{ Picture.get_viewable_url }}" title="{{ Picture.description }}" rel="group">
-   		   <img src="/{{ Picture.get_thumbnail_url }}" alt="{{ Picture.description }}" name="{{ Picture.name }}" />
+		<a href="/{{ Picture.viewable.url }}" title="{{ Picture.description }}" rel="group">
+   		   <img src="/{{ Picture.thumbnail.url }}" alt="{{ Picture.description }}" name="{{ Picture.name }}" />
         </a>
 	{% endfor %}
 </div>

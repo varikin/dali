@@ -1,5 +1,5 @@
 import os
-import Image
+import Image as PIL
 from django.db import models
 from django.core.files.uploadedfile import SimpleUploadedFile
 
@@ -30,14 +30,24 @@ class Gallery(models.Model):
     getPictureCount.short_description = 'Number of Pictures'
 
 class Picture(models.Model):
+    
+    _dir = {'o': 'original', 'v': 'viewable', 't': 'thumbnail'}    
     name = models.CharField(max_length=200)
     webName = models.CharField(max_length=200, unique=True)
-    original = models.ImageField(upload_to="original")
-    viewable = models.ImageField(upload_to="viewable")
-    thumbnail = models.ImageField(upload_to="thumbnail")
+    original = models.ImageField(upload_to=_dir['o'])
+    viewable = models.ImageField(upload_to=_dir['v'])
+    thumbnail = models.ImageField(upload_to=_dir['t'])
     description = models.TextField()
     gallery = models.ForeignKey(Gallery)
     order = models.PositiveSmallIntegerField()
     
     def __unicode__(self):
         return self.name
+    
+ 
+    
+    def save(self):
+        print self.original
+        print self.original.path
+        print self.original.size
+        super(Picture, self).save()
