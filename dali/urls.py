@@ -1,5 +1,5 @@
 from django.conf.urls.defaults import *
-from blag.models import Gallery
+from dali.models import Gallery
 
 gallery_dict = {
 	'queryset': Gallery.objects.all(),
@@ -12,7 +12,7 @@ urlpatterns = patterns('django.views.generic.list_detail',
 )
 
 #blag.views views
-urlpatterns += patterns('blag.views',
+urlpatterns += patterns('dali.views',
 	(r'^/(?P<webName>\w+)$', 'gallery_detail'),
 )
 

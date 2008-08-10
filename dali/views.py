@@ -1,7 +1,7 @@
 # Create your views here.
 from django.shortcuts import render_to_response
 from django.http import Http404
-from blag.models import Picture, Gallery
+from dali.models import Picture, Gallery
 
 def gallery_detail(request, webName):
 
@@ -11,4 +11,4 @@ def gallery_detail(request, webName):
 	except Gallery.DoesNotExist:
 		raise Http404
 	
-	return render_to_response('blag/galleryDetail.html', {'gallery': gallery, 'Pictures': Pictures})
+	return render_to_response('dali/galleryDetail.html', {'gallery': gallery, 'Pictures': Pictures})

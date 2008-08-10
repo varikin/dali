@@ -1,5 +1,5 @@
 from django.contrib import admin
-from blag.models import Gallery, Picture, Preferences
+from dali.models import Gallery, Picture, Preferences
 
 class GalleryAdmin(admin.ModelAdmin):
 	list_display = ('name', 'webName', 'getPictureCount', 'parentGallery')
