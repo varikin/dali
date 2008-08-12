@@ -1,6 +1,7 @@
+from __future__ import division
 import os
 import tempfile
-import Image as PIL
+import Image
 from django.core.files import File
 from django.db import models
 
@@ -35,26 +36,17 @@ class Gallery(models.Model):
     getPictureCount.short_description = 'Number of Pictures'
 
 class Picture(models.Model):
-    _dir = {'o': 'original', 'v': 'viewable', 't': 'thumbnail'}    
     name = models.CharField(max_length=200)
     webName = models.CharField(max_length=200, unique=True)
-    original = models.ImageField(upload_to=_dir['o'])
-    viewable = models.ImageField(upload_to=_dir['v'])
-    thumbnail = models.ImageField(upload_to=_dir['t'])
+    original = models.ImageField(upload_to='original')
+    viewable = models.ImageField(upload_to='viewable')
+    thumbnail = models.ImageField(upload_to='thumbnail')
     description = models.TextField()
     gallery = models.ForeignKey(Gallery)
     order = models.PositiveSmallIntegerField(null=True, blank=True)
     
     def __unicode__(self):
         return self.name
-    
-    def get_thumbnail_size(self):
-        prefs = Preferences.objects.all()[0:1].get()
-        return (prefs.thumbnail_width, prefs.thumbnail_height)
-    
-    def get_viewable_size(self):
-        prefs = Preferences.objects.all()[0:1].get()
-        return (prefs.viewable_width, prefs.viewable_height)
     
     def save(self):
         """
@@ -63,12 +55,16 @@ class Picture(models.Model):
         Generates a thumbnail and viewable from the original image using PIL.
         """
         name = os.path.basename(self.original.name)
-        orig = PIL.open(self.original.path)
+        orig = Image.open(self.original.path)
         
-        thumb_temp = _get_resized_image(orig, self.get_thumbnail_size())
+        prefs = Preferences.objects.all()[0:1].get()
+        thumb_width = prefs.thumbnail_width
+        view_width = prefs.thumbnail_width
+        
+        thumb_temp = _get_resized_image(orig, thumb_width)
         self.thumbnail.save(name, File(open(thumb_temp)), False)
         
-        view_temp = _get_resized_image(orig, self.get_viewable_size())
+        view_temp = _get_resized_image(orig, view_width)
         self.viewable.save(name, File(open(view_temp)), False)
         
         super(Picture, self).save()
@@ -79,9 +75,7 @@ class Picture(models.Model):
 
 class Preferences(models.Model):
     thumbnail_width = models.PositiveSmallIntegerField()
-    thumbnail_height = models.PositiveSmallIntegerField()
     viewable_width = models.PositiveSmallIntegerField()
-    viewable_height = models.PositiveSmallIntegerField()
     
     def __unicode__(self):
         return u'Preferences'
@@ -96,19 +90,23 @@ class Preferences(models.Model):
 
 
 
-def _get_resized_image(image, size):
+def _get_resized_image(image, width):
     """
-    Return temporary filename of resized image.
+    Return temporary filename of resized image.  
+    
+    The height of the resized image is calculated based upon the original image
+    size and the width so as to perserve the aspect ratio.
     
     The temporary file should be deleted when finished with it.
     
     Parameters: 
     image: A PIL Image object
-    size: tuple for size of thumbnail e.g. (100, 100)
+    size: The width in pixels to resize the image to.  
     
     Returns A path to a temp image file as a string.
     """
-    resized = image.resize(size, PIL.ANTIALIAS)
+    height = width * image.size[1] / image.size[0]
+    resized = image.resize((width, height), Image.ANTIALIAS)
     name = tempfile.mkstemp('.jpg') #make temp file with .jpg suffix
     resized.save(name[1])
     return name[1]
