@@ -13,7 +13,7 @@
 				{% with gallery.getRandomPicture as Picture %}
 					{% if Picture %}
 					<a href="/gallery/{{ gallery.webName }}">
-						<img src="/{{ Picture.thumbnail.url }}" />
+						<img src="{{ Picture.thumbnail.url }}" />
 					</a>
 					{% endif %}
 				{% endwith %} 

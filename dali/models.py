@@ -54,23 +54,24 @@ class Picture(models.Model):
         
         Generates a thumbnail and viewable from the original image using PIL.
         """
-        name = os.path.basename(self.original.name)
         orig = Image.open(self.original.path)
+        name = os.path.basename(self.original.name)
         
         prefs = Preferences.objects.all()[0:1].get()
         thumb_width = prefs.thumbnail_width
         view_width = prefs.viewable_width
-        
+       
+	
         thumb_temp = _get_resized_image(orig, thumb_width)
-        self.thumbnail.save(name, File(open(thumb_temp)), False)
+	self.thumbnail.save(name, File(thumb_temp), False)
         
-        view_temp = _get_resized_image(orig, view_width)
-        self.viewable.save(name, File(open(view_temp)), False)
+	view_temp = _get_resized_image(orig, view_width)
+        self.viewable.save(name, File(view_temp), False)
         
         super(Picture, self).save()
         
-        os.remove(view_temp)
-        os.remove(thumb_temp)
+        thumb_temp.close()
+        view_temp.close()
         
 
 class Preferences(models.Model):
@@ -92,21 +93,20 @@ class Preferences(models.Model):
 
 def _get_resized_image(image, width):
     """
-    Return temporary filename of resized image.  
+    Return a temporary file containing a resized image.  
     
     The height of the resized image is calculated based upon the original image
     size and the width so as to perserve the aspect ratio.
     
-    The temporary file should be deleted when finished with it.
+    The temporary file will be deleted automatically when closed. 
     
     Parameters: 
     image: A PIL Image object
     size: The width in pixels to resize the image to.  
     
-    Returns A path to a temp image file as a string.
     """
-    height = width * image.size[1] / image.size[0]
+    height = int(width * image.size[1] / image.size[0])
     resized = image.resize((width, height), Image.ANTIALIAS)
-    name = tempfile.mkstemp('.jpg') #make temp file with .jpg suffix
-    resized.save(name[1])
-    return name[1]
+    tf = tempfile.TemporaryFile('w+b')
+    resized.save(tf, 'JPEG')
+    return tf 
