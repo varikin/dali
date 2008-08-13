@@ -59,7 +59,7 @@ class Picture(models.Model):
         
         prefs = Preferences.objects.all()[0:1].get()
         thumb_width = prefs.thumbnail_width
-        view_width = prefs.thumbnail_width
+        view_width = prefs.viewable_width
         
         thumb_temp = _get_resized_image(orig, thumb_width)
         self.thumbnail.save(name, File(open(thumb_temp)), False)
