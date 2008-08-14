@@ -2,7 +2,7 @@ from django.conf.urls.defaults import *
 from dali.models import Gallery
 
 gallery_dict = {
-	'queryset': Gallery.objects.all(),
+	'queryset': Gallery.objects.filter(published=True),
 }
 
 
