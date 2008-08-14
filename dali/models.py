@@ -107,6 +107,6 @@ def _get_resized_image(image, width):
     """
     height = int(width * image.size[1] / image.size[0])
     resized = image.resize((width, height), Image.ANTIALIAS)
-    tf = tempfile.TemporaryFile('w+b')
+    tf = tempfile.NamedTemporaryFile('w+b')
     resized.save(tf, 'JPEG')
     return tf 
