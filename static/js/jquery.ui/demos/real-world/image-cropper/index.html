@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta http-equiv="Content-Language" content="en" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Image Cropper: jQuery Real-world Demo</title>
-<script type="text/javascript" src="../../../jquery-1.2.4b.js"></script>
+	<meta http-equiv="Content-Language" content="en" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Image Cropper: jQuery Real-world Demo</title>
 
-<script type="text/javascript" src="../../../ui.core.js"></script>
-<script type="text/javascript" src="../../../ui.resizable.js"></script>
-<script type="text/javascript" src="../../../ui.draggable.js"></script>
-
-<script type="text/javascript" src="../../../effects.core.js"></script>
-<script type="text/javascript" src="../../../effects.bounce.js"></script>
-<script type="text/javascript" src="../../../effects.scale.js"></script>
+	<script type="text/javascript" src="../../../jquery-1.2.6.js"></script>
+	<script type="text/javascript" src="../../../ui/ui.core.js"></script>
+	<script type="text/javascript" src="../../../ui/ui.resizable.js"></script>
+	<script type="text/javascript" src="../../../ui/ui.draggable.js"></script>
+	
+	<script type="text/javascript" src="../../../ui/effects.core.js"></script>
+	<script type="text/javascript" src="../../../ui/effects.bounce.js"></script>
+	<script type="text/javascript" src="../../../ui/effects.scale.js"></script>
 
 
 <style type="text/css">
@@ -20,7 +20,7 @@
 /*************************************/
 /* Real-World CSS                    */
 
-@import "../../css/real-world.css";
+@import "real-world.css";
 
 /*************************************/
 /* Demo CSS                          */
@@ -119,28 +119,28 @@
 
 		//aspectRatio: true,
 
-		autohide: true,
+		autoHide: true,
 
 		minWidth: 100,
 
 		minHeight: 100,
 
 		resize: function(e, ui) {
+			var self = $(this).data("resizable");
+			
+  			this.style.backgroundPosition = '-' + (self.position.left) + 'px -' + (self.position.top) + 'px';
+			
 
-  		  this.style.backgroundPosition = '-' + (ui.instance.position.left) + 'px -' + (ui.instance.position.top) + 'px';
+			$("#log-top").html(self.position.top+"px");
+			$("#log-left").html(self.position.left+"px");
 
-		  $("#log-top").html(ui.instance.position.top+"px");
-
-		  $("#log-left").html(ui.instance.position.left+"px");
-
-		  $("#log-height").html(ui.instance.size.height+"px");
-
-		  $("#log-width").html(ui.instance.size.width+"px");
+			$("#log-height").html(self.size.height+"px");
+			$("#log-width").html(self.size.width+"px");
 
   	    },
 		stop: function(e, ui) {
-
-  		  this.style.backgroundPosition = '-' + (ui.instance.position.left) + 'px -' + (ui.instance.position.top) + 'px';
+			var self = $(this).data("resizable");
+  			this.style.backgroundPosition = (self.position.left * -1) + 'px ' + (self.position.top * -1) + 'px';
   	    }
 	})
 
@@ -151,13 +151,11 @@
 		containment: $('#resizeme_containment_div_wrapper'),
 
 		drag: function(e, ui) {
+			var self = $(this).data("draggable");
+			this.style.backgroundPosition = (self.position.left * -1) + 'px ' + (self.position.top * -1) + 'px';
 
-			this.style.backgroundPosition = '-' + (ui.position.left) + 'px -' + (ui.position.top) + 'px';
-
-		  $("#log-top").html(ui.instance.position.top+"px");
-
-		  $("#log-left").html(ui.instance.position.left+"px");
-
+			$("#log-top").html(self.position.top+"px");
+			$("#log-left").html(self.position.left+"px");
 		}
 
 	});

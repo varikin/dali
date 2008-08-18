@@ -11,6 +11,8 @@ class Gallery(models.Model):
     description = models.TextField(null=True, blank=True)
     parentGallery = models.ForeignKey('self', null=True, blank=True)
     published = models.BooleanField(default=False)
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_modified = models.DateTimeField(auto_now=True)
         
     def __unicode__(self):
         return self.name
@@ -44,6 +46,8 @@ class Picture(models.Model):
     description = models.TextField()
     gallery = models.ForeignKey(Gallery)
     order = models.PositiveSmallIntegerField(null=True, blank=True)
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_modified = models.DateTimeField(auto_now=True)
     
     def __unicode__(self):
         return self.name

@@ -1,102 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta http-equiv="Content-Language" content="en" />
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>Draggables Test Page</title>
-	<script type="text/javascript" src="../jquery-1.2.4b.js"></script>
+	<title>jQuery UI Draggable Test Suite</title>
 
-	<script type="text/javascript" src="../ui.core.js"></script>
-	<script type="text/javascript" src="../ui.draggable.js"></script>
-	<script type="text/javascript" src="../ui.droppable.js"></script>
-
-
-<style type="text/css" media="all">
-
-body
-{
-	background: #fff;
-	margin: 0;
-	padding: 0;
-	font-family: Arial;
-	font-size: 12px;
-}
-
-.example {
-	width: 100px;
-	height: 100px;
-	background-color: #68BFEF;
-	border: 10px solid #0090DF;
-	padding: 10px;
-	margin: 10px;
-}
-
-#parent {
-	margin: 20px;
-	background: #eee;
-	border: 20px solid black;
-	position: relative;
-	height: 300px;
-
-}
-
-#parent2 {
-	margin: 20px;
-	background: #eee;
-	border: 20px solid black;
-	position: relative;
-	height: 400px;
-}
-
-.hover {
-	background: yellow;
-}
-
-</style>
+	<link rel="stylesheet" href="qunit/testsuite.css" type="text/css" media="screen">
+	
+	<script type="text/javascript" src="../jquery-1.2.6.js"></script>
+	<script type="text/javascript" src="../ui/ui.core.js"></script>
+	<script type="text/javascript" src="../ui/ui.draggable.js"></script>
+	
+	<script type="text/javascript" src="qunit/testrunner.js"></script>
+	<script type="text/javascript" src="simulate/jquery.simulate.js"></script>
+	
+	<script type="text/javascript" src="draggable.js"></script>
+	
+	<style type="text/css">
+		html { border: 0; }
+		#main {
+			position:absolute !important;
+			top: -1000px !important;
+			left: -1000px !important;
+		}
+	</style>
 </head>
 <body>
 
-<div id="parent2">
+<h1 id="header">jQuery UI Draggable Test Suite</h1>
+<h2 id="banner"></h2>
+<h2 id="userAgent"></h2>
 
-	<div id="parent">
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-	</p>
-	
-	<div class="example">
-		<a href="#" class="handle">Pick me here</a>
-		<input type="text" name="some_name" value="" id="some_name">
-	</div>
-	
-	<div style="height: 1px;"></div>
-	</div>
+<ol id="tests"></ol>
 
+<div id="main" style="border: 1px solid black; padding: 10px; margin: 10px;">
+	<div id="draggable1" style="background: green; width: 200px; height: 100px;">Relative</div>
+	<div id="draggable2" style="background: green; width: 200px; height: 100px; position: absolute; top: 10px; left: 10px;"><span>Absolute</span></div>
 </div>
-
-<div id="droppable" style="border: 2px solid black; height: 200px; width: 200px; margin: 10px;"></div>
-<script type="text/javascript">
-$(document).ready(function(){
-
-	$('div.example').draggable({
-		handle: "> a",
-		//revert: true,
-		//helper: "clone",
-		snap: "#droppable"
-		//containment: "#parent"
-		//grid: [20,20],
-		//scroll: true
-		//cursorAt: { top: 0, right: 0 }
-	});
-	
-	$("#droppable").droppable({
-		accept: "div",
-		hoverClass: "hover",
-		tolerance: "touch"
-	});
-
-});
-</script>
 
 </body>
 </html>
-
