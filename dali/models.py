@@ -59,7 +59,7 @@ class Picture(models.Model):
         Generates a thumbnail and viewable from the original image using PIL.
         """
         prefs = Preferences.objects.all()[0:1].get()
-        if(self.id is not None and prefs.generate_images):
+        if(self.id is None or prefs.generate_images):
             thumb_width = prefs.thumbnail_width
             view_width = prefs.viewable_width
             orig = Image.open(self.original.path)
@@ -90,8 +90,10 @@ class Preferences(models.Model):
         Save the preference is it an existing preference or if there are not an 
         existing preference.  Only allowing one preference.
         """
-        if(self.id is not None or Picture.objects.count() == 0):
+        if(self.id is not None or Preferences.objects.count() == 0):
             super(Preferences, self).save()
+        else:
+            raise Exception
 
 def _get_resized_image(image, width):
     """
