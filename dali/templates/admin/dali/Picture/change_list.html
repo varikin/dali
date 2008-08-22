@@ -1,0 +1,41 @@
+{% extends "admin/change_list.html" %}
+{% load change_list_extras %}
+
+{% block extrastyle %}
+	<link rel="stylesheet" type="text/css" href="/static/style/admin.css" />
+{% endblock %}
+
+{% block extrahead %} 
+	<script src="/static/js/jquery.js"></script>
+	<script src="/static/js/jquery.ui/ui/ui.core.js"></script>
+	<script src="/static/js/jquery.ui/ui/ui.sortable.js"></script>
+	<script> 
+		$(document).ready(function() {
+			var max = new Array();
+
+			var change_list = $("#picture_change_list li");
+			change_list.each(function(i) {
+				$(this).children().each(function(j) {
+					if(i == 0) {
+						max[j] = $(this).width();
+					} else if($(this).width() > max[j]) {
+						max[j] = $(this).width();
+					}
+				});
+			});
+			
+			change_list.each(function(i) {
+				$(this).children().each(function(j) {
+					$(this).css("padding-right", max[j] - $(this).width() + 20);
+				});
+			});
+			
+			
+			$("#sortable_change_list").sortable({});
+		});
+	</script>    
+{% endblock %}
+
+{% block result_list %}{% extra_result_list cl%}{% endblock %}
+
+

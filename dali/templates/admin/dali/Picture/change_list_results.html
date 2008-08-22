@@ -1,0 +1,16 @@
+{% if results %}
+	<div id="picture_change_list">
+		<ul>
+			<li>
+				{% for header in result_headers %}<span>{{ header.text|capfirst }}</span>{% endfor %}
+			</li>
+		</ul>
+		<ul id="sortable_change_list">
+	  	{% for result in results %}
+	 		<li class="{% cycle 'row1' 'row2' %}">
+				{% for item in result %}<span>{{ item }}</span>{% endfor %}
+			</li>
+		{% endfor %}
+		</ul>
+	</div>
+{% endif %}
