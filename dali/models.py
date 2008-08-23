@@ -55,9 +55,8 @@ class Picture(models.Model):
     
     def save(self):
         """
-        Saves a Picture instance.
-        
-        Generates a thumbnail and viewable from the original image using PIL.
+        Save a Picture instance. Return True if a thumbnail and viewable is 
+        generated, False otherwise.
         """
         prefs = Preferences.objects.all()[0:1].get()
         if(self.id is None or prefs.generate_images):
@@ -75,8 +74,11 @@ class Picture(models.Model):
             super(Picture, self).save()
             thumb_temp.close()
             view_temp.close()
+            result = True
         else:
             super(Picture, self).save()
+            result = False
+        return result
         
 class Preferences(models.Model):
     thumbnail_width = models.PositiveSmallIntegerField()
