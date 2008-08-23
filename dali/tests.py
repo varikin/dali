@@ -111,7 +111,7 @@ def _create_picture(gallery):
     """
     name = _get_unique_string()
     pic = Picture(name=name, webName=name, gallery=gallery)
-    pic.original.save(pic.name + '.jpg', File(_get_temp_image()), False)
+    pic.original.save(''.join([pic.name,'.jpg']), File(_get_temp_image()), False)
     return pic
     
 def _create_gallery():
