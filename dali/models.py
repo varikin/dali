@@ -2,6 +2,7 @@ from __future__ import division
 import os
 import tempfile
 import Image
+from django.core.validators import ValidationError
 from django.core.files import File
 from django.db import models
 
@@ -93,20 +94,16 @@ class Preferences(models.Model):
         if(self.id is not None or Preferences.objects.count() == 0):
             super(Preferences, self).save()
         else:
-            raise Exception
+            raise ValidationError('Only preference object allowed.')
 
 def _get_resized_image(image, width):
     """
-    Return a temporary file containing a resized image.  
+    Return a temporary file containing a resized image of a given PIL image.
     
     The height of the resized image is calculated based upon the original image
     size and the width so as to perserve the aspect ratio.
     
     The temporary file will be deleted automatically when closed. 
-    
-    Parameters: 
-    image: A PIL Image object
-    size: The width in pixels to resize the image to.  
     """
     height = int(width * image.size[1] / image.size[0])
     resized = image.resize((width, height), Image.ANTIALIAS)
