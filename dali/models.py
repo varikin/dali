@@ -58,10 +58,10 @@ class Picture(models.Model):
         Save a Picture instance. Return True if a thumbnail and viewable is 
         generated, False otherwise.
         """
-        prefs = Preferences.objects.all()[0:1].get()
-        if(self.id is None or prefs.generate_images):
-            thumb_width = prefs.thumbnail_width
-            view_width = prefs.viewable_width
+        pref = Preferences.objects.all()[0:1].get()
+        if(self.id is None or pref.generate_images):
+            thumb_width = pref.thumbnail_width
+            view_width = pref.viewable_width
             orig = Image.open(self.original.path)
             name = os.path.basename(self.original.name)
             
@@ -79,6 +79,8 @@ class Picture(models.Model):
             super(Picture, self).save()
             result = False
         return result
+        
+
         
 class Preferences(models.Model):
     thumbnail_width = models.PositiveSmallIntegerField()
@@ -112,3 +114,25 @@ def _get_resized_image(image, width):
     tf = tempfile.NamedTemporaryFile('w+b')
     resized.save(tf, 'JPEG')
     return tf 
+    
+def save_picture_order(pictures):
+    """
+    Save the order of a list of pictures. This does not generate images. A 
+    ``TypeError`` is raised if ``pictures`` is not a list or tuple.
+    
+    """
+    if(hasattr(pictures, '__iter__')):
+        pref = Preferences.objects.all()[0:1].get()
+        generate = pref.generate_images
+        if(pref.generate_images):
+            pref.generate_images = False
+            pref.save()
+        
+        for picture in pictures:
+            picture.save()
+
+        if(generate):
+            pref.generate_images = True
+            pref.save()
+    else:
+        raise TypeError('List or tuple required')

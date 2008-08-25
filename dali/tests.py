@@ -4,7 +4,7 @@ import unittest
 import Image
 from django.core.files import File
 from django.core.validators import ValidationError
-from dali.models import Gallery, Picture, Preferences
+from dali.models import Gallery, Picture, Preferences, save_picture_order
 
 class PreferencesTestCase(unittest.TestCase):
     def setUp(self):
@@ -104,6 +104,20 @@ class PictureTestCase(unittest.TestCase):
         self.assert_(generated)
         generated = self.picture.save()
         self.assert_(generated)
+        
+    def testOrderNoList(self):
+        self.assertRaises(TypeError, save_picture_order)
+        
+    def testOrderSingleItem(self):
+        self.assertRaises(TypeError, save_picture_order, self.picture)
+    
+    def testOrderList(self):
+        l = [self.picture, _create_picture(self.gallery)]
+        save_picture_order(l)       #Should not thrown an exception
+        
+    def testOrderTuple(self):
+        l = (self.picture, _create_picture(self.gallery))
+        save_picture_order(l)       #Should not thrown an exception
 
 def _create_picture(gallery):
     """
