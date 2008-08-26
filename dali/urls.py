@@ -8,12 +8,14 @@ gallery_dict = {
 
 #Generic views
 urlpatterns = patterns('django.views.generic.list_detail',
-	(r'^/$', 'object_list', gallery_dict),
+    url(r'^/$', 'object_list', gallery_dict, name='gallery-list'),
+    
 )
 
 #blag.views views
 urlpatterns += patterns('dali.views',
-	(r'^/(?P<webName>\w+)$', 'gallery_detail'),
+    url(r'^/(?P<gallery_>\w+)/(?P<picture_>\w+)$', 'picture_detail', name='picture-detail'),	
+    url(r'^/(?P<gallery_>\w+)$', 'gallery_detail', name='gallery-detail'),
 )
 
 

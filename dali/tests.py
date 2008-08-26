@@ -1,5 +1,5 @@
+import random
 import tempfile
-import time
 import unittest
 import Image
 from django.core.files import File
@@ -144,7 +144,7 @@ def _get_unique_string():
     """
     Return unique string for use as name in tests.
     """
-    return 'test_' + str(time.time())
+    return "temp_%d" % random.randint(1,10000000)
             
 def _get_temp_image():
     """

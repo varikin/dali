@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div>
+        <img src="{{ picture.viewable.url }}" alt="{{ picture.description }}" name="{{ picture.name }}" />
+        <span>{{ picture.name }}</span><br/>
+        <span>{{ picture.description }} </span><br/>
+    </div>
+    <div>
+        <a href="{% url gallery-detail picture.gallery.webName %}">Return to {{ picture.gallery.name}}.</a>
+    </div>
+{% endblock %}
