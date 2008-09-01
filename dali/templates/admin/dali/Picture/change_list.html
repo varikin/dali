@@ -13,8 +13,11 @@
 	<script> 
 	$(document).ready(function() {
 		dali.prettify_list("#picture_change_list li");
-		$("#sortable_change_list").sortable({});
-	});
+		$("#sortable_change_list").sortable({
+		  opacity: 0.5,
+		  update: dali.update_order 
+		  }); //End sortable
+	}); //End doc ready
 	</script>    
 {% endblock %}
 
@@ -33,5 +36,3 @@
 
 
 {% block result_list %}{% extra_result_list cl %}{% endblock %}
-
-

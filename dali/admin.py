@@ -10,7 +10,7 @@ class GalleryAdmin(admin.ModelAdmin):
 
 
 class PictureAdmin(admin.ModelAdmin):
-    list_display = ('name', 'webName', 'description', 'gallery', 'order',
+    list_display = ('name', 'webName', 'gallery', 'order', 
         'date_created', 'date_modified')
     search_fields = ('name', 'original', 'gallery')
     list_filter = ('gallery', 'date_created', 'date_modified')

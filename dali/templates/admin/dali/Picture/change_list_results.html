@@ -2,13 +2,29 @@
 	<div id="picture_change_list">
 		<ul>
 			<li>
-				{% for header in result_headers %}<span>{{ header.text|capfirst }}</span>{% endfor %}
+				{% for header in result_headers %}
+				  <span>{{ header.text|capfirst }}</span>
+				{% endfor %}
 			</li>
 		</ul>
 		<ul id="sortable_change_list">
 	  	{% for result in results %}
 	 		<li class="{% cycle 'row1' 'row2' %}">
-				{% for item in result %}<span>{{ item }}</span>{% endfor %}
+				{% for item in result %}
+				  {% ifequal forloop.counter0 position.order %}
+				    <span class="order">{{ item }}</span>
+				  {% else %}
+				    {% ifequal forloop.counter0 position.gallery %}
+				      <span class="gallery">{{ item }}</span>
+            {% else %}
+              {% ifequal forloop.counter0 position.name %}
+                <span class="name">{{ item }}</span>
+              {% else %}
+        			  <span>{{ item }}</span>
+        			{% endifequal %}
+    		    {% endifequal %}
+				  {% endifequal %}
+				{% endfor %}
 			</li>
 		{% endfor %}
 		</ul>
