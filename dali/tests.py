@@ -4,7 +4,8 @@ import unittest
 import Image
 from django.core.files import File
 from django.core.validators import ValidationError
-from dali.models import Gallery, Picture, Preferences, save_picture_order
+from dali.models import Gallery, Picture, Preferences
+from dali.views import save_picture_order
 
 class PreferencesTestCase(unittest.TestCase):
     def setUp(self):
@@ -50,24 +51,24 @@ class GalleryTestCase(unittest.TestCase):
         self.pref = None        
          
     def testRandomNoPictures(self):
-        picture = self.gallery.getRandomPicture()
+        picture = self.gallery.random_picture()
         self.assert_(picture is None)
     
     def testRandomWithPictures(self):
         expected = _create_picture(self.gallery)
         expected.save()
-        actual = self.gallery.getRandomPicture()
+        actual = self.gallery.random_picture()
         self.assertEquals(expected, actual)
         
     def testCountNoPictures(self):
-        count = self.gallery.getPictureCount()
+        count = self.gallery.picture_count()
         self.assertEquals(0, count)
         
     def testCountWithPictures(self):
         expected = 4
         for i in range(expected):
             _create_picture(self.gallery).save()
-        actual = self.gallery.getPictureCount()
+        actual = self.gallery.picture_count()
         self.assertEquals(expected, actual)
   
 class PictureTestCase(unittest.TestCase):

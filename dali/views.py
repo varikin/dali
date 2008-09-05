@@ -1,7 +1,6 @@
-# Create your views here.
 from django.shortcuts import render_to_response
 from django.http import Http404
-from dali.models import Picture, Gallery
+from dali.models import Picture, Preferences, Gallery
 
 def gallery_detail(request, gallery_):
 
@@ -20,3 +19,24 @@ def picture_detail(request, gallery_, picture_):
         raise Http404
 
     return render_to_response('dali/picture_detail.html', {'picture': picture})
+    
+def save_picture_order(pictures):
+    """
+    Saves the order of a list of pictures. This does not generate images. A 
+    ``TypeError`` is raised if ``pictures`` is not a list or tuple.
+    """
+    if(hasattr(pictures, '__iter__')):
+        pref = Preferences.objects.get_preference()
+        generate = pref.generate_images
+        if(pref.generate_images):
+            pref.generate_images = False
+            pref.save()
+
+        for picture in pictures:
+            picture.save()
+
+        if(generate):
+            pref.generate_images = True
+            pref.save()
+    else:
+        raise TypeError('List or tuple required')

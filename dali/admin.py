@@ -2,7 +2,7 @@ from django.contrib import admin
 from dali.models import Gallery, Picture, Preferences
 
 class GalleryAdmin(admin.ModelAdmin):
-	list_display = ('name', 'webName', 'getPictureCount', 'parentGallery', 
+	list_display = ('name', 'webName', 'picture_count', 'parentGallery', 
         'date_created', 'date_modified', 'published')
 	list_filter = ('date_created', 'date_modified')
 	search_fields = ('name', 'webName')
