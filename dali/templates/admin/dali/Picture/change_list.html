@@ -16,7 +16,15 @@
 		$("#sortable_change_list").sortable({
 		  opacity: 0.5,
 		  update: dali.update_order 
-		  }); //End sortable
+		}); //End sortable
+		$("#save_order").click(function() {
+		  $.post('{% url save_order %}',
+		    dali.order,
+		    function(xml) {
+		      $("#footer").text("Order saved!").hide().fadeIn(2000).fadeOut(2000);
+		    }); //End post
+		    return false;
+		}); //End save_order click
 	}); //End doc ready
 	</script>    
 {% endblock %}
@@ -24,7 +32,7 @@
 {% block object-tools %}
 {% if has_add_permission %}
 	<ul class="object-tools">
-		<li><a href="save_order/" class="addlink">Save Order</a></li>
+		<li><a href="save_order/" class="addlink" id="save_order">Save Order</a></li>
 		<li>
 			<a href="add/{% if is_popup %}?_popup=1{% endif %}" class="addlink">
 				{% with cl.opts.verbose_name|escape as name %}Add {{ name }}{% endwith %}
