@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import permission_required
 from django.core import serializers
 from django.http import Http404, HttpResponse
 from django.shortcuts import render_to_response
@@ -19,26 +20,27 @@ def picture_detail(request, gallery_, picture_):
         raise Http404
 
     return render_to_response('dali/picture_detail.html', {'picture': picture})
-  
-def save_order(request):
+ 
+@permission_required('dali.change_picture')
+def save_picture_order(request):
     """
     Ajax POST view to save the order of a list of pictures.
     
-    If the request is made via POST and is Ajax (XMLHttpRequest) by an 
-    authenticated user, the order for a list of pictures in POST QueryDict
+    If the request is made via POST and is Ajax (XMLHttpRequest) by an
+    authenticated user, the order for a list of pictures in POST QueryDict 
     is saved.  
     
-    The QueryDict should contain a picture primary keys as the 
-    dict key and the order as the dict value.  Due to HTTP issues,
-    both the keys and values should unicode strings instead of ints,
+    The QueryDict needs to contain a picture primary keys as the dict key and
+    the order as the dict value.  Due to HTTP issues, both the keys and 
+    values should unicode strings instead of ints.
     
-    Note that this does not generate images.
+    Note that this disables image generation for the saves.
     """
     if request.method == 'POST' and request.is_ajax():
-        #Prevent generating images
+        #Prevent image generation
         pref = Preferences.objects.get_preference()
         generate = pref.generate_images
-        if(pref.generate_images):
+        if generate:
             pref.generate_images = False
             pref.save()
         
@@ -47,8 +49,8 @@ def save_order(request):
             picture.order = request.POST.get(unicode(picture.id))
             picture.save()
         
-        #Revert preference
-        if(generate):
+        #Revert image generation
+        if generate:
             pref.generate_images = True
             pref.save() 
 

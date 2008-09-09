@@ -34,7 +34,6 @@ class Gallery(models.Model):
         Return the number of pictures in the gallery; return an integer.
         """
         return Picture.objects.filter(gallery=self).count()
-
     picture_count.short_description = 'Number of Pictures'
         
 
@@ -62,6 +61,7 @@ class Picture(models.Model):
         generated, False otherwise.
         """
         pref = Preferences.objects.get_preference()
+        result = False
         if(self.id is None or pref.generate_images):
             thumb_width = pref.thumbnail_width
             view_width = pref.viewable_width
@@ -77,8 +77,6 @@ class Picture(models.Model):
             view_temp.close()            
 
             result = True
-        else:
-            result = False
         
         super(Picture, self).save(force_insert, force_update)    
         return result        

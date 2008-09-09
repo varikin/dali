@@ -1,0 +1,15 @@
+[
+  {
+    "pk": 1, 
+    "model": "dali.gallery", 
+    "fields": {
+      "name": "Test Gallery", 
+      "date_modified": "2008-09-06 11:19:15", 
+      "published": true, 
+      "webName": "TestGallery", 
+      "parentGallery": null, 
+      "date_created": "2008-09-06 11:19:15", 
+      "description": "This is a test Gallery"
+    }
+  }
+]

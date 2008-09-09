@@ -18,7 +18,7 @@
 		  update: dali.update_order 
 		}); //End sortable
 		$("#save_order").click(function() {
-		  $.post('{% url save_order %}',
+		  $.post('{% url save_picture_order %}',
 		    dali.order,
 		    function(xml) {
 		      $("#footer").text("Order saved!").hide().fadeIn(2000).fadeOut(2000);
