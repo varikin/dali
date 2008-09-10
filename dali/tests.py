@@ -46,7 +46,7 @@ class GalleryTestCase(TestCase):
         self.assert_(picture is None)
     
     def test_random_with_pictures(self):
-        expected = _create_picture(self.gallery)
+        expected = create_picture(self.gallery)
         expected.save()
         actual = self.gallery.random_picture()
         self.assertEquals(expected, actual)
@@ -58,7 +58,7 @@ class GalleryTestCase(TestCase):
     def test_count_with_pictures(self):
         expected = 4
         for i in range(expected):
-            _create_picture(self.gallery).save()
+            create_picture(self.gallery).save()
         actual = self.gallery.picture_count()
         self.assertEquals(expected, actual)
   
@@ -67,8 +67,7 @@ class PictureTestCase(TestCase):
     
     def setUp(self):
         gallery = Gallery.objects.get(webName='TestGallery')
-        self.picture = _create_picture(gallery)
-         
+        self.picture = create_picture(gallery)
         
     def test_generate_on_first_save(self):
         self.assert_(self.picture.save())
@@ -90,8 +89,8 @@ class SaveOrderTestCase(TestCase):
     
     def setUp(self):
         self.user = User.objects.get(username='test')
-        self.url = '/dali/picture/save_order/'
         self.perm = Permission.objects.get(codename='change_picture')
+        self.url = '/dali/picture/save_order/'
                     
     def test_not_logged_in(self):
         picture = Picture.objects.get(webName='TestPicture1')
@@ -103,8 +102,7 @@ class SaveOrderTestCase(TestCase):
     def test_logged_in_not_ajax(self):
         picture = Picture.objects.get(webName='TestPicture1')
         data = {unicode(picture.id): u'3'}
-        self.user.user_permissions.add(self.perm)
-        self.user.save()
+        add_permission(self.user, self.perm)
         self.client.login(username='test', password='test')
         self.client.post(self.url, data)
         picture = Picture.objects.get(webName='TestPicture1')
@@ -121,8 +119,7 @@ class SaveOrderTestCase(TestCase):
     def test_logged_in_is_ajax(self):
         picture = Picture.objects.get(webName='TestPicture1')
         data = {unicode(picture.id): u'3'}
-        self.user.user_permissions.add(self.perm)
-        self.user.save()
+        add_permission(self.user, self.perm)
         self.client.login(username='test', password='test')
         self.client.post(self.url, data, **{'HTTP_X_REQUESTED_WITH':'XMLHttpRequest'})
         picture = Picture.objects.get(webName='TestPicture1')
@@ -131,17 +128,19 @@ class SaveOrderTestCase(TestCase):
     def test_get_method(self):
         picture = Picture.objects.get(webName='TestPicture1')
         data = {unicode(picture.id): u'3'}
-        self.user.user_permissions.add(self.perm)
-        self.user.save()
+        add_permission(self.user, self.perm)
         self.client.login(username='test', password='test')
         self.client.get(self.url, data, **{'HTTP_X_REQUESTED_WITH':'XMLHttpRequest'})
         picture = Picture.objects.get(webName='TestPicture1')
         self.failIf(picture.order)
 
-def _create_picture(gallery):
-    """
-    Return a Picture that is not saved.
-    """
+def add_permission(user, perm):
+    """ Add a permission to a user. """
+    user.user_permissions.add(perm)
+    user.save()
+
+def create_picture(gallery):
+    """ Return a Picture that is not saved. """
     name = "temp_%d" % random.randint(1,10000000)
     pic = Picture(name=name, webName=name, gallery=gallery)
     pic.original.save(''.join([pic.name,'.jpg']), File(_get_temp_image()), False)
