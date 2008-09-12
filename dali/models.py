@@ -82,9 +82,15 @@ class Picture(models.Model):
         return result        
         
 class Preferences(models.Model):
+    IMAGE_CHOICES = (
+        ('JPEG', 'JPEG'),
+        ('PNG', 'PNG'),
+    )
+    
     thumbnail_width = models.PositiveSmallIntegerField()
     viewable_width = models.PositiveSmallIntegerField()
     generate_images = models.BooleanField(default=False)
+    image_type = models.CharField(max_length=1, choices=IMAGE_CHOICES)
     
     objects = PreferenceManager()
     
@@ -113,5 +119,6 @@ def _get_resized_image(image, width):
     height = int(width * image.size[1] / image.size[0])
     resized = image.resize((width, height), Image.ANTIALIAS)
     tf = tempfile.NamedTemporaryFile('w+b')
-    resized.save(tf, 'JPEG')
+    pref = Preferences.objects.get_preference()
+    resized.save(tf, pref.image_type)
     return tf
