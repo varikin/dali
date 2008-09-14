@@ -1,4 +1,3 @@
-import logging
 from django.contrib.admin.templatetags.admin_list import result_list
 from django.template import Library
 
@@ -9,7 +8,6 @@ def extra_result_list(cl):
     position = {};
     
     for index, header in enumerate(results['result_headers']):
-        logging.warning(header);
         if header['text'] == "order":
             position['order'] = index    
         elif header['text'] == "gallery":

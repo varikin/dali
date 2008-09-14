@@ -4,16 +4,18 @@ import unittest
 import Image
 from django.contrib.auth.models import User, Permission
 from django.core.files import File
-from django.core.validators import ValidationError
+from django.core.exceptions import ValidationError
 from django.test import TestCase
 from django.test.client import Client
 from dali.models import Gallery, Picture, Preferences
-from dali.views import save_picture_order
+from dali.admin.views import save_picture_order
 
 class PreferencesTestCase(TestCase):
     def setUp(self):
-        self.pref = Preferences(thumbnail_width=100, viewable_width=1000, generate_images=False)
-        self.pref2 = Preferences(thumbnail_width=100, viewable_width=1000, generate_images=False)
+        self.pref = Preferences(thumbnail_width=100, viewable_width=1000,
+                generate_images=False, image_type='JPEG')
+        self.pref2 = Preferences(thumbnail_width=100, viewable_width=1000, 
+                generate_images=False, image_type='JPEG')
 
     def tearDown(self):
         if self.pref.id is not None:

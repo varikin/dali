@@ -2,7 +2,7 @@ from __future__ import division
 import os
 import tempfile
 import Image
-from django.core.validators import ValidationError
+from django.core.exceptions import ValidationError
 from django.core.files import File
 from django.db import models
 from dali.managers import PreferenceManager
@@ -43,7 +43,7 @@ class Picture(models.Model):
     original = models.ImageField(upload_to='original')
     viewable = models.ImageField(upload_to='viewable')
     thumbnail = models.ImageField(upload_to='thumbnail')
-    description = models.TextField()
+    description = models.TextField(null=True, blank=True)
     gallery = models.ForeignKey(Gallery)
     order = models.PositiveSmallIntegerField(null=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)

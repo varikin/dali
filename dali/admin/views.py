@@ -10,6 +10,8 @@ def add_pictures_from_zip(request):
     if request.method == 'POST':
         form = ZipFileForm(request.POST, request.FILES)
         if form.is_valid():
+            invalid_files = form.save()
+            print invalid_files
             return HttpResponseRedirect('/admin/dali/picture/')
     else:
         form = ZipFileForm()

@@ -1,7 +1,7 @@
 var dali = function() {
   var _public = {
     
-    order : new Object(),
+    order : {},
         
     prettify_list : function(selector) {
       var change_list = $(selector);
@@ -26,14 +26,13 @@ var dali = function() {
         }
         _public.order[pk] = max_order;
       }); //End change_list each
-      console.log(_public.order);
     } //End update_order
   }; //End _public
 
   var _private = {
     
     get_width : function(selector) {
-      var width = new Array();
+      var width = [];
       selector.each(function(i) {
         $(this).children().each(function(j) {
           if(i == 0) {
@@ -53,9 +52,6 @@ var dali = function() {
         }); //End children each
       }); //End selector each
     }, //End set_width
-    
-    
-    
   } //End _private
 
   return _public;
