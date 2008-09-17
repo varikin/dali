@@ -6,8 +6,6 @@ class GalleryAdmin(admin.ModelAdmin):
         'date_created', 'date_modified', 'published')
 	list_filter = ('date_created', 'date_modified')
 	search_fields = ('name', 'webName')
-	
-
 
 class PictureAdmin(admin.ModelAdmin):
     list_display = ('name', 'webName', 'gallery', 'order', 

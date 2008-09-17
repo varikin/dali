@@ -19,7 +19,6 @@ def add_pictures_from_zip(request):
     title = "Add multiple pictures"
     return render_to_response('admin/dali/upload_zip_file.html', {'form': form, 'title': title})          
 
-
 @permission_required('dali.change_picture')
 def save_picture_order(request):
     """
