@@ -11,37 +11,21 @@ from dali.models import Gallery, Picture, Preferences
 from dali.admin.views import save_picture_order
 
 class PreferencesTestCase(TestCase):
-    def setUp(self):
-        self.pref = Preferences(thumbnail_width=100, viewable_width=1000,
-                generate_images=False, image_type='JPEG')
-        self.pref2 = Preferences(thumbnail_width=100, viewable_width=1000, 
-                generate_images=False, image_type='JPEG')
-
-    def tearDown(self):
-        if self.pref.id is not None:
-            self.pref.delete()
-        if self.pref.id is not None:
-            self.pref2.delete()
-        
-    def test_can_save_one(self):
-        self.pref.save()
-        self.assert_(self.pref.id is not None)
-    
     def test_cannot_save_two(self):
-        self.pref.save()
-        self.assert_(self.pref.id is not None)
-        self.assertRaises(ValidationError, self.pref2.save)
+        """Can save one is taken care of by initial_data.json fixture:)"""
+        pref = Preferences(thumbnail_width=100, viewable_width=1000,
+            generate_images=False, image_type='JPEG')
+        self.assertRaises(ValidationError, pref.save)
         
     def test_can_save_one_multiple_times(self):
-        self.pref.save()
-        self.assert_(self.pref.id is not None)
-        self.pref.save()         #Should not throw an exception
+        pref = Preferences.objects.get_preference() 
+        pref.save()         #Should not throw an exception
         
 class GalleryTestCase(TestCase):
-    fixtures = ['preference.json', 'gallery.json']
+    fixtures = ['gallery.json']
         
     def setUp(self):
-        self.gallery = Gallery.objects.get(webName='TestGallery') 
+        self.gallery = Gallery.objects.get(web_name='TestGallery') 
          
     def test_random_no_pictures(self):
         picture = self.gallery.random_picture()
@@ -65,10 +49,10 @@ class GalleryTestCase(TestCase):
         self.assertEquals(expected, actual)
   
 class PictureTestCase(TestCase):
-    fixtures = ['preference.json', 'gallery.json']
+    fixtures = ['gallery.json']
     
     def setUp(self):
-        gallery = Gallery.objects.get(webName='TestGallery')
+        gallery = Gallery.objects.get(web_name='TestGallery')
         self.picture = create_picture(gallery)
         
     def test_generate_on_first_save(self):
@@ -85,9 +69,8 @@ class PictureTestCase(TestCase):
         self.assert_(self.picture.save())
         self.assert_(self.picture.save())
 
-
 class SaveOrderTestCase(TestCase):
-    fixtures = ['preference.json', 'gallery.json', 'pictures.json', 'user.json']
+    fixtures = ['gallery.json', 'pictures.json', 'user.json']
     
     def setUp(self):
         self.user = User.objects.get(username='test')
@@ -95,56 +78,56 @@ class SaveOrderTestCase(TestCase):
         self.url = '/dali/picture/save_order/'
                     
     def test_not_logged_in(self):
-        picture = Picture.objects.get(webName='TestPicture1')
+        picture = Picture.objects.get(web_name='TestPicture1')
         data = {unicode(picture.id): u'3'}
         self.client.post(self.url, data)
-        picture = Picture.objects.get(webName='TestPicture1')
+        picture = Picture.objects.get(web_name='TestPicture1')
         self.failIf(picture.order)
     
     def test_logged_in_not_ajax(self):
-        picture = Picture.objects.get(webName='TestPicture1')
+        picture = Picture.objects.get(web_name='TestPicture1')
         data = {unicode(picture.id): u'3'}
         add_permission(self.user, self.perm)
         self.client.login(username='test', password='test')
         self.client.post(self.url, data)
-        picture = Picture.objects.get(webName='TestPicture1')
+        picture = Picture.objects.get(web_name='TestPicture1')
         self.failIf(picture.order)
         
     def test_logged_in_no_permission(self):
-        picture = Picture.objects.get(webName='TestPicture1')
+        picture = Picture.objects.get(web_name='TestPicture1')
         data = {unicode(picture.id): u'3'}
         self.client.login(username='test', password='test')
         self.client.post(self.url, data, **{'HTTP_X_REQUESTED_WITH':'XMLHttpRequest'})
-        picture = Picture.objects.get(webName='TestPicture1')
+        picture = Picture.objects.get(web_name='TestPicture1')
         self.failIf(picture.order)
         
     def test_logged_in_is_ajax(self):
-        picture = Picture.objects.get(webName='TestPicture1')
+        picture = Picture.objects.get(web_name='TestPicture1')
         data = {unicode(picture.id): u'3'}
         add_permission(self.user, self.perm)
         self.client.login(username='test', password='test')
         self.client.post(self.url, data, **{'HTTP_X_REQUESTED_WITH':'XMLHttpRequest'})
-        picture = Picture.objects.get(webName='TestPicture1')
+        picture = Picture.objects.get(web_name='TestPicture1')
         self.assertEquals(3, picture.order)
         
     def test_get_method(self):
-        picture = Picture.objects.get(webName='TestPicture1')
+        picture = Picture.objects.get(web_name='TestPicture1')
         data = {unicode(picture.id): u'3'}
         add_permission(self.user, self.perm)
         self.client.login(username='test', password='test')
         self.client.get(self.url, data, **{'HTTP_X_REQUESTED_WITH':'XMLHttpRequest'})
-        picture = Picture.objects.get(webName='TestPicture1')
+        picture = Picture.objects.get(web_name='TestPicture1')
         self.failIf(picture.order)
 
 def add_permission(user, perm):
-    """ Add a permission to a user. """
+    """Add a permission to a user."""
     user.user_permissions.add(perm)
     user.save()
 
 def create_picture(gallery):
-    """ Return a Picture that is not saved. """
+    """Return a Picture that is not saved."""
     name = "temp_%d" % random.randint(1,10000000)
-    pic = Picture(name=name, webName=name, gallery=gallery)
+    pic = Picture(name=name, web_name=name, gallery=gallery)
     pic.original.save(''.join([pic.name,'.jpg']), File(_get_temp_image()), False)
     return pic
             
