@@ -9,7 +9,7 @@ from dali.managers import PreferenceManager
 
 class Gallery(models.Model):    
     name = models.CharField(max_length=200)
-    webName = models.CharField(max_length=200, unique=True)
+    web_name = models.CharField(max_length=200, unique=True)
     description = models.TextField(null=True, blank=True)
     parentGallery = models.ForeignKey('self', null=True, blank=True)
     published = models.BooleanField(default=False)
@@ -39,7 +39,7 @@ class Gallery(models.Model):
 
 class Picture(models.Model):
     name = models.CharField(max_length=200)
-    webName = models.CharField(max_length=200, unique=True)
+    web_name = models.CharField(max_length=200, unique=True)
     original = models.ImageField(upload_to='original')
     viewable = models.ImageField(upload_to='viewable')
     thumbnail = models.ImageField(upload_to='thumbnail')

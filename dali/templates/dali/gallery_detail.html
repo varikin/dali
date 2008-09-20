@@ -27,7 +27,7 @@
 
 	{% if gallery.parentGallery %}
 		<span>The parent gallery is
-		 	<a href={% url gallery-detail gallery.parentGallery.webName %}">
+		 	<a href={% url gallery-detail gallery.parentGallery.web_name %}">
 		 		{{ gallery.parentGallery.name }}
 		 	</a>
 		</span>
@@ -36,7 +36,7 @@
 
 <div id="picture_list">
    {% for picture in pictures %}
-   <a href="{% url picture-detail gallery.webName,picture.webName %}" title="{{ picture.description }}" rel="group">
+   <a href="{% url picture-detail gallery.web_name,picture.web_name %}" title="{{ picture.description }}" rel="group">
    		   <img src="{{ picture.thumbnail.url }}" alt="{{ picture.description }}" name="{{ picture.name }}" />
         </a>
 	{% endfor %}

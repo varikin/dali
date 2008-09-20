@@ -38,37 +38,36 @@ class ZipFileForm(forms.Form):
         except zipfile.BadZipfile:
             raise forms.ValidationError("The zip file is corrupted:(")
         
-        invalid_files = []
+        files = {'valid': [], 'invalid': []}
         filenames = zip.namelist()
         for filename in filenames:
-            print "Trying to create file %s" % filename
             name = splitext(filename)[0]
-            webName = _unique_webname(name)
-            pic = Picture(name=name, webName=webName, gallery=self.cleaned_data['gallery'])
+            web_name = _unique_webname(name)
+            pic = Picture(name=name, web_name=web_name, gallery=self.cleaned_data['gallery'])
             tf = tempfile.NamedTemporaryFile('wb+')
             tf.write(zip.read(filename))
             try:
                 pic.original.save(filename, File(tf))
+                files['valid'].append(filename)
             except IOError:
-                invalid_files.append(filename)
+                files['invalid'].append(filename)
             tf.close()
         
         zip.close()
-        print invalid_files  
-        return invalid_files
+        return files
 
 def _file_ext(filename):
     """Returns the extension of the filename as a lower case string."""
     return splitext(filename)[1][1:].lower()
 
 def _unique_webname(webname):
-    """Returns a webname that is not in use."""
+    """Returns a web_name that is not in use."""
     webname = re.sub('\W', "_", webname)
     count = 1
     name = webname
     while True:
         try:
-            Picture.objects.get(webName=name)
+            Picture.objects.get(web_name=name)
         except Picture.DoesNotExist:
             return name
         else:

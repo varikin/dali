@@ -1,23 +1,22 @@
 from django.contrib.auth.decorators import permission_required
 from django.core import serializers
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from dali.admin.forms import ZipFileForm
 from dali.models import Picture, Preferences
 
 @permission_required('dali.add_picture')
 def add_pictures_from_zip(request):
-    if request.method == 'POST':
+    response = {}
+    if request.method != 'POST':
+        form = ZipFileForm()
+    else:
         form = ZipFileForm(request.POST, request.FILES)
         if form.is_valid():
-            invalid_files = form.save()
-            print invalid_files
-            return HttpResponseRedirect('/admin/dali/picture/')
-    else:
-        form = ZipFileForm()
-    
-    title = "Add multiple pictures"
-    return render_to_response('admin/dali/upload_zip_file.html', {'form': form, 'title': title})          
+            response['files'] = form.save()
+        
+    response['form'] = form
+    return render_to_response('admin/dali/upload_zip_file.html', response)          
 
 @permission_required('dali.change_picture')
 def save_picture_order(request):
