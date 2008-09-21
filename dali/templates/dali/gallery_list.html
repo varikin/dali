@@ -12,12 +12,12 @@
 			<div id="gallery_item">
 				{% with gallery.random_picture as Picture %}
 					{% if Picture %}
-					<a href="{% url gallery-detail gallery.webName %}">
+					<a href="{% url gallery-detail gallery.web_name %}">
 						<img src="{{ Picture.thumbnail.url }}" />
 					</a>
 					{% endif %}
 				{% endwith %} 
-				<a href="{% url gallery-detail gallery.webName %}">{{ gallery.name }}</a>
+				<a href="{% url gallery-detail gallery.web_name %}">{{ gallery.name }}</a>
 				{{ gallery.picture_count }} Pictures
 				{{ gallery.description }}
 			</div>

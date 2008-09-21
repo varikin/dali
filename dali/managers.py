@@ -7,9 +7,7 @@ class PreferenceManager(models.Manager):
     """
     
     def get_preference(self):
-        """
-        Returns the only preference in the system or None.
-        """
+        """Returns the only preference in the system or None."""
         try:
             return super(PreferenceManager, self).all()[0]
         except IndexError:
