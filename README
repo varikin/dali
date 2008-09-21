@@ -1,34 +1,25 @@
-A small gallery site in django.  Very alpha and not working at the moment.  It uses the jQuery javascript library.  
+A small image gallery application written in Python using Django and the jQuery JavaScript library.  It is very alpha at the moment and not recommended for use yet.
 
 Written by John C. Shimek <varikin at gmail dot com>
 
-The following enviroment variables need to be set:
+Installation instructions:
 
-PYTHONPATH=/Path/to/top/level/dali:/Path/to/django/settings/directory
-DJANGO_SETTINGS_MODULE=settings
+* Assuming Django is installed and a project already exists.
+  - Requires admin auto discover setup for the project.
+  - Requires PIL, Python Image Library
+  - Requires MEDIA_ROOT set in settings.py
 
-PYTHONPATH should be set to the top level dali directory and the 
-directory that contains the django settings file and url file.  
-DJANGO_SETTINGS_MODULE needs to be set to the name of the django 
-settings file without the .py extension.  This is settings or 
-settings.py by default, but can named anything.
+1. Download and add the dali directory to your Python path.
 
-For example, I have the following directories:
+2. Add `dali` to your INSTALLED_APPS setting in Django.
 
-$ ls /Users/varikin/code/dali
-LICENSE      README       example-conf templates
-NOTICE       dali	  static
+3. Configure your webserver to serve the 'dali/static' directory for the '/static/.*' URLs.  For example, to have Django's server handle them during development this in urls.py:
 
-$ ls /Users/varikin/code/djangosettings/
-django.db    settings.py  urls.py
+(r'^static/(?P<path>.*)$', 'serve', {'document_root': '/path/to/dali/static'}),
 
-And the following enviroment variables:
+4. Run `manage.py syncdb` from your Django project.
 
- $ echo $PYTHONPATH
-/Users/varikin/code/dali/:/Users/varikin/code/djangosettings/:
-
- $ echo $DJANGO_SETTINGS_MODULE
-settings
+Then you should be ready to go.
 
 
 
