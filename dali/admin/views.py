@@ -7,15 +7,15 @@ from dali.models import Picture, Preferences
 
 @permission_required('dali.add_picture')
 def add_pictures_from_zip(request):
-    response = {}
-    if request.method != 'POST':
-        form = ZipFileForm()
-    else:
+    if request.method == 'POST':
         form = ZipFileForm(request.POST, request.FILES)
         if form.is_valid():
-            response['files'] = form.save()
-        
-    response['form'] = form
+            form.save()
+            return HttpResponseRedirect('/admin/dali/picture/')
+    else:
+        form = ZipFileForm()        
+    
+    response = {'form': form, 'title': 'Upload Multiple Pictures'}
     return render_to_response('admin/dali/upload_zip_file.html', response)          
 
 @permission_required('dali.change_picture')

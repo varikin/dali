@@ -1,51 +1,36 @@
 {% extends "admin/change_list.html" %}
-{% load change_list_extras %}
-
-{% block extrastyle %}
-	<link rel="stylesheet" type="text/css" href="/static/style/admin.css" />
-{% endblock %}
 
 {% block extrahead %} 
 	<script src="/static/js/jquery.js"></script>
-	<script src="/static/js/jquery.ui/ui/ui.core.js"></script>
-	<script src="/static/js/jquery.ui/ui/ui.sortable.js"></script>
+	<script src="/static/js/jquery.tablednd.js"></script
 	<script src="/static/js/picture_admin.js"></script>
 	<script> 
 	$(document).ready(function() {
-		dali.prettify_list("#picture_change_list li");
-		$("#sortable_change_list").sortable({
-		  opacity: 0.5,
-		  update: dali.update_order 
-		}); //End sortable
-		$("#save_order").click(function() {
-		  $.post('{% url save_picture_order %}',
-		    dali.order,
-		    function(xml) {
-		      $("#footer").text("Order saved!").hide().fadeIn(2000).fadeOut(2000);
-		    }); //End post
-		    return false;
-		}); //End save_order click
-	}); //End doc ready
+    $("#changelist > table").tableDnD({
+      onDrop: dali.update_order
+    });
+    
+	  $("#save_order").click(function() {
+	    dali.save_order('{% url save_picture_order %}');
+	    return false;
+    });
+	});
 	</script>    
 {% endblock %}
 
 {% block object-tools %}
 {% if has_add_permission %}
 	<ul class="object-tools">
-		<li><a href="{% url save_picture_order %}" class="addlink" id="save_order">Save Order</a></li>
-		<li>
-		  <a href="{% url add_pictures_from_zip %}" class="addlink" id="add_pictures_from_zip">
-		    Add Multiple Pictures
-		  </a>
-		</li> 
-		<li>
-			<a href="add/{% if is_popup %}?_popup=1{% endif %}" class="addlink">
+		<li><a href="{% url save_picture_order %}" class="addlink" id="save_order">
+		    Save Order
+		</a></li>
+		<li><a href="{% url add_pictures_from_zip %}" class="addlink" id="add_pictures_from_zip">
+		  Add Multiple Pictures
+		</a></li>
+	  <li><a href="add/{% if is_popup %}?_popup=1{% endif %}" class="addlink">
 				{% with cl.opts.verbose_name|escape as name %}Add {{ name }}{% endwith %}
-			</a>
-		</li>
+		</a></li>
 	</ul>
 {% endif %}
 {% endblock %}
 
-
-{% block result_list %}{% extra_result_list cl %}{% endblock %}

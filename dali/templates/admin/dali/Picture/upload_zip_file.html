@@ -11,23 +11,6 @@
 
 {% block content %}
 <div id="content-main">
-
-  {% if files %}
-  <div>
-    <div>Valid files:</div>
-      <ul>
-      {% for file in files.valid %}
-        <li>{{ file }}</li>
-      {% endfor %}
-      </ul>
-    <div>Invalid files:</div>
-      <ul>
-      {% for file in files.invalid %}
-        <li>{{ file }}</li>
-      {% endfor %}
-      </ul>
-  </div>
-  {% else %}
   <form enctype="multipart/form-data" action="{% url add_pictures_from_zip %}" method="post" id="picture_form">
     <div>
       <fieldset class="module aligned">
@@ -40,6 +23,5 @@
       </div>
     </div>
   </form>
-  {% endif %}
 </div>
 {% endblock %}
