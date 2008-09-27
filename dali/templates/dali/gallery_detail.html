@@ -6,17 +6,15 @@
 
 {% block javascripts %}
 	<script type="text/javascript" src="/static/js/jquery.js"></script>
-    <script type="text/javascript" src="/static/fancybox/jquery.fancybox-1.0.0.js"></script>
+  <script type="text/javascript" src="/static/fancybox/jquery.fancybox-1.0.0.js"></script>
 {% endblock %}
 
-{% comment %}
 {% block docReadyJS %}
 	$("div#picture_list a").fancybox({
         'overlayShow': true,
         'overlayOpacity': 0.0
-    });
+  });
 {% endblock %}
-{% endcomment %}
 
 
 {% block content %}
@@ -27,7 +25,7 @@
 
 	{% if gallery.parentGallery %}
 		<span>The parent gallery is
-		 	<a href={% url gallery-detail gallery.parentGallery.web_name %}">
+		 	<a href="{% url gallery-detail gallery.parentGallery.web_name %}">
 		 		{{ gallery.parentGallery.name }}
 		 	</a>
 		</span>
@@ -35,13 +33,17 @@
 </div>
 
 <div id="picture_list">
-   {% for picture in pictures %}
-   <a href="{% url picture-detail gallery.web_name,picture.web_name %}" title="{{ picture.description }}" rel="group">
-   		   <img src="{{ picture.thumbnail.url }}" alt="{{ picture.description }}" name="{{ picture.name }}" />
-        </a>
+  {% for picture in pictures %}
+    <a href="{{ picture.viewable.url }}" 
+      {% if picture.description %} title="{{ picture.description|escape }}" {% endif %}
+      rel="group">
+   		   <img src="{{ picture.thumbnail.url }}" 
+   		    {% if picture.description %} alt="{{ picture.description|escape }}" {% endif %} 
+   		    name="{{ picture.name }}" />
+    </a>
 	{% endfor %}
 </div>
 <div>
-    <a href="{% url gallery-list %}">Return to the gallery list.</a>
+  <a href="{% url gallery-list %}">Return to the gallery list.</a>
 </div>
 {% endblock %}
