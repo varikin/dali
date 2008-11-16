@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+  <link rel="stylesheet" type="text/css" href="/static/style/main.css"/>
+  {% block stylesheets %} {% endblock %}
+
+  <script type="text/javascript" src="/static/js/jquery.js"></script>
+  {% block javascripts %} {% endblock %}
+
+  <script>
+    $(document).ready(function(){
+	    {% block docReadyJS %} {% endblock %}
+    });
+  </script>
+  <title>{% block title %}Jes Lee Photos{% endblock %}</title>
+</head>
+
+<body>
+  <div id="header">
+		<div id="title">
+			Jes Lee Photos
+		</div>
+	</div>
+	<div id="nav">
+	  <span>
+    	<a id="{% block home-nav %}{% endblock %}" href="/">Home</a>
+    	<a id="{% block gallery-nav %}{% endblock %}" href="{% url gallery-gallery-list %}">Galleries</a>
+    	<a id="{% block blog-nav %}{% endblock %}" href="{% url blog_post_index %}">Blog</a>
+    	<a id="{% block contact-nav %}{% endblock %}" href="/contact/">Contact Me</a>
+    	<a id="{% block about-nav %}{% endblock %}" href="/about/">About Me</a>
+    	<a id="{% block links-nav %}{% endblock %}" href="/links/">Links</a>
+    </span>
+	</div>
+	<div id="body">
+		{% block content %}{% endblock %}
+	</div>
+</body>
+</html>

@@ -1,25 +1,7 @@
-A small image gallery application written in Python using Django and the jQuery JavaScript library.  It is very alpha at the moment and not recommended for use yet.
-
+A small blog and image gallery application written in Python using Django and
+the jQuery JavaScript library. It is very alpha at the moment and not 
+recommended for use yet.
+ 
 Written by John C. Shimek <varikin at gmail dot com>
 
-Installation instructions:
-
-* Assuming Django is installed and a project already exists.
-  - Requires admin auto discover setup for the project.
-  - Requires PIL, Python Image Library
-  - Requires MEDIA_ROOT set in settings.py
-
-1. Download and add the dali directory to your Python path.
-
-2. Add `dali` to your INSTALLED_APPS setting in Django.
-
-3. Configure your webserver to serve the 'dali/static' directory for the '/static/.*' URLs.  For example, to have Django's server handle them during development this in urls.py:
-
-(r'^static/(?P<path>.*)$', 'serve', {'document_root': '/path/to/dali/static'}),
-
-4. Run `manage.py syncdb` from your Django project.
-
-Then you should be ready to go.
-
-
-
+Licensed under the Apache 2.0 license.  See LICENSE for details.

@@ -1,0 +1,42 @@
+{% extends "blog/base_blog.html" %}
+{% load comments %}
+{% load tagging_tags %}
+
+
+{% block title %}{{ post.title }} | {{ block.super }}{% endblock %}
+
+{% block content %}
+
+<div class="post">
+  <div class="title">{{ post.title }}</div>
+  <div class="time">
+    <strong>{{ post.date_published|date:"M j, Y" }}</strong>
+    {{ post.date_published|time:"f A" }}
+  </div>
+  <div class="content">
+    {{ post.body|safe }}
+  </div>
+</div>
+
+{% tags_for_object post as tags %}
+{% if tags %}
+  <div class="tags">
+    <span>
+      Tags:
+      {% for tag in tags %}
+        <a href="{% url blog_tag_detail tag %}">{{ tag }}</a>
+      {% endfor %}
+    </span>
+  </div>
+{% endif %}
+
+{% get_comment_list for post as comment_list %}
+<div class="comment_list">
+    {% for comment in comment_list %}
+      <div class="comment">{{ comment }}</div>
+    {% endfor %}
+    
+    {% render_comment_form for post %}
+</div>
+
+{% endblock %}

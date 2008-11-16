@@ -1,4 +1,4 @@
-var dali = function() {
+var gallery = function() {
   var _public = {
     update_order : function(table, row) {
       var galleries = {};

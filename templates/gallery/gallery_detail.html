@@ -1,0 +1,47 @@
+{% extends "gallery/base_gallery.html" %}
+
+{% block stylesheets %}
+  {{ block.super }}
+  <link rel="stylesheet" href="/static/fancybox/fancy.css" type="text/css" media="screen" />
+{% endblock %}
+
+{% block javascripts %}
+  <script type="text/javascript" src="/static/fancybox/jquery.fancybox-1.0.0.js"></script>
+{% endblock %}
+
+{% block docReadyJS %}
+	$("div#picture_list a").fancybox({
+        'overlayShow': true,
+        'overlayOpacity': 0.0
+  });
+{% endblock %}
+
+{% block content %}
+  <div>
+  	<span>{{ gallery.name }}</span><br/>
+  	<span>{{ gallery.description }} </span><br/>
+
+  	{% if gallery.parentGallery %}
+  		<span>The parent gallery is
+  		 	<a href="{% url gallery-gallery-detail gallery.parentGallery.slug %}">
+  		 		{{ gallery.parentGallery.name }}
+  		 	</a>
+  		</span>
+  	{% endif %}
+  </div>
+
+  <div id="picture_list">
+    {% for picture in pictures %}
+      <a href="{{ picture.viewable.url }}" 
+        {% if picture.description %} title="{{ picture.description|escape }}" {% endif %}
+        rel="group">
+     		   <img src="{{ picture.thumbnail.url }}" 
+     		    {% if picture.description %} alt="{{ picture.description|escape }}" {% endif %} 
+     		    name="{{ picture.name }}" />
+      </a>
+  	{% endfor %}
+  </div>
+  <div>
+    <a href="{% url gallery-gallery-list %}">Return to the gallery list.</a>
+  </div>
+{% endblock %}

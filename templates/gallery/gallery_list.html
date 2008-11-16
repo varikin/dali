@@ -1,0 +1,26 @@
+{% extends "gallery/base_gallery.html" %}
+
+{% block content %}
+
+
+<div id="gallery_list">
+	{% for gallery in object_list %}								
+		<div class="gallery">
+			<div class="thumbnail">
+  			{% with gallery.random_picture as picture %}
+  			{% if picture %}
+  				<a href="{% url gallery-gallery-detail gallery.slug %}">
+  					<img src="{{ picture.thumbnail.url }}" />
+  				</a>
+  			{% endif %}
+  			{% endwith %} 
+  		</div>
+  		<div class="meta">
+			  <a href="{% url gallery-gallery-detail gallery.slug %}">{{ gallery.name }}</a>
+        <br/>{{ gallery.picture_count }} Pictures
+			  <br/>{{ gallery.description }}
+			</div>
+		</div>
+	{% endfor %}
+</div>
+{% endblock %}

@@ -6,8 +6,9 @@
 # *~
 #
 *.pyc
-*.pid
 *.db
 *.log
 *.swp
-*.tmproj
+settings.py
+manage.py
+media/*
