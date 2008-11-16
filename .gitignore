@@ -7,8 +7,5 @@
 #
 *.pyc
 *.db
-*.log
 *.swp
-settings.py
-manage.py
 media/*
