@@ -72,9 +72,7 @@ class Picture(models.Model):
             result = True
         
         super(Picture, self).save(**kwargs)    
-        return result   
-        
-
+        return result
         
 class Preferences(models.Model):
     IMAGE_CHOICES = (
@@ -90,7 +88,7 @@ class Preferences(models.Model):
     objects = PreferenceManager()
     
     def __unicode__(self):
-        return u'Preferences'
+        return u'Preference'
     
     def save(self, **kwargs):
         """

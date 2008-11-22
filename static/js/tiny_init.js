@@ -1,5 +1,7 @@
 tinyMCE.init({
 	mode : "textareas",
+	width : "800",
+	height : "600",
 	theme : "advanced",
 	theme_advanced_toolbar_location : "top",
 	theme_advanced_toolbar_align : "left",
@@ -7,6 +9,7 @@ tinyMCE.init({
 	theme_advanced_buttons2 : "",
 	theme_advanced_buttons3 : "",
 	auto_cleanup_word : true,
+	relative_urls : false,
 	plugins : "table,save,advhr,advimage,advlink,emotions,iespell,insertdatetime,preview,zoom,flash,searchreplace,print,contextmenu,fullscreen",
 	plugin_insertdate_dateFormat : "%m/%d/%Y",
 	plugin_insertdate_timeFormat : "%H:%M:%S",
