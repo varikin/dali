@@ -2,7 +2,7 @@ body{
     color: #FFF;
     background-color: #181818;
     font-family: Gill Sans, Optima, Helvetica, sans-serif;
-    font-size: 12px;
+    font-size: 14px;
     margin: 0 auto;
     padding: 0;
     width: 800px;
@@ -20,7 +20,7 @@ a, img {
 }
 
 #header {
-    font-size: 4em;
+    font-size: 3.75em;
     font-weight: bold;
     margin: 20px 0 15px 0;
     text-align: center;
@@ -59,13 +59,27 @@ a, img {
 }
 
 .title {
+    font-weight: bold;
     font-size: 2.5em;
-    margin-bottom: 30px;  
 }
 
 .title a {
     color: #FFF;
     text-decoration: none;
+}
+
+.subtitle {
+    font-size: 1.5em;
+}
+
+.above_line {
+    border-bottom: 1px solid;
+    margin-bottom: auto;
+    width: 800px;
+}
+
+.below_line {
+    text-align: right;
 }
 
 #footer {
@@ -113,23 +127,15 @@ a, img {
     line-height: 1.25em;
 }
 
-/* Blog styles */
+/* Blog and comment styles */
 
-.post .title {
-    font-weight: bold;
-    border-bottom: 1px solid;
-    margin-bottom: auto;
-    width: 800px;
+.comment {
+    margin-bottom: 20px;
 }
 
-.post .time {
-    color: #F1F3F5;
-    text-align: right;
-}
-
-.post .tags {
-    text-align: right;
-    font-size: 1.2em;
+#comment_form form p {
+    margin-bottom: 0;
+    margin-top: 5px;
 }
 
 .tag_cloud a {

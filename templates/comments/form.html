@@ -1,5 +1,5 @@
 {% load comments %}
-<form action="{% comment_form_target %}" method="POST">
+<form action="{% comment_form_target %}" method="POST" id="comment_form">
   {% for field in form %}
     {% if field.is_hidden %}
       {{ field }}
@@ -8,12 +8,11 @@
         {% if field.errors %} class="error"{% endif %}
         {% ifequal field.name "honeypot" %} style="display:none;"{% endifequal %}>
         {% if field.errors %}{{ field.errors }}{% endif %}
-        {{ field.label_tag }}<br />{{ field }}
+        {{ field }} {% ifnotequal field.name "comment" %}{{ field.label_tag }}{% endifnotequal %}
       </p>
     {% endif %}
   {% endfor %}
   <p class="submit">
     <input type="submit" name="submit" class="submit-post" value="Post" />
-    <input type="submit" name="submit" class="submit-preview" value="Preview" />
   </p>
 </form>

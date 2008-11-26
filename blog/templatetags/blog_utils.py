@@ -12,10 +12,11 @@ def image_preview(post, count):
     """
     Returns the first `count` images in the post body.  Also tries to replace the
     url for the images with thumbnail if possible. Checks if the image is flickr image
-    or a local image and replaces it with the appriate url.
+    or a local image and replaces it with the appriate url.blog
     """
     soup = BeautifulSoup(post.body)
     imgs = soup('img', limit=count)
+    methods = (_get_flickr_url, _get_local_url)
     if len(imgs) != 0:
         for img in imgs:
             for method in methods:

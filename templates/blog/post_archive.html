@@ -7,11 +7,11 @@
   {% if latest %}
     {% for post in latest %}
     <div class="post">
-      <div class="title">
+      <div class="title above_line">
         <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
       </div>
       
-      <div class="time">
+      <div class="below_line">
         <strong>{{ post.date_published|date:"M j, Y" }}</strong>
         {{ post.date_published|time:"f A" }}
       </div>

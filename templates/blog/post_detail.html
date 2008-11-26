@@ -2,14 +2,24 @@
 {% load comments %}
 {% load tagging_tags %}
 
-
 {% block title %}{{ post.title }} | {{ block.super }}{% endblock %}
+
+{% block docReadyJS %}
+$("#id_comment").attr("cols", 80); //don't want to hack comments:(
+
+var comment = '';
+$('#id_comment').keyup(function() {
+   comment = $(this).val();
+   comment = comment.replace(/\n\n+/g, "<br/><br/>").replace(/\n/g, '<br/>').replace(/(<\/?)script/, "$1noscript");
+   $("#comment_preview").html(comment);
+});
+{% endblock %}
 
 {% block content %}
 
 <div class="post">
-  <div class="title">{{ post.title }}</div>
-  <div class="time">
+  <div class="title above_line">{{ post.title }}</div>
+  <div class="time below_line">
     <strong>{{ post.date_published|date:"M j, Y" }}</strong>
     {{ post.date_published|time:"f A" }}
   </div>
@@ -21,22 +31,33 @@
 {% tags_for_object post as tags %}
 {% if tags %}
   <div class="tags">
-    <span>
-      Tags:
+    <div class="subtitle above_line">Tags</div>
+    <div class="below_line">
       {% for tag in tags %}
         <a href="{% url blog_tag_detail tag %}">{{ tag }}</a>
       {% endfor %}
-    </span>
+    </div>
   </div>
 {% endif %}
 
 {% get_comment_list for post as comment_list %}
-<div class="comment_list">
+<div id="comment_list">
     {% for comment in comment_list %}
-      <div class="comment">{{ comment }}</div>
+      <div class="comment">
+        <div class="subtitle above_line">{{ comment.user_name }}</div>
+        <div class="time below_line">
+          <strong>{{ comment.submit_date|date:"M j, Y" }}</strong>
+          {{ comment.submit_date|time:"f A" }}
+        </div>
+        <div class="comment_body">
+          {{ comment.comment }}
+        </div>
+      </div>
     {% endfor %}
-    
+</div>
+<div id="comment_form">
     {% render_comment_form for post %}
 </div>
+<div id="comment_preview"></div>
 
 {% endblock %}

@@ -2,7 +2,7 @@
 
 {% block title %}Preview Your Comment | {{ block.super }}{% endblock %}
 
-{% block sl %}
+{% block content %}
 {% load comments %}
 <form action="{% comment_form_target %}" method="POST">
   {% if form.errors %}
@@ -31,7 +31,4 @@
     <input type="submit" name="submit" class="submit-preview" value="Preview">
   </p>
 </form>
-{% endblock %}
-
-{% block sr %}
 {% endblock %}
