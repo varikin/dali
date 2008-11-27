@@ -12,6 +12,7 @@
       </p>
     {% endif %}
   {% endfor %}
+  <input id="id_next" type="hidden" name="next" value="{{ post.get_absolute_url }}">
   <p class="submit">
     <input type="submit" name="submit" class="submit-post" value="Post" />
   </p>

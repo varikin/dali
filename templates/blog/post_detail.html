@@ -6,13 +6,6 @@
 
 {% block docReadyJS %}
 $("#id_comment").attr("cols", 80); //don't want to hack comments:(
-
-var comment = '';
-$('#id_comment').keyup(function() {
-   comment = $(this).val();
-   comment = comment.replace(/\n\n+/g, "<br/><br/>").replace(/\n/g, '<br/>').replace(/(<\/?)script/, "$1noscript");
-   $("#comment_preview").html(comment);
-});
 {% endblock %}
 
 {% block content %}
@@ -58,6 +51,4 @@ $('#id_comment').keyup(function() {
 <div id="comment_form">
     {% render_comment_form for post %}
 </div>
-<div id="comment_preview"></div>
-
 {% endblock %}
