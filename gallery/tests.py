@@ -1,25 +1,13 @@
 import random
 import tempfile
-import unittest
 import Image
 from django.contrib.auth.models import User, Permission
 from django.core.files import File
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 from django.test.client import Client
-from gallery.models import Gallery, Picture, Preferences
+from gallery.models import Gallery, Picture
 from gallery.admin.views import save_picture_order
-
-class PreferencesTestCase(TestCase):
-    def test_cannot_save_two(self):
-        """Can save one is taken care of by initial_data.json fixture:)"""
-        pref = Preferences(thumbnail_width=100, viewable_width=1000,
-            generate_images=False, image_type='JPEG')
-        self.assertRaises(ValidationError, pref.save)
-        
-    def test_can_save_one_multiple_times(self):
-        pref = Preferences.objects.get_preference() 
-        pref.save()         #Should not throw an exception
         
 class GalleryTestCase(TestCase):
     fixtures = ['gallery.json']
@@ -55,19 +43,19 @@ class PictureTestCase(TestCase):
         gallery = Gallery.objects.get(slug='TestGallery')
         self.picture = create_picture(gallery)
         
-    def test_generate_on_first_save(self):
+    def test_generate_on_new_picture(self):
         self.assert_(self.picture.save())
 
-    def test_preference_false(self):
+    def test_no_generate_on_save(self):
         self.assert_(self.picture.save())
         self.failIf(self.picture.save())
     
-    def test_preference_true(self):
-        pref = Preferences.objects.get_preference()
-        pref.generate_images = True
-        pref.save()
-        self.assert_(self.picture.save())
-        self.assert_(self.picture.save())
+    def test_generate_on_save_with_new_image(self):
+        pic = self.picture
+        self.assert_(pic.save())
+        pic.original.save(''.join([pic.name,'.jpg']), File(_get_temp_image()), False)
+        self.assert_(pic.save())
+    
 
 class SaveOrderTestCase(TestCase):
     fixtures = ['gallery.json', 'pictures.json', 'user.json']

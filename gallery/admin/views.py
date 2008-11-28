@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import permission_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from gallery.admin.forms import ZipFileForm
-from gallery.models import Picture, Preferences
+from gallery.models import Picture
 
 @permission_required('gallery.add_picture')
 def add_pictures_from_zip(request):
@@ -32,22 +32,10 @@ def save_picture_order(request):
     
     Note that this disables image generation for the saves.
     """
-    if request.method == 'POST' and request.is_ajax():
-        #Prevent image generation
-        pref = Preferences.objects.get_preference()
-        generate = pref.generate_images
-        if generate:
-            pref.generate_images = False
-            pref.save()
-        
+    if request.method == 'POST' and request.is_ajax():    
         pictures = Picture.objects.filter(pk__in=request.POST.keys())
         for picture in pictures:
             picture.order = request.POST.get(unicode(picture.id))
             picture.save()
         
-        #Revert image generation
-        if generate:
-            pref.generate_images = True
-            pref.save() 
-
     return HttpResponse(None, mimetype='application/javascript')

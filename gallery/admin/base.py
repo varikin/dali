@@ -1,5 +1,5 @@
 from django.contrib import admin
-from gallery.models import Gallery, Picture, Preferences
+from gallery.models import Gallery, Picture
 
 class GalleryAdmin(admin.ModelAdmin):
 	list_display = ('name', 'slug', 'picture_count', 'parentGallery', 
@@ -18,4 +18,3 @@ class PictureAdmin(admin.ModelAdmin):
         
 admin.site.register(Gallery, GalleryAdmin)
 admin.site.register(Picture, PictureAdmin)
-admin.site.register(Preferences)

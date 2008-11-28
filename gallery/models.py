@@ -5,7 +5,6 @@ import Image
 from django.core.exceptions import ValidationError
 from django.core.files import File
 from django.db import models
-from gallery.managers import PreferenceManager
 
 class Gallery(models.Model):    
     name = models.CharField(max_length=100)
@@ -38,6 +37,10 @@ class Gallery(models.Model):
         
 
 class Picture(models.Model):
+    THUMBNAIL_WIDTH = 75
+    VIEWABLE_WIDTH = 400
+    IMAGE_TYPE = 'JPEG'
+
     name = models.CharField(max_length=100)
     slug = models.SlugField(unique=True)
     original = models.ImageField(upload_to='original')
@@ -48,6 +51,9 @@ class Picture(models.Model):
     order = models.PositiveSmallIntegerField(null=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
+    
+
+    
     
     class Meta:
         ordering = ('order',)
@@ -60,46 +66,22 @@ class Picture(models.Model):
         Saves a Picture instance. Return True if a thumbnail and viewable is
         generated, False otherwise.
         """
-        pref = Preferences.objects.get_preference()
-        result = False
-        if(self.id is None or pref.generate_images):
+        # Determine if this is a new picture object or new original file.
+        generate_images = True
+        if self.id is not None:
+            old_picture = Picture.objects.get(pk=self.id)
+            if self.original.path == old_picture.original.path:
+                generate_images = False
+                
+        if generate_images:
             orig = Image.open(self.original.path)
             name = os.path.basename(self.original.name)
-            thumb_width = pref.thumbnail_width
-            view_width = pref.viewable_width
-            _resize_image(self.thumbnail, orig, name, thumb_width, pref.image_type)
-            _resize_image(self.viewable, orig, name, view_width, pref.image_type)        
+            _resize_image(self.thumbnail, orig, name, Picture.THUMBNAIL_WIDTH, Picture.IMAGE_TYPE)
+            _resize_image(self.viewable, orig, name, Picture.VIEWABLE_WIDTH, Picture.IMAGE_TYPE)        
             result = True
         
         super(Picture, self).save(**kwargs)    
-        return result
-        
-class Preferences(models.Model):
-    IMAGE_CHOICES = (
-        ('JPEG', 'JPEG'),
-        ('PNG', 'PNG'),
-    )
-    
-    thumbnail_width = models.PositiveSmallIntegerField()
-    viewable_width = models.PositiveSmallIntegerField()
-    generate_images = models.BooleanField(default=False)
-    image_type = models.CharField(max_length=1, choices=IMAGE_CHOICES)
-    
-    objects = PreferenceManager()
-    
-    def __unicode__(self):
-        return u'Preference'
-    
-    def save(self, **kwargs):
-        """
-        Save the preference is it an existing preference or if there are not an 
-        existing preference.  Only allowing one preference.
-        """
-        if(self.id is not None or Preferences.objects.count() == 0):
-            super(Preferences, self).save(**kwargs)
-        else:
-            raise ValidationError('Only one preference object allowed.')
-
+        return generate_images
 
 def _resize_image(thumb, original, name, width, image_type):
     """
