@@ -23,9 +23,4 @@ class Post(models.Model):
     
     @models.permalink
     def get_absolute_url(self):
-        return ("blog_post_detail", (), {
-            "year": self.date_published.strftime("%Y"),
-            "month": self.date_published.strftime("%b").lower(),
-            "day": self.date_published.strftime("%d"),
-            "slug": self.slug,
-        })
+        return ("blog_post_detail", (), {"slug": self.slug})
