@@ -147,3 +147,8 @@ a, img {
     color: #4E6269;
     text-decoration: underline;
 }
+
+/* Home page */
+.section div {
+    margin-left: 50px;
+}

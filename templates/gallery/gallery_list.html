@@ -9,14 +9,14 @@
 			<div class="thumbnail">
   			{% with gallery.random_picture as picture %}
   			{% if picture %}
-  				<a href="{% url gallery-gallery-detail gallery.slug %}">
+  				<a href="{{ gallery.get_absolute_url }}">
   					<img src="{{ picture.thumbnail.url }}" />
   				</a>
   			{% endif %}
   			{% endwith %} 
   		</div>
   		<div class="meta">
-			  <a href="{% url gallery-gallery-detail gallery.slug %}">{{ gallery.name }}</a>
+			  <a href="{{ gallery.get_absolute_url }}">{{ gallery.name }}</a>
         <br/>{{ gallery.picture_count }} Pictures
 			  <br/>{{ gallery.description }}
 			</div>

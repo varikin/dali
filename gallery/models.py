@@ -18,6 +18,10 @@ class Gallery(models.Model):
     def __unicode__(self):
         return self.name
     
+    @models.permalink
+    def get_absolute_url(self):
+        return ("gallery_detail", (), {"gallery": self.slug})
+    
     def random_picture(self):
         """
         Return a random picture from the gallery.  If no pictures are in the gallery, 
@@ -52,9 +56,6 @@ class Picture(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
     
-
-    
-    
     class Meta:
         ordering = ('order',)
     
@@ -82,6 +83,10 @@ class Picture(models.Model):
         
         super(Picture, self).save(**kwargs)    
         return generate_images
+        
+    @models.permalink
+    def get_absolute_url(self):
+        return ("picture_detail", (), {"picture": self.slug, "gallery": self.gallery.slug})
 
 def _resize_image(thumb, original, name, width, image_type):
     """

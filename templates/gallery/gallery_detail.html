@@ -23,7 +23,7 @@
 
   	{% if gallery.parentGallery %}
   		<span>The parent gallery is
-  		 	<a href="{% url gallery-gallery-detail gallery.parentGallery.slug %}">
+  		 	<a href="{{ gallery.parentGallery.get_absolute_url }}">
   		 		{{ gallery.parentGallery.name }}
   		 	</a>
   		</span>
@@ -42,6 +42,6 @@
   	{% endfor %}
   </div>
   <div>
-    <a href="{% url gallery-gallery-list %}">Return to the gallery list.</a>
+    <a href="{% url gallery_list %}">Return to the gallery list.</a>
   </div>
 {% endblock %}

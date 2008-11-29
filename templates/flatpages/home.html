@@ -1,5 +1,36 @@
 {% extends "flatpages/default.html" %}
 
+{% load blog_utils %}
+{% load gallery_utils %}
+
 {% block home-nav %}active{% endblock %}
 
 {% block title %}{{ flatpage.title }}{% endblock %}
+
+{% block content %}
+<div class="section">
+   <h1>Announcements:</h1>
+   <div>{{ flatpage.content }}</div>
+</div>
+
+<div class="section">
+   <h1>Recent Updates:</h1>
+   <div>
+      <h4>Images:</h4>
+      <p>
+         {% get_latest_pictures 10 as pictures %}
+         {% for picture in pictures %}
+            <a href="{{ picture.gallery.get_absolute_url }}">
+               <img src="{{ picture.thumbnail.url }}" alt="{{ picture.name }}"/>
+            </a>
+         {% endfor %}
+      </p>
+      <h4>Blog:</h4>
+      <p>
+      {% get_latest_post as post %}
+      <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+      </p>
+   </div>
+</div>
+
+{% endblock %}

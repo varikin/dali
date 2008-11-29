@@ -1,18 +1,50 @@
 import re
 from BeautifulSoup import BeautifulSoup
 from django.db.models import Q
-from django.template import Library
+from django.template import Library, Node, TemplateSyntaxError 
 import settings
+from blog.models import Post
 from gallery.models import Picture
 
 register = Library()
 
+@register.tag(name='get_latest_post')
+def do_get_latest_post(parser, token):
+    """
+    This will store the latest post in the context.
+
+    Usage:
+
+        {% get_latest_post as post %}
+        {{ post.title }}
+        {{ post.body }}
+    """
+    tokens = token.contents.split()
+    if len(tokens) != 3 or tokens[1] != 'as':
+        raise TemplateSyntaxError("'get_latest_post' requires 'as variable' (got %r)" % args)
+    return GetLatestPostNode(tokens[2]) 
+    
+
+class GetLatestPostNode(Node):
+    def __init__(self, var):
+        self.var = var
+    
+    def render(self, context):
+        context[self.var] = Post.objects.all()[0] #the order_by on model already gets latest
+        return u''
+
 @register.simple_tag
 def image_preview(post, count):
     """
-    Returns the first `count` images in the post body.  Also tries to replace the
-    url for the images with thumbnail if possible. Checks if the image is flickr image
-    or a local image and replaces it with the appriate url.blog
+    Returns the first `count` images in the post body.  
+    
+    Usage:
+        
+        {% image_preview post 5 %}
+    
+    This also tries to replace the url for the images with thumbnail if possible.
+    Checks if the image is flickr image or a local image and replaces it with 
+    the appriate url.blog
     """
     soup = BeautifulSoup(post.body)
     imgs = soup('img', limit=count)

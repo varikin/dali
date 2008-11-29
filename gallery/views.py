@@ -6,9 +6,9 @@ def gallery_detail(request, gallery):
     """View to show a specific gallery."""
     context = {}
     try:
-        context['gallery'] = Gallery.objects.get(slug = gallery)
+        context['gallery'] = Gallery.objects.get(slug=gallery)
         context['pictures'] = \
-            Picture.objects.filter(gallery = context['gallery']).order_by('order')
+            Picture.objects.filter(gallery=context['gallery']).order_by('order')
     except Gallery.DoesNotExist:
         raise Http404
     
@@ -18,7 +18,7 @@ def picture_detail(request, gallery, picture):
     """View to show a specific picture."""
     context = {}
     try:
-        context['picture'] = Picture.objects.get(slug = picture)
+        context['picture'] = Picture.objects.get(slug=picture)
     except Picture.DoesNotExist:
         raise Http404
 
