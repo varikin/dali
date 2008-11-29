@@ -32,32 +32,39 @@ $('#slider').mouseover(func);
 
 {% block content %}
 <div class="section">
-   <h1>Announcements:</h1>
+   <h1 class="above_line">Announcements</h1>
    <div>{{ flatpage.content }}</div>
 </div>
 
-<div class="section">
-   <h1>Recent Updates:</h1>
-   <div>
-      <h4>Images:</h4>
-      <div id="slider">
-         <div id="sliding_images">
-            {% get_latest_pictures 20 as pictures %}
-            {% for picture in pictures %}
-               <div class="sliding_image">
-                  <a href="{{ picture.gallery.get_absolute_url }}" class="slide">
-                     <img src="{{ picture.thumbnail.url }}" alt="{{ picture.name }}"/>
-                  </a>
-               </div>
-            {% endfor %}
+<h1 class="above_line">Recent Pictures</h1>
+<div class="below_line">&nbsp;</div>
+<div id="slider">
+   <div id="sliding_images">
+      {% get_latest_pictures 20 as pictures %}
+      {% for picture in pictures %}
+         <div class="sliding_image">
+            <a href="{{ picture.gallery.get_absolute_url }}">
+               <img src="{{ picture.thumbnail.url }}" alt="{{ picture.name }}"/>
+            </a>
          </div>
-      </div>
-      <h4>Blog:</h4>
-      <div>
-         {% get_latest_post as post %}
-         <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
-      </div>
+      {% endfor %}
    </div>
 </div>
+
+{% get_latest_post as post %}
+<div class="post">
+   <h1 class="title above_line">
+      <a href="{{ post.get_absolute_url }}">Latest Post - {{ post.title }}</a>
+   </h1>
+
+   <div class="below_line">
+     <strong>{{ post.date_published|date:"M j, Y" }}</strong>
+     {{ post.date_published|time:"f A" }}
+   </div>
+   <div class="preview">
+     {% image_preview post 5 %}
+   </div>
+</div>
+
 
 {% endblock %}

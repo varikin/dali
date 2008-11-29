@@ -58,11 +58,6 @@ a, img {
     clear: both;
 }
 
-.title {
-    font-weight: bold;
-    font-size: 2.5em;
-}
-
 .title a {
     color: #FFF;
     text-decoration: none;
@@ -160,6 +155,10 @@ a, img {
     width: 1500px;
     position: relative;
     margin: 0;
+}
+
+.section {
+  /*  margin-bottom: 50px;*/
 }
 
 .sliding_image {

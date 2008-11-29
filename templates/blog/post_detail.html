@@ -11,7 +11,7 @@ $("#id_comment").attr("cols", 80); //don't want to hack comments:(
 {% block content %}
 
 <div class="post">
-  <div class="title above_line">{{ post.title }}</div>
+  <h1 class="title above_line">{{ post.title }}</h1>
   <div class="time below_line">
     <strong>{{ post.date_published|date:"M j, Y" }}</strong>
     {{ post.date_published|time:"f A" }}
