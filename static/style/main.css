@@ -149,6 +149,23 @@ a, img {
 }
 
 /* Home page */
-.section div {
-    margin-left: 50px;
+#slider {
+    width: 800px;
+    height: 75px;
+    overflow: hidden;
+}
+
+#sliding_images {
+    height: 75px;
+    width: 1500px;
+    position: relative;
+    margin: 0;
+}
+
+.sliding_image {
+    position: relative;
+    margin: 0;
+    width: 75px;
+    height: 75px;
+    float: left;
 }

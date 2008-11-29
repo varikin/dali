@@ -7,6 +7,29 @@
 
 {% block title %}{{ flatpage.title }}{% endblock %}
 
+{% block docReadyJS %}
+var slideIncrement = 150;
+var slideCounter = 0
+var sliderWidth = $('#slider').width();
+var center = sliderWidth/2;
+
+function func(e) {
+   var mouse = e.pageX - this.offsetLeft;
+   if(mouse < center) {
+      slideCounter += (center - mouse)/center * slideIncrement;
+   } else {
+       slideCounter -= (mouse - center)/center * slideIncrement;
+   }
+   $('#sliding_images').animate({left: slideCounter}, 1000);
+}
+
+$('#slider').mouseover(func);
+
+
+
+{% endblock %}
+
+
 {% block content %}
 <div class="section">
    <h1>Announcements:</h1>
@@ -17,19 +40,23 @@
    <h1>Recent Updates:</h1>
    <div>
       <h4>Images:</h4>
-      <p>
-         {% get_latest_pictures 10 as pictures %}
-         {% for picture in pictures %}
-            <a href="{{ picture.gallery.get_absolute_url }}">
-               <img src="{{ picture.thumbnail.url }}" alt="{{ picture.name }}"/>
-            </a>
-         {% endfor %}
-      </p>
+      <div id="slider">
+         <div id="sliding_images">
+            {% get_latest_pictures 20 as pictures %}
+            {% for picture in pictures %}
+               <div class="sliding_image">
+                  <a href="{{ picture.gallery.get_absolute_url }}" class="slide">
+                     <img src="{{ picture.thumbnail.url }}" alt="{{ picture.name }}"/>
+                  </a>
+               </div>
+            {% endfor %}
+         </div>
+      </div>
       <h4>Blog:</h4>
-      <p>
-      {% get_latest_post as post %}
-      <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
-      </p>
+      <div>
+         {% get_latest_post as post %}
+         <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+      </div>
    </div>
 </div>
 
