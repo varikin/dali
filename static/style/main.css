@@ -78,14 +78,9 @@ a, img {
 }
 
 #footer {
-    border-top: 1px solid #C60;
-    clear:both;
-    font-size: 9px;
-    font-weight: normal; 
-    margin: 10px 0 0 0 ;
-    padding: 10px 0;
+    clear: both;
+    padding-top: 30px;
     text-align: center;
-    width: 800px;
 } 
 
 /* Gallery styles */
@@ -144,27 +139,31 @@ a, img {
 }
 
 /* Home page */
-#slider {
+#slider_container {
     width: 800px;
     height: 75px;
+}
+
+#slider {
+    width: 750px;
+    float: left;
     overflow: hidden;
 }
 
 #sliding_images {
-    height: 75px;
     width: 1500px;
     position: relative;
     margin: 0;
 }
 
-.section {
-  /*  margin-bottom: 50px;*/
-}
-
-.sliding_image {
+#slide_right {
     position: relative;
     margin: 0;
-    width: 75px;
-    height: 75px;
+    float: right;
+}
+
+.sliding_image, #slide_left {
+    position: relative;
+    margin: 0;
     float: left;
 }

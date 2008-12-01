@@ -7,24 +7,41 @@
 
 {% block title %}{{ flatpage.title }}{% endblock %}
 
-{% block docReadyJS %}
-var slideIncrement = 150;
-var slideCounter = 0
-var sliderWidth = $('#slider').width();
-var center = sliderWidth/2;
+{% block javascripts %}
+<script type="text/javascript" src="/static/js/jquery.jeditable.js"></script>
+{% endblock %}
 
-function func(e) {
-   var mouse = e.pageX - this.offsetLeft;
-   if(mouse < center) {
-      slideCounter += (center - mouse)/center * slideIncrement;
-   } else {
-       slideCounter -= (mouse - center)/center * slideIncrement;
+{% block docReadyJS %}
+$('.edit').editable(function(value, settings) {
+   console.log(this);
+   console.log(value);
+   console.log(settings);
+   return(value);
+}, {
+   indicator : 'Saving...',
+   tooltip   : 'Click to edit...',
+   submit : 'OK',
+});
+
+var slideIncrement = 75;
+var slideCounter = 0
+
+function slideRight(e) {
+   if(slideCounter > 0) {
+      slideCounter--;
+      $('#sliding_images').animate({right: 2 * slideCounter * slideIncrement}, 1000);
    }
-   $('#sliding_images').animate({left: slideCounter}, 1000);
 }
 
-$('#slider').mouseover(func);
+function slideLeft(e) {
+   if(slideCounter < 8) {
+      slideCounter++;
+      $('#sliding_images').animate({right: 2* slideCounter * slideIncrement}, 1000);
+   }
+}
 
+$('#slide_right').click(slideRight);
+$('#slide_left').click(slideLeft);
 
 
 {% endblock %}
@@ -33,21 +50,30 @@ $('#slider').mouseover(func);
 {% block content %}
 <div class="section">
    <h1 class="above_line">Announcements</h1>
-   <div>{{ flatpage.content }}</div>
+   <div {% if user.is_authenticated %}class="edit"{% endif %}>
+      {{ flatpage.content }}
+   </div>
 </div>
 
 <h1 class="above_line">Recent Pictures</h1>
-<div class="below_line">&nbsp;</div>
-<div id="slider">
-   <div id="sliding_images">
-      {% get_latest_pictures 20 as pictures %}
-      {% for picture in pictures %}
-         <div class="sliding_image">
-            <a href="{{ picture.gallery.get_absolute_url }}">
-               <img src="{{ picture.thumbnail.url }}" alt="{{ picture.name }}"/>
-            </a>
-         </div>
-      {% endfor %}
+<div id="slider_container">
+   <div id="slide_left">
+      <img src="/static/slide_left.png" alt="slide left"/>
+   </div>
+   <div id="slider">
+      <div id="sliding_images">
+         {% get_latest_pictures 20 as pictures %}
+         {% for picture in pictures %}
+            <div class="sliding_image">
+               <a href="{{ picture.gallery.get_absolute_url }}">
+                  <img src="{{ picture.thumbnail.url }}" alt="{{ picture.name }}"/>
+               </a>
+            </div>
+         {% endfor %}
+      </div>
+   </div>
+   <div id="slide_right">
+      <img src="/static/slide_right.png" alt="slide right"/>
    </div>
 </div>
 
