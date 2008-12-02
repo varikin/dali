@@ -30,7 +30,7 @@ class GetLatestPostNode(Node):
         self.var = var
     
     def render(self, context):
-        context[self.var] = Post.objects.all()[0] #the order_by on model already gets latest
+        context[self.var] = Post.objects.filter(published=True)[0] #the order_by on model already gets latest
         return u''
 
 @register.simple_tag
