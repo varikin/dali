@@ -33,5 +33,6 @@ class GetLatestPictures(Node):
         self.var = var
     
     def render(self, context):
-        context[self.var] = Picture.objects.order_by('-date_created')[:self.count]
+        context[self.var] = Picture.objects.filter(gallery__published=True). \
+            order_by('-date_created')[:self.count]
         return u''
