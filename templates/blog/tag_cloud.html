@@ -5,6 +5,7 @@
 
 {% block content %}
   {% tag_cloud_for_model blog.Post as post_tags %}
+  <h1 class="above_line">Tags</h1>
   <p class="tag_cloud">
     {% for tag in post_tags %}
       <a href="{% url blog_tag_detail tag %}" 

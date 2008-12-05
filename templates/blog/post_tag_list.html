@@ -4,15 +4,14 @@
 {% block title %}The "{{ tag }}" tag | {{ block.super }}{% endblock %}
 
 {% block content %}
-{% if post_list %}
-  <div class="title">Posts for the tag "{{ tag }}"</div>
+<h1 class="title">Posts for the tag "{{ tag }}"</h1>
   {% for post in post_list %}
   <div class="post">
-    <div class="title">
+    <h1 class="title above_line">
       <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
-    </div>
+    </h1>
     
-    <div class="time">
+    <div class="time below_line">
       <strong>{{ post.date_published|date:"M j, Y" }}</strong>
       {{ post.date_published|time:"f A" }}
     </div>
@@ -20,9 +19,6 @@
       {% image_preview post 5 %}
     </div>
   </div>
-  {% endfor %}
-{% else %}
-  <div class="title">No posts for "{{ tag }}"</div>
-{% endif %}
+{% endfor %}
 
 {% endblock %}

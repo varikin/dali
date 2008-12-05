@@ -3,6 +3,44 @@ from gallery.models import Picture
 
 register = Library()
 
+@register.tag(name='get_random_pictures')
+def do_get_random_pictures(parser, token):
+    """
+    This will store random pictures in the context.
+
+    Usage:
+
+        {% get_random_pictures from gallery as pictures limit 5 %}
+        {% for picture in pictures %}
+        ...
+        {% endfor %}
+    """
+    tokens = token.contents.split()
+    if len(tokens) != 7 or tokens[1] != u'from' or tokens[3] != u'as' or \
+        tokens[5] != u'limit':
+        raise TemplateSyntaxError(
+            "'get_random_pictures' requires 'from gallery as variable limit number' (got %r)" % tokens)
+    try:
+        count = int(tokens[6])
+    except ValueError:
+        raise TemplateSyntaxError(
+            "'get_random_pictures' requires an integer as the last parameter (got %r)"
+            % tokens[6])
+    return GetRandomPictures(tokens[2], tokens[4], count)
+
+class GetRandomPictures(Node):
+    def __init__(self, gallery, var, count):
+        self.gallery = gallery
+        self.count = count
+        self.var = var
+        print gallery, count, var
+
+
+    def render(self, context):
+        context[self.var] = \
+            Picture.objects.filter(gallery=context[self.gallery]).order_by('?')[:self.count]
+        return u''
+
 @register.tag(name='get_latest_pictures')
 def do_get_latest_pictures(parser, token):
     """
@@ -10,21 +48,22 @@ def do_get_latest_pictures(parser, token):
 
     Usage:
 
-        {% get_latest_pictures 20 as pictures %}
+        {% get_latest_pictures as pictures limit 20 %}
         {% for picture in pictures %}
         ...
         {% endfor %}
     """
     tokens = token.contents.split()
-    if len(tokens) != 4 or tokens[2] != 'as':
-        raise TemplateSyntaxError("'get_latest_pictures' requires 'number as variable' (got %r)" % args)
+    if len(tokens) != 5 or tokens[1] != u'as' or tokens[3] != u'limit':
+        raise TemplateSyntaxError(
+            "'get_latest_pictures' requires 'as variable limit number' (got %r)" % tokens)
     try:
-        count = int(tokens[1])
+        count = int(tokens[4])
     except ValueError:
         raise TemplateSyntaxError(
-            "'get_latest_pictures' requires an integer as the first parameter (got %r)"
-            % tokens[1])
-    return GetLatestPictures(count, tokens[3]) 
+            "'get_latest_pictures' requires an integer as the last parameter (got %r)"
+            % tokens[4])
+    return GetLatestPictures(count, tokens[2]) 
     
 
 class GetLatestPictures(Node):

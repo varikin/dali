@@ -18,16 +18,6 @@ urlpatterns = patterns('django.views.generic.date_based',
         'archive_year', archive, name='blog_archive_year'),
 )
 
-tag_dict = {
-    'queryset_or_model': Post,
-    'related_tags': True,
-    'template_name': 'blog/post_tag_list.html',
-    'template_object_name': 'post',
-}
-
-cloud_template = {
-    'template': 'blog/tag_cloud.html',
-}
 
 post_detail = {
     'queryset': Post.objects.all(),
@@ -37,8 +27,4 @@ post_detail = {
 urlpatterns += patterns('',
     url(r'^(?P<slug>[-\w]+)/$', 'django.views.generic.list_detail.object_detail', 
         post_detail, name='blog_post_detail'),
-    url(r'tags/$', 'django.views.generic.simple.direct_to_template', cloud_template, 
-        name='blog_tag_cloud'),
-    url(r'tags/(?P<tag>[^/]+)/$', 'tagging.views.tagged_object_list', tag_dict, 
-        name='blog_tag_detail'),
 )

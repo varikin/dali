@@ -77,6 +77,10 @@ a, img {
     text-align: right;
 }
 
+.content {
+    margin-top: 15px;
+}
+
 #footer {
     clear: both;
     padding-top: 30px;

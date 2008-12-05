@@ -48,21 +48,21 @@ $('#slide_left').click(slideLeft);
 
 
 {% block content %}
-<div class="section">
+<div>
    <h1 class="above_line">Announcements</h1>
-   <div {% if user.is_authenticated %}class="edit"{% endif %}>
+   <div class="content {% if user.is_authenticated %}edit{% endif %}">
       {{ flatpage.content }}
    </div>
 </div>
 
 <h1 class="above_line">Recent Pictures</h1>
-<div id="slider_container">
+<div class="content" id="slider_container">
    <div id="slide_left">
       <img src="/static/slide_left.png" alt="slide left"/>
    </div>
    <div id="slider">
       <div id="sliding_images">
-         {% get_latest_pictures 20 as pictures %}
+         {% get_latest_pictures as pictures limit 20 %}
          {% for picture in pictures %}
             <div class="sliding_image">
                <a href="{{ picture.gallery.get_absolute_url }}">

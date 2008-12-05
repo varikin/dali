@@ -3,13 +3,13 @@ from gallery.models import Gallery
 
 gallery_dict = {
 	'queryset': Gallery.objects.filter(published=True),
+	'template_object_name': 'gallery'
 }
 
 
 #Generic views
 urlpatterns = patterns('django.views.generic.list_detail',
-    url(r'^$', 'object_list', gallery_dict, name='gallery_list'),
-    
+    url(r'^$', 'object_list', gallery_dict, name='gallery_list'),   
 )
 
 #gallery.views views

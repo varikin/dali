@@ -7,6 +7,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     (r'^admin/(.*)', admin.site.root),
     (r'^blog/', include('blog.urls')),
+    (r'^tag/', include('blog.tag_urls')),
     (r'^comments/', include('django.contrib.comments.urls')),
     (r'^gallery/', include('gallery.admin.urls')),
     (r'^gallery/', include('gallery.urls')),
