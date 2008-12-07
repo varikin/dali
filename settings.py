@@ -53,7 +53,7 @@ INSTALLED_APPS = (
     'django.contrib.comments',
     'django_extensions',
     'django.contrib.flatpages', 
-    'customflatpages',
+    'dali_flatpages',
     'gallery',
     'tagging',
     'blog',

@@ -14,16 +14,6 @@ class GalleryTestCase(TestCase):
         
     def setUp(self):
         self.gallery = Gallery.objects.get(slug='TestGallery') 
-         
-    def test_random_no_pictures(self):
-        picture = self.gallery.random_picture()
-        self.assert_(picture is None)
-    
-    def test_random_with_pictures(self):
-        expected = create_picture(self.gallery)
-        expected.save()
-        actual = self.gallery.random_picture()
-        self.assertEquals(expected, actual)
         
     def test_count_no_pictures(self):
         count = self.gallery.picture_count()

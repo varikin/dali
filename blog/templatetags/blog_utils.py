@@ -30,7 +30,11 @@ class GetLatestPostNode(Node):
         self.var = var
     
     def render(self, context):
-        context[self.var] = Post.objects.filter(published=True)[0] #the order_by on model already gets latest
+        try:
+            #the order_by on model already gets latest
+            context[self.var] = Post.objects.filter(published=True)[0]
+        except IndexError:
+            context[self.var] = None
         return u''
 
 @register.simple_tag
@@ -46,6 +50,8 @@ def image_preview(post, count):
     Checks if the image is flickr image or a local image and replaces it with 
     the appriate url.blog
     """
+    if post is None:
+        return u''
     soup = BeautifulSoup(post.body)
     imgs = soup('img', limit=count)
     methods = (_get_flickr_url, _get_local_url)

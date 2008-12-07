@@ -2,7 +2,6 @@ from __future__ import division
 import os
 import tempfile
 import Image
-from django.core.exceptions import ValidationError
 from django.core.files import File
 from django.db import models
 
@@ -22,27 +21,15 @@ class Gallery(models.Model):
     def get_absolute_url(self):
         return ("gallery_detail", (), {"gallery": self.slug})
     
-    def random_picture(self):
-        """
-        Return a random picture from the gallery.  If no pictures are in the gallery, 
-        None is returned.
-        """
-        try:
-            return Picture.objects.filter(gallery=self).order_by('?')[0]
-        except IndexError:
-            return None
-    
     def picture_count(self):
-        """
-        Return the number of pictures in the gallery; return an integer.
-        """
+        """Returns the number of pictures in the gallery."""
         return Picture.objects.filter(gallery=self).count()
     picture_count.short_description = 'Number of Pictures'
         
 
 class Picture(models.Model):
-    THUMBNAIL_WIDTH = 75
-    VIEWABLE_WIDTH = 400
+    THUMBNAIL_SIZE = 75
+    VIEWABLE_SIZE = 400
     IMAGE_TYPE = 'JPEG'
 
     name = models.CharField(max_length=100)
@@ -62,6 +49,10 @@ class Picture(models.Model):
     def __unicode__(self):
         return self.name
     
+    @models.permalink
+    def get_absolute_url(self):
+        return ("picture_detail", (), {"picture": self.slug, "gallery": self.gallery.slug})
+    
     def save(self, **kwargs):
         """
         Saves a Picture instance. Return True if a thumbnail and viewable is
@@ -77,30 +68,74 @@ class Picture(models.Model):
         if generate_images:
             orig = Image.open(self.original.path)
             name = os.path.basename(self.original.name)
-            _resize_image(self.thumbnail, orig, name, Picture.THUMBNAIL_WIDTH, Picture.IMAGE_TYPE)
-            _resize_image(self.viewable, orig, name, Picture.VIEWABLE_WIDTH, Picture.IMAGE_TYPE)        
+            self.create_viewable(orig, name)
+            self.create_thumbnail(orig, name)
             result = True
         
         super(Picture, self).save(**kwargs)    
         return generate_images
         
-    @models.permalink
-    def get_absolute_url(self):
-        return ("picture_detail", (), {"picture": self.slug, "gallery": self.gallery.slug})
+    def create_viewable(self, image=None, name=None, save=False):
+        """
+        Creates a viewable for a Picture.
+        
+        image: A PIL image.  If not given, opens the original with PIL.
+        name: A name for the viewable.  If not given, uses basename of the 
+            original
+        save: Whether to save the object or not.
+        """
+        if image is None:
+            image = Image.open(self.original.path)
+        if name is None:
+            name = os.path.basename(self.original.name) 
+        
+        width, height = self._get_size(image.size[0], image.size[1], 
+            Picture.VIEWABLE_SIZE)
+        resized = image.resize((width, height), Image.ANTIALIAS)
+        tf = tempfile.NamedTemporaryFile('w+b')
+        resized.save(tf, Picture.IMAGE_TYPE)
+        self.viewable.save(name,File(tf), save)
+        tf.close()
+        
+    def create_thumbnail(self, image=None, name=None, save=False):
+        """
+        Creates a thumbnail for a Picture.
+        
+        The thumbnail is cropped to be square.
+        image: A PIL image.  If not given, opens the original with PIL.
+        name: A name for the viewable.  If not given, uses basename of the 
+            original
+        save: Whether to save the object or not.
+        """
+        if image is None:
+            image = Image.open(self.original.path)
+        if name is None:
+            name = os.path.basename(self.original.name) 
 
-def _resize_image(thumb, original, name, width, image_type):
-    """
-    Resizes an image.
-    
-    thumb - A ImageField for a model that will contain the resized image
-    original - A PIL Image object
-    name - A string to name the thumbnail
-    width - The width of the resized image, the height is calculated from this.
-    image_type - The type of image to save the thumb as.  Should be 'JPEG' or 'PNG'
-    """
-    height = int(width * original.size[1] / original.size[0])
-    resized = original.resize((width, height), Image.ANTIALIAS)
-    tf = tempfile.NamedTemporaryFile('w+b')
-    resized.save(tf, image_type)
-    thumb.save(name,File(tf), False)
-    tf.close()
+        landscape = image.size[0] > image.size[1]
+        lower, remainder = divmod(Picture.THUMBNAIL_SIZE, 2)
+        upper = lower
+        if remainder != 0: 
+            upper += 1        
+
+        if landscape:
+            height, width = self._get_size(image.size[1], image.size[0], 
+                Picture.THUMBNAIL_SIZE)
+            resized = image.resize((width, height), Image.ANTIALIAS)        
+            center = resized.size[0] // 2
+            box = (center - lower, 0, center + upper, Picture.THUMBNAIL_SIZE)
+        else:
+            width, height = self._get_size(image.size[0], image.size[1], 
+                Picture.THUMBNAIL_SIZE)
+            resized = image.resize((width, height), Image.ANTIALIAS)        
+            center = resized.size[1] // 2
+            box = (0, center - lower, Picture.THUMBNAIL_SIZE, center + upper)
+        
+        crop = resized.crop(box)
+        tf = tempfile.NamedTemporaryFile('w+b')
+        crop.save(tf, Picture.IMAGE_TYPE)
+        self.thumbnail.save(name,File(tf), save)
+        tf.close()
+        
+    def _get_size(self, short, long_, const):
+        return const, int(const * long_ / short)
