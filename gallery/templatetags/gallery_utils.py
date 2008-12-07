@@ -33,8 +33,6 @@ class GetRandomPictures(Node):
         self.gallery = gallery
         self.count = count
         self.var = var
-        print gallery, count, var
-
 
     def render(self, context):
         context[self.var] = \
