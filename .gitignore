@@ -10,3 +10,4 @@
 *.swp
 media/*
 local_settings.py
+fabfile.py
