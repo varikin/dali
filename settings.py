@@ -1,9 +1,9 @@
 import os
 
 PROJECT_BASE = os.path.dirname(__file__)
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
-INTERNAL_IPS = ('127.0.0.1',)
+
+DEBUG = False
+TEMPLATE_DEBUG = False
 
 ADMINS = (
     ('varikin', 'varikin@gmail.com'),
@@ -12,19 +12,16 @@ MANAGERS = ADMINS
 
 DATABASE_ENGINE = 'sqlite3'
 DATABASE_NAME = os.path.join(PROJECT_BASE, 'dev.db')
+
 TIME_ZONE = 'America/Chicago'
-
-LANGUAGE_CODE = 'en-us'
-
 SITE_ID = 1
-
 USE_I18N = False
 
 MEDIA_ROOT = os.path.join(PROJECT_BASE, 'media')
 MEDIA_URL = '/media/'
-ADMIN_MEDIA_PREFIX = '/admin-media/'
+ADMIN_MEDIA_PREFIX = '/media/admin'
 
-SECRET_KEY = 'm^e$b0(38%!tz592na&vx9g55w%m8m(@y0ooqq-rvsdj3nw-rf'
+SECRET_KEY = 'ds(%#lzza1dpe1k@h@ikzuffk4cnr8zlldoms5dmrp!l7^k08s'
 
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.load_template_source',
@@ -60,3 +57,8 @@ INSTALLED_APPS = (
 )
 
 FORCE_LOWERCASE_TAGS = True
+
+try:
+    from local_settings import *
+except ImportError:
+    pass
