@@ -4,21 +4,50 @@
 
 {% block title %}{{ post.title }} | {{ block.super }}{% endblock %}
 
+{% block javascripts %}
+<script type="text/javascript" src="/static/js/jquery.jeditable.js"></script>
+{% if user.is_authenticated %}
+<script type="text/javascript" src="/static/js/blog.js"></script>
+{% endif %}
+{% endblock %}
+
 {% block docReadyJS %}
 $("#id_comment").attr("cols", 80); //don't want to hack comments:(
+
+{% if user.is_authenticated %}
+$('#save').click(function () {
+   dali_blog.save_post('{% url blog_update_post post.slug %}');
+});
+var fields = [
+   { edit : '.edit', id : 'title' },
+   { edit : '.edit_area', id : 'body' }
+];
+for(var i = 0; i < fields.length; i++) {
+   $(fields[i].edit).editable(dali_blog.update_post, {
+      indicator : 'Saving...',
+      tooltip   : 'Click to edit...',
+      submit : 'OK',
+      id : fields[i].id,
+   });
+}
+{% endif %}
+
 {% endblock %}
 
 {% block content %}
 
 <div class="post">
-  <h1 class="title above_line">{{ post.title }}</h1>
+  <h1 class="title above_line {% if user.is_authenticated %}edit{% endif %}">{{ post.title }}</h1>
+     
   <div class="time below_line">
-    <strong>{{ post.date_published|date:"M j, Y" }}</strong>
-    {{ post.date_published|time:"f A" }}
+    <strong>{{ post.date_published|date:"M j, Y" }}</strong>{{ post.date_published|time:"f A" }}
+    {% if user.is_authenticated %}
+    <span id="save">
+      <img src="/static/icons/page_save.png" alt="Save:)" title="Save:)"/>
+    </span>
+    {% endif %} 
   </div>
-  <div class="content">
-    {{ post.body|safe }}
-  </div>
+  <div class="content {% if user.is_authenticated %}edit_area{% endif %}">{{ post.body|safe }}</div>
 </div>
 
 {% tags_for_object post as tags %}

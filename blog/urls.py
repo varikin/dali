@@ -25,6 +25,7 @@ post_detail = {
 }
 
 urlpatterns += patterns('',
+    url(r'^(?P<slug>[-\w]+)/update/$', 'blog.views.update_post', name='blog_update_post'),
     url(r'^(?P<slug>[-\w]+)/$', 'django.views.generic.list_detail.object_detail', 
         post_detail, name='blog_post_detail'),
 )

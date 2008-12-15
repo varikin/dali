@@ -48,7 +48,7 @@ a, img {
     padding-right: 12px;
 }
 
-#body {
+#main_body {
     float: left;
     margin: 25px 0 10px 0;
     text-align: left;
@@ -79,6 +79,11 @@ a, img {
 
 .content {
     margin-top: 15px;
+}
+
+#save {
+    text-align: right;
+    float: right;    
 }
 
 #footer {
@@ -170,4 +175,26 @@ a, img {
     position: relative;
     margin: 0;
     float: left;
+}
+
+
+.statusbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 15px;    
+    padding: 5px;
+    
+    background: lightgreen;
+    color: black;    
+    border: solid 1px green;
+    text-align: center;
+    
+    opacity: .70;    
+    filter: alpha(opacity="70");
+
+    z-index: 200;
+    overflow: hidden;
+    overflow-y: auto; 
 }
