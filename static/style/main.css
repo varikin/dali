@@ -177,24 +177,40 @@ a, img {
     float: left;
 }
 
-
-.statusbar {
+.success, .warning, .error, .info {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    height: 15px;    
+    height: 16px;
     padding: 5px;
-    
-    background: lightgreen;
-    color: black;    
-    border: solid 1px green;
     text-align: center;
-    
-    opacity: .70;    
-    filter: alpha(opacity="70");
-
     z-index: 200;
     overflow: hidden;
     overflow-y: auto; 
+}
+
+.success {
+    background: #DFF2BF;
+    color: #4F8A10;    
+    border: solid 1px #4F8A10;
+}
+
+.warning {
+    background: #DBCE9A;
+    color: #9F6000;
+    border: solid 1px #9F6000;
+}
+
+.error {
+    background: #FFBABA;
+    color: #D8000C;
+    border: solid 1px #D8000C;
+}
+
+
+.info {
+    background: #BDE5F8;
+    color: #00529B;
+    border: solid 1px #00529B;
 }

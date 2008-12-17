@@ -14,49 +14,29 @@ var dali_blog = function() {
     fields : {},
     
     save_callback : function(data) {
-      _private.show_status(data, 10000);
+      var status = '';
+      if(data == "Success") {
+        status = 'success'; 
+      } else {
+        status = 'error'
+      }
+      
+      _private.show_status(data, status);
     }, //End save_callback
     
-    show_status : function(message,timeout) {        
-      var statusbar = $("<div class='statusbar'></div>")
+    show_status : function(message, type) {
+      var statusbar = $("<div id='status'></div>")
+        .addClass(type)
         .text(message)
         .appendTo(document.body)
         .hide()
         .fadeIn('slow');
       
-      if (timeout) {
-        setTimeout(function() { 
-          statusbar.fadeOut('slow', function() { statusbar.remove(); }); 
-        }, timeout);
-      }                
+      setTimeout(function() { 
+        statusbar.fadeOut('slow', function() { statusbar.remove(); }); 
+      }, 10000);                
     }, // End show_status
   }; //End _private
-
-
-  function showStatus(message,timeout,add)
-  {        
-      if (typeof _statusbar == "undefined")
-      {
-         // ** Create a new statusbar instance as a global object
-          _statusbar = 
-              $("<div id='_statusbar' class='statusbar'></div>")
-                      .appendTo(document.body)                   
-                      .show();
-      }
-
-      if (add)              
-         // *** add before the first item    
-          _statusbar.prepend( "<div style='margin-bottom: 2px;' >" + message + "</div>")[0].focus();
-      else    
-          _statusbar.text(message)
-      _statusbar.show();        
-
-      if (timeout)
-      {
-          _statusbar.addClass("statusbarhighlight");
-          setTimeout( function() { _statusbar.removeClass("statusbarhighlight"); },timeout);
-      }                
-  }
 
   return _public;
 }();
