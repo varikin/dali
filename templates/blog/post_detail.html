@@ -7,7 +7,7 @@
 {% block javascripts %}
 <script type="text/javascript" src="/static/js/jquery.jeditable.js"></script>
 {% if user.is_authenticated %}
-<script type="text/javascript" src="/static/js/blog.js"></script>
+<script type="text/javascript" src="/static/js/dali.js"></script>
 {% endif %}
 {% endblock %}
 
@@ -16,14 +16,14 @@ $("#id_comment").attr("cols", 80); //don't want to hack comments:(
 
 {% if user.is_authenticated %}
 $('#save').click(function () {
-   dali_blog.save_post('{% url blog_update_post post.slug %}');
+   dali.save_post('{% url blog_update_post post.slug %}');
 });
 var fields = [
    { edit : '.edit', id : 'title' },
    { edit : '.edit_area', id : 'body' }
 ];
 for(var i = 0; i < fields.length; i++) {
-   $(fields[i].edit).editable(dali_blog.update_post, {
+   $(fields[i].edit).editable(dali.update_post, {
       indicator : 'Saving...',
       tooltip   : 'Click to edit...',
       submit : 'OK',
