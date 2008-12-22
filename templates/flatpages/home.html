@@ -9,43 +9,20 @@
 
 {% block javascripts %}
 <script type="text/javascript" src="/static/js/jquery.jeditable.js"></script>
+<script type="text/javascript" src="/static/js/dali.js"></script>
 {% endblock %}
 
 {% block docReadyJS %}
-$('.edit').editable(function(value, settings) {
-   console.log(this);
-   console.log(value);
-   console.log(settings);
-   return(value);
-}, {
-   indicator : 'Saving...',
-   tooltip   : 'Click to edit...',
-   submit : 'OK',
+
+$('#slide_right').click(function() {
+  dali.slide_right('#sliding_images')
 });
 
-var slideIncrement = 75;
-var slideCounter = 0
-
-function slideRight(e) {
-   if(slideCounter > 0) {
-      slideCounter--;
-      $('#sliding_images').animate({right: 2 * slideCounter * slideIncrement}, 1000);
-   }
-}
-
-function slideLeft(e) {
-   if(slideCounter < 8) {
-      slideCounter++;
-      $('#sliding_images').animate({right: 2* slideCounter * slideIncrement}, 1000);
-   }
-}
-
-$('#slide_right').click(slideRight);
-$('#slide_left').click(slideLeft);
-
+$('#slide_left').click(function() {
+  dali.slide_left('#sliding_images');
+});
 
 {% endblock %}
-
 
 {% block content %}
 <div>
