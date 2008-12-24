@@ -4,9 +4,15 @@
 
 {% block title %}{{ post.title }} | {{ block.super }}{% endblock %}
 
+{% block stylesheets %}
+<link rel="stylesheet" href="/static/js/jquery.wysiwyg.css" type="text/css"/>
+{% endblock %}
+
 {% block javascripts %}
-<script type="text/javascript" src="/static/js/jquery.jeditable.js"></script>
 {% if user.is_authenticated %}
+<script type="text/javascript" src="/static/js/jquery.wysiwyg.js"></script>
+<script type="text/javascript" src="/static/js/jquery.jeditable.js"></script>
+<script type="text/javascript" src="/static/js/jquery.jeditable.wysiwyg.js"></script>
 <script type="text/javascript" src="/static/js/dali.js"></script>
 {% endif %}
 {% endblock %}
@@ -18,18 +24,32 @@ $("#id_comment").attr("cols", 80); //don't want to hack comments:(
 $('#save').click(function () {
    dali.save_post('{% url blog_update_post post.slug %}');
 });
-var fields = [
-   { edit : '.edit', id : 'title' },
-   { edit : '.edit_area', id : 'body' }
-];
-for(var i = 0; i < fields.length; i++) {
-   $(fields[i].edit).editable(dali.update_post, {
+
+$('.edit_area').editable(dali.update_post, {
+      type : 'wysiwyg',
+      onblur : 'ignore',
+      submit : 'OK',
+      cancel : 'Cancel',
+      tooltip : 'Click to edit...',
+      id : 'body',
+      wysiwyg : { controls : { 
+          seperator04 : { visible : true },
+          insertOrderedList : { visible : true },
+          insertUnorderedList : { visible : true },                      
+        }
+      }
+});
+
+$('.edit').editable(dali.update_post, {
       indicator : 'Saving...',
       tooltip   : 'Click to edit...',
       submit : 'OK',
-      id : fields[i].id,
-   });
-}
+      cancel : 'Cancel',
+      id : 'title',
+});
+
+
+
 {% endif %}
 
 {% endblock %}
@@ -78,6 +98,7 @@ for(var i = 0; i < fields.length; i++) {
     {% endfor %}
 </div>
 <div id="comment_form">
+    <div class="subtitle above_line">Post a comment...</div>
     {% render_comment_form for post %}
 </div>
 {% endblock %}
