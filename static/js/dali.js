@@ -14,6 +14,23 @@ var dali = function() {
   
   return {
     
+    show_lightbox: function() {
+      var ctrl = $('<div id="lightbox_control"></div>')
+        .text('close')
+        .click(dali.hide_lightbox);
+      $("<div id='lightbox'></div>")
+        .appendTo(document.body)
+        .append(ctrl)
+        .hide()
+        .fadeIn('slow');
+    },
+    
+    hide_lightbox : function() {
+      $("#lightbox").fadeOut('slow', function(){
+        $(this).remove();
+      });
+    },
+    
     update_post : function(value, settings) {
       post_fields[settings.id] = value;
       return value;
