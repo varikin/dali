@@ -15,10 +15,10 @@ var dali = function() {
   return {
     
     show_lightbox: function() {
-      var ctrl = $('<div id="lightbox_control"></div>')
+      var ctrl = jQuery('<div id="lightbox_control"></div>')
         .text('close')
         .click(dali.hide_lightbox);
-      $("<div id='lightbox'></div>")
+      jQuery("<div id='lightbox'></div>")
         .appendTo(document.body)
         .append(ctrl)
         .hide()
@@ -26,8 +26,8 @@ var dali = function() {
     },
     
     hide_lightbox : function() {
-      $("#lightbox").fadeOut('slow', function(){
-        $(this).remove();
+      jQuery("#lightbox").fadeOut('slow', function(){
+        jQuery(this).remove();
       });
     },
     
@@ -38,7 +38,7 @@ var dali = function() {
     
     save_post : function(url) {
       if(dali.object_size(post_fields) > 0) {
-        $.post(url, post_fields, save_callback, 'text');
+        jQuery.post(url, post_fields, save_callback, 'text');
         post_fields = {};
       } else {
         dali.show_status('Nothing to save', 'info');
@@ -48,19 +48,19 @@ var dali = function() {
     slide_right : function(div) {
        if(slide_counter > 0) {
           slide_counter--;
-          $(div).animate({right: 2 * slide_counter * slide_increment}, 1000);
+          jQuery(div).animate({right: 2 * slide_counter * slide_increment}, 1000);
        }
     },
 
     slide_left : function(div) {
        if(slide_counter < 8) {
           slide_counter++;
-          $(div).animate({right: 2 * slide_counter * slide_increment}, 1000);
+          jQuery(div).animate({right: 2 * slide_counter * slide_increment}, 1000);
        }
     },
     
     show_status : function(message, type) {
-      var statusbar = $("<div id='status'></div>")
+      var statusbar = jQuery("<div id='status'></div>")
         .addClass(type)
         .text(message)
         .appendTo(document.body)
