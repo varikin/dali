@@ -1,0 +1,15 @@
+{% comment %}
+Meant for dynamic loading via ajax so it is just an html fragment.
+{% endcomment %}
+
+<div id="lb_main">
+  <ul id="lb_galleries">
+  {% for gallery in galleries %}
+    <li id="{{ gallery.slug }}">{{ gallery.name }}</li>
+  {% endfor %}
+  </ul>
+</div>
+<div id="lb_control">
+  <img id="lb_cancel" src="/static/icons/cancel.png" alt="Cancel" title="Cancel"/>
+  <img id="lb_accept" src="/static/icons/accept.png" alt="Accept" title="Accept"/>
+</div>

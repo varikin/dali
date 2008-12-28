@@ -19,7 +19,19 @@ def picture_detail(request, gallery, picture):
     context = {}
     try:
         context['picture'] = Picture.objects.get(slug=picture)
-    except Picture.DoesNotExist:
+    except Picture.DoesNotExist: 
         raise Http404
 
     return render_to_response('gallery/picture_detail.html', context)
+
+def choose_gallery(request):
+    context = { 'galleries': Gallery.objects.all() }
+    return render_to_response('gallery/choose_gallery.html', context)
+
+def choose_picture(request, gallery):
+    context = {
+        'pictures': Picture.objects.filter(gallery__slug=gallery).order_by('order')
+    }
+    print gallery, context
+    return render_to_response('gallery/choose_picture.html', context)
+        

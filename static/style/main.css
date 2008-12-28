@@ -230,7 +230,7 @@ a, img {
     overflow: auto;
 }
 
-#lightbox_control {
+#lb_control {
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -238,4 +238,12 @@ a, img {
     background-color: #FFF;
     z-index: 502;
     border-top: 2px #777 solid;
+}
+
+#lb_pictures > img.selected {
+    border: 2px solid red;
+}
+
+#lb_status {
+    width: 90%;
 }
