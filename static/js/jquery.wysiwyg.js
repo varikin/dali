@@ -83,6 +83,7 @@
             brIE         : true,
 
             controls : {},
+            
             messages : {}
         }, options);
 
@@ -112,7 +113,7 @@
     }
 
     $.extend(Wysiwyg, {
-        insertImage : function( szURL, attributes )
+        insertImage : function( attributes )
         {
             var self = $.data(this, 'wysiwyg');
 
@@ -241,10 +242,14 @@
                         this.editorDoc.execCommand('insertImage', true, null);
                     else
                     {
-                        var szURL = prompt('URL', 'http://');
-
-                        if ( szURL && szURL.length > 0 )
-                            this.editorDoc.execCommand('insertImage', false, szURL);
+                        dali.show_lightbox();
+                        $("#lb_accept").click(function() {
+                          var szURL = dali.choose_image();
+                          console.log(szURL);
+                          if ( szURL && szURL.length > 0 )
+                              this.editorDoc.execCommand('insertImage', false, szURL);  
+                        });
+                        
                     }
                 },
 

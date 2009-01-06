@@ -2,15 +2,12 @@
 Meant for dynamic loading via ajax so it is just an html fragment.
 {% endcomment %}
 
-<div id="lb_main">
-  <div id="lb_pictures">
-  {% for picture in pictures %}
-    <img src="{{ picture.thumbnail.url }}" title="{{ picture.name }}"/>
-  {% endfor %}
+<fieldset>
+  <legend>Select Gallery</legend>
+  <div id="dynamic_images_list">
+    {% for picture in pictures %}
+    <img src="{{ picture.thumbnail.url }}" id="{{ picture.viewable.url }}" 
+      title="{{ picture.name }}" alt="{{ picture.description}}"/>
+    {% endfor %}
   </div>
-</div>
-<div id="lb_control">
-  <span id="lb_status"/>
-  <img id="lb_cancel" src="/static/icons/cancel.png" alt="Cancel" title="Cancel"/>
-  <img id="lb_accept" src="/static/icons/accept.png" alt="Accept" title="Accept"/>
-</div>
+</fieldset>
