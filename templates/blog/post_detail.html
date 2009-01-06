@@ -10,9 +10,9 @@
 
 {% block javascripts %}
 {% if user.is_authenticated %}
-<script type="text/javascript" src="/static/js/tiny_mce/tiny_mce_src.js"></script>
+<script type="text/javascript" src="/static/js/jquery.wysiwyg.js"></script>
 <script type="text/javascript" src="/static/js/jquery.jeditable.js"></script>
-<script type="text/javascript" src="/static/js/jquery.jeditable.tinymce.js"></script>
+<script type="text/javascript" src="/static/js/jquery.jeditable.wysiwyg.js"></script>
 <script type="text/javascript" src="/static/js/dali.js"></script>
 {% endif %}
 {% endblock %}
@@ -26,12 +26,18 @@ $('#save').click(function () {
 });
 
 $('.edit_area').editable(dali.update_post, {
-      type : 'mce',
+      type : 'wysiwyg',
       onblur : 'ignore',
       submit : 'OK',
       cancel : 'Cancel',
       tooltip : 'Click to edit...',
       id : 'body',
+      wysiwyg : { controls : { 
+          seperator04 : { visible : true },
+          insertOrderedList : { visible : true },
+          insertUnorderedList : { visible : true },                      
+        }
+      }
 });
 
 $('.edit').editable(dali.update_post, {
@@ -41,6 +47,8 @@ $('.edit').editable(dali.update_post, {
       cancel : 'Cancel',
       id : 'title',
 });
+
+$('#comment_form').click(dali.show_lightbox);
 
 {% endif %}
 

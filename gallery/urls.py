@@ -15,7 +15,6 @@ urlpatterns = patterns('django.views.generic.list_detail',
 #gallery.views views
 urlpatterns += patterns('gallery.views',
     url(r'^choose_picture/$', 'choose_gallery', name='gallery_choose_gallery'),
-    url(r'^choose_picture/chooser_status/$', 'chooser_status', name='gallery_chooser_status'),
     url(r'^choose_picture/(?P<gallery>[-\w]+)/$', 'choose_picture', 
         name='gallery_choose_picture'),
     url(r'^(?P<gallery>[-\w]+)/(?P<picture>[-\w]+)/$', 'picture_detail', 
