@@ -32,6 +32,7 @@ def choose_picture(request, gallery):
     context = {
         'pictures': Picture.objects.filter(gallery__slug=gallery).order_by('order')
     }
-    print gallery, context
     return render_to_response('gallery/choose_picture.html', context)
-        
+
+def chooser_status(request):
+    return render_to_response('gallery/lightbox/chooser_status.html')
