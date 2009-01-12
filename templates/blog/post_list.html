@@ -4,7 +4,7 @@
 {% block title %}Recent posts | {{ block.super }}{% endblock %}
 
 {% block content %}
- {% for post in latest %}
+ {% for post in post_list %}
  <div class="post">
    <h1 class="title above_line">
      <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
