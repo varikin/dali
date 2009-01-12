@@ -4,6 +4,7 @@ import tempfile
 import Image
 from django.core.files import File
 from django.db import models
+from gallery.managers import GalleryManager
 
 class Gallery(models.Model):    
     name = models.CharField(max_length=100)
@@ -14,6 +15,9 @@ class Gallery(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
     
+    objects = GalleryManager()
+    verbose_name_plural = "galleries"
+    ordering = ('date_created',)
     def __unicode__(self):
         return self.name
     
