@@ -42,6 +42,8 @@ $('.edit').editable(dali.update_post, {
       id : 'title',
 });
 
+$('#published')
+
 {% endif %}
 
 {% endblock %}
@@ -49,13 +51,20 @@ $('.edit').editable(dali.update_post, {
 {% block content %}
 
 <div class="post">
-  <h1 class="title above_line {% if user.is_authenticated %}edit{% endif %}">{{ post.title }}</h1>
+  <h1 class="title above_line {% if user.is_authenticated %}edit{% endif %}">
+    {{ post.title }}
+  </h1>
      
   <div class="time below_line">
     <strong>{{ post.date_published|date:"M j, Y" }}</strong>{{ post.date_published|time:"f A" }}
     {% if user.is_authenticated %}
-    <span id="save">
-      <img src="/static/icons/page_save.png" alt="Save:)" title="Save:)"/>
+    <span id="icon_list">
+      {% if post.published %}
+        <img src="/static/icons/accept.png" id="publish" alt="Not published" title="Not published"/>
+      {% else %}  
+        <img src="/static/icons/exclamation.png" id="publish" alt="Not published" title="Not published"/>
+      {% endif %}
+      <img src="/static/icons/page_save.png" id="save" alt="Save:)" title="Save:)"/>
     </span>
     {% endif %} 
   </div>
