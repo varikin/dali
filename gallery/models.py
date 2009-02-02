@@ -73,7 +73,7 @@ class Picture(models.Model):
             if self.original.path == old_picture.original.path:
                 generate_images = False
         
-        if True:
+        if generate_images:
             orig = Image.open(self.original.path)
             name = os.path.basename(self.original.name)
             self.create_viewable(orig, name)
