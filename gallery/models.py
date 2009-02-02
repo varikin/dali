@@ -55,7 +55,10 @@ class Picture(models.Model):
     
     @models.permalink
     def get_absolute_url(self):
-        return ("picture_detail", (), {"picture": self.slug, "gallery": self.gallery.slug})
+        return ("picture_detail", (), {
+            "picture": self.slug, 
+            "gallery": self.gallery.slug,
+        })
     
     def save(self, **kwargs):
         """
@@ -63,18 +66,18 @@ class Picture(models.Model):
         generated, False otherwise.
         """
         # Determine if this is a new picture object or new original file.
+         
         generate_images = True
         if self.id is not None:
             old_picture = Picture.objects.get(pk=self.id)
             if self.original.path == old_picture.original.path:
                 generate_images = False
-                
-        if generate_images:
+        
+        if True:
             orig = Image.open(self.original.path)
             name = os.path.basename(self.original.name)
             self.create_viewable(orig, name)
             self.create_thumbnail(orig, name)
-            result = True
         
         super(Picture, self).save(**kwargs)    
         return generate_images
