@@ -4,10 +4,6 @@
 
 {% block title %}{{ post.title }} | {{ block.super }}{% endblock %}
 
-{% block stylesheets %}
-<link rel="stylesheet" href="/static/js/jquery.wysiwyg.css" type="text/css"/>
-{% endblock %}
-
 {% block javascripts %}
 {% if user.is_authenticated %}
 <script type="text/javascript" src="/static/js/tiny_mce/tiny_mce_src.js"></script>
