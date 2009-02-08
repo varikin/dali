@@ -16,6 +16,7 @@ http://www.opensource.org/license/mit-license.php
 jQuery Javascript library, http://jquery.com/, 
 which is released under the MIT License,
 http://dev.jquery.com/browser/trunk/jquery/MIT-LICENSE.txt.
+NB: jQuery is not included, just using the Google API version.
 
 Slimbox v2.02 - The ultimate lightweight Lightbox clone for jQuery
 (c) 2007-2009 Christophe Beyls <http://www.digitalia.be>

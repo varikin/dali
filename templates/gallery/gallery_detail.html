@@ -10,19 +10,13 @@
 
 {% block content %}
   <div>
-  	<span>{{ gallery.name }}</span><br/>
-  	<span>{{ gallery.description }} </span><br/>
-
-  	{% if gallery.parentGallery %}
-  		<span>The parent gallery is
-  		 	<a href="{{ gallery.parentGallery.get_absolute_url }}">
-  		 		{{ gallery.parentGallery.name }}
-  		 	</a>
-  		</span>
-  	{% endif %}
+    <h1 class="title above_line">
+		  <a href="{{ gallery.get_absolute_url }}">{{ gallery.name }}</a>
+		</h1>
+    <div class="below_line">{{ gallery.description }} - {{ gallery.picture_count }} Pictures</div>
   </div>
 
-  <div id="picture_list">
+  <div class="content picture_list">
   {% for picture in pictures %}
     <a rel="lightbox-gallery" href="{{ picture.viewable.url }}" 
     {% if picture.description %} title="{{ picture.description|escape }}" {% endif %}>

@@ -93,38 +93,19 @@ a, img {
 } 
 
 /* Gallery styles */
-#picture_list {
-    padding-bottom: 25px;
-    padding-top: 25px;
+.picture_list {
+    padding-left: 5px;
 }
 
-#picture_list img {
-    margin-right: 25px;
-}
-
-.gallery {
-    margin-bottom: 15px;
-}
-
-.gallery:after {
-    content: ".";
-    display: block;
-    height: 0;
-    clear: both;
-    visibility: hidden;
+.picture_list img {
+    background-color: #000;
+    margin-bottom: 10px;
+    margin-left: -5px;
+    padding: 15px 5px 15px 5px;
     
 }
 
-.gallery .thumbnail {
-    float: left;
-    margin-right: 10px;
-}
 
-.gallery .meta {
-    float: left;
-    font-size: 1.2em;
-    line-height: 1.25em;
-}
 
 /* Blog and comment styles */
 

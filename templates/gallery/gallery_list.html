@@ -7,8 +7,8 @@
 		<h1 class="title above_line">
 		  <a href="{{ gallery.get_absolute_url }}">{{ gallery.name }}</a>
 		</h1>
-      <div class="below_line">{{ gallery.description }} - {{ gallery.picture_count }} Pictures</div>		
-		<div class="thumbnail">
+    <div class="below_line">{{ gallery.description }} - {{ gallery.picture_count }} Pictures</div>		
+		<div class="picture_list">
 			{% get_random_pictures from gallery as pictures limit 5 %}
 			{% for picture in pictures %}
 					<img src="{{ picture.thumbnail.url }}" />
