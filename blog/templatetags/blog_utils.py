@@ -37,6 +37,23 @@ class GetLatestPostNode(Node):
             context[self.var] = None
         return u''
 
+@register.filter
+def pretty_tag(tag):
+    """
+    Returns a nicely formated tag.
+    
+    The tag has all underscores replaced with spaces and is in title case.
+    
+    Usage:
+    
+        {{ tag|pretty_tag }} #where tag is a tag object
+    
+    This will actually work with any object, not just tag objects because 
+    the unicode method is used on the object to the string version.
+    
+    """
+    return unicode(tag).replace('_', ' ').title()
+
 @register.simple_tag
 def image_preview(post, count):
     """
@@ -48,7 +65,7 @@ def image_preview(post, count):
     
     This also tries to replace the url for the images with thumbnail if possible.
     Checks if the image is flickr image or a local image and replaces it with 
-    the appriate url.blog
+    the appriate url.
     """
     if post is None:
         return u''

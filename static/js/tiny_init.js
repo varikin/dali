@@ -61,5 +61,6 @@
            tinyMCE.execCommand("mceRemoveControl", true, $(original).attr("id")+'_mce');
            original.reset();
         }
+      })
     
 })(jQuery);

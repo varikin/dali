@@ -2,7 +2,7 @@ body{
     color: #FFF;
     background-color: #181818;
     font-family: Gill Sans, Optima, Helvetica, sans-serif;
-    font-size: 14px;
+    font-size: 16px;
     margin: 0 auto;
     padding: 0;
     width: 800px;
@@ -14,9 +14,13 @@ li {
 }
 
 a, img {
-    color: #4E6269;
+    color: #FFF;
     outline: 0;
     border: 0;
+}
+
+a:hover {
+    color: #4E6269;
 }
 
 #header {
@@ -32,7 +36,6 @@ a, img {
 }
 
 #nav a {
-    color: #FFF;
     letter-spacing: 1px;
     padding-top: 2px;
     padding-bottom: 2px;
@@ -44,6 +47,7 @@ a, img {
 #nav a#active, #nav a:hover {
     background-color: #202020;
     border: 1px solid #323232;
+    color: #FFF;
     padding-left: 12px;
     padding-right: 12px;
 }
@@ -59,7 +63,6 @@ a, img {
 }
 
 .title a {
-    color: #FFF;
     text-decoration: none;
 }
 
@@ -98,14 +101,9 @@ a, img {
 }
 
 .picture_list img {
-    background-color: #000;
-    margin-bottom: 10px;
-    margin-left: -5px;
-    padding: 15px 5px 15px 5px;
-    
+    padding: 10px;
+    background: url(../frameflatsmall.png) no-repeat top;
 }
-
-
 
 /* Blog and comment styles */
 
@@ -119,12 +117,10 @@ a, img {
 }
 
 .tag_cloud a {
-    color: #FFF;
     text-decoration: none;
 }
 
 .tag_cloud a:hover {
-    color: #4E6269;
     text-decoration: underline;
 }
 

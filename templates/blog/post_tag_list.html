@@ -4,7 +4,7 @@
 {% block title %}The "{{ tag }}" tag | {{ block.super }}{% endblock %}
 
 {% block content %}
-<h1 class="title">Posts for the tag "{{ tag }}"</h1>
+<h2 class="title">Posts for the tag "{{ tag|pretty_tag }}"</h1>
   {% for post in post_list %}
   <div class="post">
     <h1 class="title above_line">

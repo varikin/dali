@@ -1,6 +1,7 @@
 {% extends "blog/base_blog.html" %}
 {% load comments %}
 {% load tagging_tags %}
+{% load blog_utils %}
 
 {% block title %}{{ post.title }} | {{ block.super }}{% endblock %}
 
@@ -73,7 +74,7 @@ $('#published')
     <div class="subtitle above_line">Tags</div>
     <div class="below_line">
       {% for tag in tags %}
-        <a href="{% url blog_tag_detail tag %}">{{ tag }}</a>
+        <a href="{% url blog_tag_detail tag %}">{{ tag|pretty_tag }}</a>
       {% endfor %}
     </div>
   </div>
