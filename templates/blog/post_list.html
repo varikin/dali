@@ -11,7 +11,7 @@
    </h1>
    
    <div class="below_line">
-     <strong>{{ post.date_published|date:"M j, Y" }}</strong>{{ post.date_published|time:"f A" }}
+     {{ post.date_published|format_date }}
      {% if user.is_authenticated and not post.published %}
      <span id="icon_list">
        <img src="/static/icons/exclamation.png" alt="Not published" title="Not Published"/>

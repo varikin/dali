@@ -53,7 +53,7 @@ $('#published')
   </h1>
      
   <div class="time below_line">
-    <strong>{{ post.date_published|date:"M j, Y" }}</strong>{{ post.date_published|time:"f A" }}
+    {{ post.date_published|format_date }}
     {% if user.is_authenticated %}
     <span id="icon_list">
       {% if post.published %}

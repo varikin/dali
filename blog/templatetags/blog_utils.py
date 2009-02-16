@@ -1,8 +1,10 @@
 import re
 from BeautifulSoup import BeautifulSoup
+from django.conf import settings
 from django.db.models import Q
-from django.template import Library, Node, TemplateSyntaxError 
-import settings
+from django.template import Library, Node, TemplateSyntaxError
+from django.utils.dateformat import DateFormat
+from django.utils.safestring import mark_safe
 from blog.models import Post
 from gallery.models import Picture
 
@@ -50,9 +52,25 @@ def pretty_tag(tag):
     
     This will actually work with any object, not just tag objects because 
     the unicode method is used on the object to the string version.
-    
     """
     return unicode(tag).replace('_', ' ').title()
+
+@register.filter
+def format_date(date):
+    """
+    Formats the date and time as wanted for the blog titles.
+    <strong>Feb 10, 2009</strong> 8:20 PM
+    
+    Usage:
+        {{ post.date|format_date }}
+    
+    """
+    try:
+        df = DateFormat(date)
+        formatted = (df.format('M j, Y'), df.format('f A'))
+    except AttributeError:
+        formatted = ('', '')
+    return mark_safe('<strong>%s</strong> %s' % formatted)
 
 @register.simple_tag
 def image_preview(post, count):

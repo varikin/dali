@@ -84,6 +84,10 @@ a:hover {
     margin-top: 15px;
 }
 
+.tags {
+    margin-top: 15px;
+}
+
 #icon_list {
     text-align: right;
     float: right;    
@@ -101,7 +105,6 @@ a:hover {
 }
 
 .picture_list img {
-    padding: 10px;
     background: url(../frameflatsmall.png) no-repeat top;
 }
 
@@ -109,6 +112,10 @@ a:hover {
 
 .comment {
     margin-bottom: 20px;
+}
+
+#comment_form {
+    margin-top: 15px;
 }
 
 #comment_form form p {
