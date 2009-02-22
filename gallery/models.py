@@ -94,10 +94,9 @@ class Picture(models.Model):
         if image is None:
             image = Image.open(self.original.path)
         if name is None:
-            name = os.path.basename(self.original.name) 
+            name = os.path.basename(self.original.name)
         
-        width, height = self._get_size(image.size[0], image.size[1], 
-            Picture.VIEWABLE_SIZE)
+        width, height = _get_size(image.size[0], image.size[1], Picture.VIEWABLE_SIZE)
         resized = image.resize((width, height), Image.ANTIALIAS)
         tf = tempfile.NamedTemporaryFile('w+b')
         resized.save(tf, Picture.IMAGE_TYPE)
@@ -117,24 +116,20 @@ class Picture(models.Model):
         if image is None:
             image = Image.open(self.original.path)
         if name is None:
-            name = os.path.basename(self.original.name) 
+            name = os.path.basename(self.original.name)
 
-        landscape = image.size[0] > image.size[1]
+        width, height = _get_size(image.size[0], image.size[1], Picture.THUMBNAIL_SIZE)
+        resized = image.resize((width, height), Image.ANTIALIAS)
+
         lower, remainder = divmod(Picture.THUMBNAIL_SIZE, 2)
         upper = lower
         if remainder != 0: 
-            upper += 1        
+            upper += 1
 
-        if landscape:
-            height, width = self._get_size(image.size[1], image.size[0], 
-                Picture.THUMBNAIL_SIZE)
-            resized = image.resize((width, height), Image.ANTIALIAS)        
+        if width > height:
             center = resized.size[0] // 2
             box = (center - lower, 0, center + upper, Picture.THUMBNAIL_SIZE)
         else:
-            width, height = self._get_size(image.size[0], image.size[1], 
-                Picture.THUMBNAIL_SIZE)
-            resized = image.resize((width, height), Image.ANTIALIAS)        
             center = resized.size[1] // 2
             box = (0, center - lower, Picture.THUMBNAIL_SIZE, center + upper)
         
@@ -143,6 +138,22 @@ class Picture(models.Model):
         crop.save(tf, Picture.IMAGE_TYPE)
         self.thumbnail.save(name,File(tf), save)
         tf.close()
-        
-    def _get_size(self, short, long_, const):
-        return const, int(const * long_ / short)
+
+def _get_size(width, height, target_size):
+    """
+    Returns a 2-tuple of (width, height).
+    
+    Calculates a new width and height given a width, height, and a target size.
+    The larger of the width and height will be the target_size. The smaller of the 
+    two will be calculated so that the ratio is the same for the new width and height.
+    
+    width: The original width
+    height: the original height
+    target_size: The size the longer of the 2 should be. This means at least
+        one returned value will be the target_size.
+    
+    """
+    if width > height:
+        return target_size, int(target_size * height / width)
+    else:
+        return int(target_size * width / height), target_size

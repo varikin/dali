@@ -6,7 +6,7 @@ from django.core.files import File
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 from django.test.client import Client
-from gallery.models import Gallery, Picture
+from gallery.models import Gallery, Picture, _get_size
 from gallery.admin.views import save_picture_order
         
 class GalleryTestCase(TestCase):
@@ -30,8 +30,8 @@ class PictureTestCase(TestCase):
     fixtures = ['gallery.json']
     
     def setUp(self):
-        gallery = Gallery.objects.get(slug='TestGallery')
-        self.picture = create_picture(gallery)
+        self.gallery = Gallery.objects.get(slug='TestGallery')
+        self.picture = create_picture(self.gallery)
         
     def test_generate_on_new_picture(self):
         self.assert_(self.picture.save())
@@ -46,6 +46,20 @@ class PictureTestCase(TestCase):
         pic.original.save(''.join([pic.name,'.jpg']), File(_get_temp_image()), False)
         self.assert_(pic.save())
     
+    def test_get_size_landscape(self):
+        w, h = _get_size(1000, 800, 400)
+        self.assertEquals(320, h, 'The height is not correct')
+        self.assertEquals(400, w, 'The width is not correct')
+        
+    def test_get_size_portrait(self):
+        w, h = _get_size(800, 1000, 400)
+        self.assertEquals(400, h, 'The height is not correct')
+        self.assertEquals(320, w, 'The width is not correct')
+        
+    def test_get_size_square(self):
+        w, h = _get_size(832, 832, 400)
+        self.assertEquals(w, h, 'The width is not equal to the height')
+        self.assertEquals(400, w, 'The width is not target size')
 
 class SaveOrderTestCase(TestCase):
     fixtures = ['gallery.json', 'pictures.json', 'user.json']
@@ -102,19 +116,20 @@ def add_permission(user, perm):
     user.user_permissions.add(perm)
     user.save()
 
-def create_picture(gallery):
+def create_picture(gallery, width=100, height=100):
     """Return a Picture that is not saved."""
     name = "temp_%d" % random.randint(1,10000000)
     pic = Picture(name=name, slug=name, gallery=gallery)
-    pic.original.save(''.join([pic.name,'.jpg']), File(_get_temp_image()), False)
+    pic.original.save(''.join([pic.name,'.jpg']), 
+        File(_get_temp_image(width, height)), False)
     return pic
             
-def _get_temp_image():
+def _get_temp_image(width=100, height=100):
     """
     Return a temporary file that contains in image.  The file will be 
     automatically deleted when closed.
     """
     tf = tempfile.NamedTemporaryFile()
-    im = Image.new('RGB', (100,100))
+    im = Image.new('RGB', (width, height))
     im.save(tf, 'JPEG')
     return tf
