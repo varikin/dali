@@ -15,7 +15,7 @@ def add_pictures_from_zip(request):
         form = ZipFileForm()        
     
     response = {'form': form, 'title': 'Upload Multiple Pictures'}
-    return render_to_response('admin/gallery/Picture/upload_zip_file.html', response)          
+    return render_to_response('admin/gallery/picture/upload_zip_file.html', response)          
 
 @permission_required('gallery.change_picture')
 def save_picture_order(request):
