@@ -4,9 +4,7 @@
 {% block content %}
 {% for gallery in gallery_list %}								
 	<div class="gallery">
-		<h1 class="title above_line">
-		  <a href="{{ gallery.get_absolute_url }}">{{ gallery.name }}</a>
-		</h1>
+		<h1 class="above_line"><a href="{{ gallery.get_absolute_url }}">{{ gallery.name }}</a></h1>
     <div class="below_line">{{ gallery.description }} - {{ gallery.picture_count }} Pictures</div>		
 		<div class="picture_list">
 			{% get_random_pictures from gallery as pictures limit 5 %}
@@ -14,7 +12,6 @@
 					<img src="{{ picture.thumbnail.url }}" />
 			{% endfor %}
 		</div>
-		
 	</div>
 {% endfor %}
 {% endblock %}

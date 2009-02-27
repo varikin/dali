@@ -56,9 +56,7 @@ $('#slide_left').click(function() {
 
 {% get_latest_post as post %}
 <div class="post">
-   <h1 class="title above_line">
-      <a href="{{ post.get_absolute_url }}">Latest Post - {{ post.title }}</a>
-   </h1>
+   <h1 class="above_line"><a href="{{ post.get_absolute_url }}">Latest Post - {{ post.title }}</a></h1>
 
    <div class="below_line">
      {{ post.date_published|format_date }}

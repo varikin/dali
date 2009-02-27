@@ -4,12 +4,10 @@
 {% block title %}The "{{ tag }}" tag | {{ block.super }}{% endblock %}
 
 {% block content %}
-<h2 class="title">Posts for the tag "{{ tag|pretty_tag }}"</h1>
+<h2>Posts for the tag "{{ tag|pretty_tag }}"</h2>
   {% for post in post_list %}
   <div class="post">
-    <h1 class="title above_line">
-      <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
-    </h1>
+    <h1 class="above_line"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h1>
     
     <div class="time below_line">
       <strong>{{ post.date_published|date:"M j, Y" }}</strong>

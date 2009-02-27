@@ -48,9 +48,7 @@ $('#published')
 {% block content %}
 
 <div class="post">
-  <h1 class="title above_line {% if user.is_authenticated %}edit{% endif %}">
-    {{ post.title }}
-  </h1>
+  <h1 class="above_line {% if user.is_authenticated %}edit{% endif %}">{{ post.title }}</h1>
      
   <div class="time below_line">
     {{ post.date_published|format_date }}
@@ -70,8 +68,8 @@ $('#published')
 
 {% tags_for_object post as tags %}
 {% if tags %}
-  <div class="tags">
-    <div class="subtitle above_line">Tags</div>
+  <div class="content">
+    <h2 class="above_line">Tags</h2>
     <div class="below_line">
       {% for tag in tags %}
         <a href="{% url blog_tag_detail tag %}">{{ tag|pretty_tag }}</a>
@@ -84,7 +82,7 @@ $('#published')
 <div id="comment_list">
     {% for comment in comment_list %}
       <div class="comment">
-        <div class="subtitle above_line">{{ comment.user_name }}</div>
+        <h2 class="above_line">{{ comment.user_name }}</h2>
         <div class="time below_line">
           <strong>{{ comment.submit_date|date:"M j, Y" }}</strong>
           {{ comment.submit_date|time:"f A" }}
@@ -96,7 +94,7 @@ $('#published')
     {% endfor %}
 </div>
 <div id="comment_form">
-    <div class="subtitle above_line">Post a comment...</div>
+    <h2 class="above_line">Post a comment...</h2>
     {% render_comment_form for post %}
 </div>
 {% endblock %}
