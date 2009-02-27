@@ -5,7 +5,7 @@ body{
     font-size: 16px;
     margin: 0 auto;
     padding: 0;
-    width: 900px;
+    width: 750px;
 }
 
 li {
@@ -74,7 +74,7 @@ p {
 .above_line {
     border-bottom: 1px solid;
     margin-bottom: auto;
-    width: 900px;
+    width: 750px;
 }
 
 .above_line a {
@@ -133,12 +133,12 @@ p {
 
 /* Home page */
 #slider_container {
-    width: 900px;
+    width: 750px;
     height: 75px;
 }
 
 #slider {
-    width: 850px;
+    width: 700px;
     float: left;
     overflow: hidden;
 }

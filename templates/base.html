@@ -13,16 +13,13 @@
 <body>
   <h1 id="header"><a href="/">Jes Lee Photos</a></h1>
 	</div>
-	<div id="nav">
-	  <span>
-    	<a id="{% block home-nav %}{% endblock %}" href="/">Home</a>
-    	<a id="{% block gallery-nav %}{% endblock %}" href="{% url gallery_list %}">Galleries</a>
-    	<a id="{% block blog-nav %}{% endblock %}" href="{% url blog_post_index %}">Blog</a>
-    	<a id="{% block contact-nav %}{% endblock %}" href="/contact/">Contact Me</a>
-    	<a id="{% block about-nav %}{% endblock %}" href="/about/">About Me</a>
-    	<a id="{% block links-nav %}{% endblock %}" href="/links/">Links</a>
-    </span>
-	</div>
+	<span id="nav">
+  	<a id="{% block gallery-nav %}{% endblock %}" href="{% url gallery_list %}">Galleries</a>
+  	<a id="{% block blog-nav %}{% endblock %}" href="{% url blog_post_index %}">Blog</a>
+  	<a id="{% block contact-nav %}{% endblock %}" href="/contact/">Contact Me</a>
+  	<a id="{% block about-nav %}{% endblock %}" href="/about/">About Me</a>
+  	<a id="{% block links-nav %}{% endblock %}" href="/links/">Links</a>
+	</span>
 	<div id="main">
 		{% block content %}{% endblock %}
 	</div>
