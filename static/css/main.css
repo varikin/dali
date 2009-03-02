@@ -5,7 +5,7 @@ body{
     font-size: 16px;
     margin: 0 auto;
     padding: 0;
-    width: 750px;
+    width: 800px;
 }
 
 li {
@@ -40,16 +40,13 @@ p {
 }
 
 #nav {
-    font-size: 1.75em;
+    font-size: 1.7em;
     text-align: center;    
 }
 
 #nav a {
     letter-spacing: 1px;
-    padding-top: 2px;
-    padding-bottom: 2px;
-    padding-left: 13px;
-    padding-right: 13px;
+    padding: 2px 12px;
     text-decoration: none;
 }
 
@@ -57,14 +54,7 @@ p {
     background-color: #202020;
     border: 1px solid #323232;
     color: #FFF;
-    padding-left: 12px;
-    padding-right: 12px;
-}
-
-#main {
-    float: left;
-    margin: 25px 0 10px 0;
-    text-align: left;
+    padding: 2px 11px;
 }
 
 .clear {
@@ -74,7 +64,7 @@ p {
 .above_line {
     border-bottom: 1px solid;
     margin-bottom: auto;
-    width: 750px;
+    width: 800px;
 }
 
 .above_line a {
@@ -83,10 +73,6 @@ p {
 
 .below_line {
     text-align: right;
-}
-
-.content {
-    margin-top: 15px;
 }
 
 #icon_list {
@@ -100,13 +86,18 @@ p {
     text-align: center;
 } 
 
+.content {
+    margin-top: 10px;
+}
+
 /* Gallery styles */
-.picture_list {
-    padding-left: 5px;
+
+.picture_list .first {
+    margin-left: 0;
 }
 
 .picture_list img {
-    background: url(../frameflatsmall.png) no-repeat top;
+    margin: 0 0 11px 11px;
 }
 
 /* Blog and comment styles */
@@ -133,45 +124,45 @@ p {
 
 /* Home page */
 #slider_container {
-    width: 750px;
     height: 75px;
+    width: 800px;
 }
 
 #slider {
-    width: 700px;
     float: left;
     overflow: hidden;
+    width: 750px;
 }
 
 #sliding_images {
-    width: 1500px;
-    position: relative;
     margin: 0;
+    position: relative;
+    width: 1500px;
 }
 
 #slide_right {
-    position: relative;
-    margin: 0;
     float: right;
+    margin: 0;
+    position: relative;
 }
 
 .sliding_image, #slide_left {
-    position: relative;
-    margin: 0;
     float: left;
+    margin: 0;
+    position: relative;
 }
 
 .success, .warning, .error, .info {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
     height: 16px;
-    padding: 5px;
-    text-align: center;
-    z-index: 200;
+    left: 0;
     overflow: hidden;
     overflow-y: auto; 
+    padding: 5px;
+    position: fixed;
+    right: 0;
+    text-align: center;
+    top: 0;
+    z-index: 200;
 }
 
 /* Status msgs */

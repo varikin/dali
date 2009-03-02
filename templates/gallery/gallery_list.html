@@ -6,10 +6,10 @@
 	<div class="gallery">
 		<h1 class="above_line"><a href="{{ gallery.get_absolute_url }}">{{ gallery.name }}</a></h1>
     <div class="below_line">{{ gallery.description }} - {{ gallery.picture_count }} Pictures</div>		
-		<div class="picture_list">
+		<div class="picture_list content">
 			{% get_random_pictures from gallery as pictures limit 5 %}
 			{% for picture in pictures %}
-					<img src="{{ picture.thumbnail.url }}" />
+					<img {% if forloop.counter0|divisibleby:"8" %}class="first"{% endif %} src="{{ picture.thumbnail.url }}" />
 			{% endfor %}
 		</div>
 	</div>
