@@ -30,7 +30,6 @@ p {
 #header {
     font-size: 3.75em;
     font-weight: bold;
-    margin: 20px 0 15px 0;
     text-align: center;
 }
 
@@ -40,7 +39,8 @@ p {
 }
 
 #nav {
-    font-size: 1.7em;
+    font-size: 1.5em;
+    margin-bottom: 2em;
     text-align: center;    
 }
 
@@ -55,6 +55,9 @@ p {
     border: 1px solid #323232;
     color: #FFF;
     padding: 2px 11px;
+}
+
+#main {
 }
 
 .clear {
@@ -87,7 +90,7 @@ p {
 } 
 
 .content {
-    margin-top: 10px;
+    margin: 10px 0 35px;
 }
 
 /* Gallery styles */

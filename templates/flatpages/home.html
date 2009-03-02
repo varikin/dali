@@ -1,5 +1,4 @@
 {% extends "flatpages/default.html" %}
-
 {% load blog_utils %}
 {% load gallery_utils %}
 
@@ -13,7 +12,6 @@
 {% endblock %}
 
 {% block docReadyJS %}
-
 $('#slide_right').click(function() {
   dali.slide_right('#sliding_images')
 });
@@ -21,50 +19,37 @@ $('#slide_right').click(function() {
 $('#slide_left').click(function() {
   dali.slide_left('#sliding_images');
 });
-
 {% endblock %}
 
 {% block content %}
 <div>
    <h1 class="above_line">Announcements</h1>
-   <div class="content {% if user.is_authenticated %}edit{% endif %}">
-      {{ flatpage.content }}
-   </div>
+   <div class="content {% if user.is_authenticated %}edit{% endif %}">{{ flatpage.content }}</div>
 </div>
 
-<h1 class="above_line">Recent Pictures</h1>
-<div class="content" id="slider_container">
-   <div id="slide_left">
-      <img src="/static/slide_left.png" alt="slide left"/>
-   </div>
-   <div id="slider">
-      <div id="sliding_images">
-         {% get_latest_pictures as pictures limit 20 %}
-         {% for picture in pictures %}
-            <div class="sliding_image">
-               <a href="{{ picture.gallery.get_absolute_url }}">
-                  <img src="{{ picture.thumbnail.url }}" alt="{{ picture.name }}"/>
-               </a>
-            </div>
-         {% endfor %}
-      </div>
-   </div>
-   <div id="slide_right">
-      <img src="/static/slide_right.png" alt="slide right"/>
-   </div>
+<div>
+  <h1 class="above_line">Recent Pictures</h1>
+  <div class="content" id="slider_container">
+    <div id="slide_left"><img src="/static/slide_left.png" alt="Left Arrow"/></div>
+      <div id="slider">
+        <div id="sliding_images">
+        {% get_latest_pictures as pictures limit 20 %}
+        {% for picture in pictures %}
+        <div class="sliding_image">
+          <a href="{{ picture.gallery.get_absolute_url }}"><img src="{{ picture.thumbnail.url }}" alt="{{ picture.name }}"/></a>
+        </div>
+        {% endfor %}
+        </div>
+     </div>
+     <div id="slide_right"><img src="/static/slide_right.png" alt="Right Arrow"/></div>
+  </div>
 </div>
 
 {% get_latest_post as post %}
 <div class="post">
    <h1 class="above_line"><a href="{{ post.get_absolute_url }}">Latest Post - {{ post.title }}</a></h1>
-
-   <div class="below_line">
-     {{ post.date_published|format_date }}
-   </div>
-   <div class="picture_list">
-     {% image_preview post 5 %}
-   </div>
+   <div class="below_line">{{ post.date_published|format_date }}</div>
+   <div class="picture_list">{% image_preview post 5 %}</div>
 </div>
-
 
 {% endblock %}
