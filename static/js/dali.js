@@ -1,6 +1,6 @@
 var dali = function() {
   
-  var slide_increment = 75;
+  var slide_increment = 85;
   var slide_counter = 0;
   var post_fields = {};
   var lightbox_url = "/gallery/choose_picture/";
@@ -12,8 +12,6 @@ var dali = function() {
     }
     dali.show_status(data, status);
   };
-  
-
   
   return {
     
