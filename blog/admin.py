@@ -17,7 +17,6 @@ class PostAdmin(admin.ModelAdmin):
 	
 	class Media:
 	    js = (
-	        'http://ajax.googleapis.com/ajax/libs/jquery/1.3.1/jquery.min.js',
 	        '/static/js/tiny_mce/tiny_mce.js',
 	        '/static/js/tiny_init.js',
 	    )
