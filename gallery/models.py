@@ -65,22 +65,26 @@ class Picture(models.Model):
         Saves a Picture instance. Return True if a thumbnail and viewable is
         generated, False otherwise.
         """
-        # Determine if this is a new picture object or new original file.
-         
-        generate_images = True
-        if self.id is not None:
-            old_picture = Picture.objects.get(pk=self.id)
-            if self.original.path == old_picture.original.path:
-                generate_images = False
         
-        if generate_images:
+        # Determine if new file, if not, get path of old original image
+        if self.id is not None:
+            old_path = Picture.objects.get(pk=self.id).original.path
+        else:
+            old_path = None
+        
+        # Save before generating image
+        # The uploaded images are not avalable till after saving
+        super(Picture, self).save(**kwargs) 
+
+        # Generate images if new Picture or change original file
+        if old_path is None or self.original.path != old_path:
             orig = Image.open(self.original.path)
             name = os.path.basename(self.original.name)
-            self.create_viewable(orig, name)
-            self.create_thumbnail(orig, name)
-        
-        super(Picture, self).save(**kwargs)    
-        return generate_images
+            self.create_viewable(orig, name, save=True)
+            self.create_thumbnail(orig, name, save=True)
+            return True
+        else: # The return is to ease testing
+            return False
         
     def create_viewable(self, image=None, name=None, save=False):
         """

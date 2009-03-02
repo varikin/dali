@@ -1,8 +1,8 @@
 import random
-import tempfile
 import Image
+from StringIO import StringIO
 from django.contrib.auth.models import User, Permission
-from django.core.files import File
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 from django.test.client import Client
@@ -43,7 +43,7 @@ class PictureTestCase(TestCase):
     def test_generate_on_save_with_new_image(self):
         pic = self.picture
         self.assert_(pic.save())
-        pic.original.save(''.join([pic.name,'.jpg']), File(_get_temp_image()), False)
+        pic.original = _get_image(_get_temp_name())
         self.assert_(pic.save())
     
     def test_get_size_landscape(self):
@@ -118,18 +118,19 @@ def add_permission(user, perm):
 
 def create_picture(gallery, width=100, height=100):
     """Return a Picture that is not saved."""
-    name = "temp_%d" % random.randint(1,10000000)
+    name = _get_temp_name()
     pic = Picture(name=name, slug=name, gallery=gallery)
-    pic.original.save(''.join([pic.name,'.jpg']), 
-        File(_get_temp_image(width, height)), False)
+    pic.original = _get_image(name, width, height)
     return pic
-            
-def _get_temp_image(width=100, height=100):
+
+def _get_temp_name():
+    return "test_%d" % random.randint(1,10000000)
+
+def _get_image(name, width=100, height=100):
     """
-    Return a temporary file that contains in image.  The file will be 
-    automatically deleted when closed.
+    Return an image.
     """
-    tf = tempfile.NamedTemporaryFile()
+    f = StringIO()
     im = Image.new('RGB', (width, height))
-    im.save(tf, 'JPEG')
-    return tf
+    im.save(f, 'JPEG')    
+    return SimpleUploadedFile(name + '.jpg', f.getvalue())
