@@ -1,10 +1,8 @@
-{% extends "flatpages/default.html" %}
+{% extends "base.html" %}
 {% load blog_utils %}
 {% load gallery_utils %}
 
 {% block home-nav %}id="active"{% endblock %}
-
-{% block title %}{{ flatpage.title }}{% endblock %}
 
 {% block javascripts %}
 <script type="text/javascript" src="/static/js/jquery.jeditable.js"></script>

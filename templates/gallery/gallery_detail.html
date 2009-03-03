@@ -1,5 +1,7 @@
 {% extends "gallery/base_gallery.html" %}
 
+{% block title %} {{ gallery.name }} | {{ block.super }}{% endblock %}
+
 {% block stylesheets %} 
 <link rel="stylesheet" type="text/css" href="/static/css/slimbox2.css"/>
 {% endblock %}
@@ -9,21 +11,19 @@
 {% endblock %}
 
 {% block content %}
-  <div>
-    <h1 class="above_line">{{ gallery.name }}</h1>
-    <div class="below_line">{{ gallery.description }} - {{ gallery.picture_count }} Pictures</div>
-  </div>
+<div>
+  <h1 class="above_line">{{ gallery.name }}</h1>
+  <div class="below_line">{{ gallery.description }} - {{ gallery.picture_count }} Pictures</div>
+</div>
 
-  <div class="content">
-  {% for picture in pictures %}
-    {% if forloop.counter0|divisibleby:"9" %}<div class="picture_list">{% endif %}
-      <a rel="lightbox-gallery" href="{{ picture.viewable.url }}" title="{{ picture.description|default_if_none:""|escape }}">
-        <img {% if forloop.counter0|divisibleby:"9" %}class="first"{% endif %} src="{{ picture.thumbnail.url }}" alt="{{ picture.description|default_if_none:""|escape }}"/>
-      </a>
-    {% if forloop.counter|divisibleby:"9" or forloop.last %}</div>{% endif %}
-  {% endfor %}
-  </div>
-  <div>
-    <a href="{% url gallery_list %}">Return to the gallery list.</a>
-  </div>
+<div class="content">
+{% for picture in pictures %}
+  {% if forloop.counter0|divisibleby:"9" %}<div class="picture_list">{% endif %}
+    <a rel="lightbox-gallery" href="{{ picture.viewable.url }}" title="{{ picture.description|default_if_none:""|escape }}">
+      <img {% if forloop.counter0|divisibleby:"9" %}class="first"{% endif %} src="{{ picture.thumbnail.url }}" alt="{{ picture.description|default_if_none:""|escape }}"/>
+    </a>
+  {% if forloop.counter|divisibleby:"9" or forloop.last %}</div>{% endif %}
+{% endfor %}
+</div>
+<div><a href="{% url gallery_list %}">Return to the gallery list.</a></div>
 {% endblock %}
