@@ -2,10 +2,10 @@ from django.contrib import admin
 from gallery.models import Gallery, Picture
 
 class GalleryAdmin(admin.ModelAdmin):
-	list_display = ('name', 'slug', 'picture_count', 'parentGallery', 
+	list_display = ('name', 'slug', 'order', 'picture_count', 'parent_gallery',
         'date_created', 'date_modified', 'published')
 	list_filter = ('date_created', 'date_modified')
-	search_fields = ('name', 'slug')
+	search_fields = ('name', 'slug', 'parent_gallery')
 	prepopulated_fields = {'slug': ('name',)}
 
 class PictureAdmin(admin.ModelAdmin):

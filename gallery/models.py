@@ -10,8 +10,9 @@ class Gallery(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField(unique=True)
     description = models.TextField(null=True, blank=True)
-    parentGallery = models.ForeignKey('self', null=True, blank=True)
+    parent_gallery = models.ForeignKey('self', null=True, blank=True)
     published = models.BooleanField(default=False)
+    order = models.PositiveSmallIntegerField(blank=True, null=True)
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
     
@@ -19,7 +20,7 @@ class Gallery(models.Model):
     
     class Meta:
         verbose_name_plural = "galleries"
-        ordering = ('date_created',)
+        ordering = ('order',)
     
     def __unicode__(self):
         return self.name

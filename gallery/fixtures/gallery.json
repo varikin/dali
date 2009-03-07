@@ -7,7 +7,7 @@
       "date_modified": "2008-09-06 11:19:15", 
       "published": true, 
       "slug": "TestGallery", 
-      "parentGallery": null, 
+      "parent_gallery": null, 
       "date_created": "2008-09-06 11:19:15", 
       "description": "This is a test Gallery"
     }
