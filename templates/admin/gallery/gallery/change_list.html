@@ -8,11 +8,11 @@
 	<script> 
 	$(document).ready(function() {
     $("#changelist > table").tableDnD({
-      onDrop: gallery.update_picture_order
+      onDrop: gallery.update_gallery_order
     });
     
 	  $("#save_order").click(function() {
-	    gallery.save_order('{% url save_picture_order %}');
+	    gallery.save_order('{% url save_gallery_order %}');
 	    return false;
     });
 	});
@@ -22,11 +22,8 @@
 {% block object-tools %}
 {% if has_add_permission %}
 	<ul class="object-tools">
-		<li><a href="{% url save_picture_order %}" class="addlink" id="save_order">
+		<li><a href="{% url save_gallery_order %}" class="addlink" id="save_order">
 		    Save Order
-		</a></li>
-		<li><a href="{% url add_pictures_from_zip %}" class="addlink" id="add_pictures_from_zip">
-		  Add Multiple Pictures
 		</a></li>
 	  <li><a href="add/{% if is_popup %}?_popup=1{% endif %}" class="addlink">
 				{% with cl.opts.verbose_name|escape as name %}Add {{ name }}{% endwith %}
@@ -34,4 +31,3 @@
 	</ul>
 {% endif %}
 {% endblock %}
-

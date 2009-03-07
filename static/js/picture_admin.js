@@ -1,6 +1,6 @@
 var gallery = function() {
   var _public = {
-    update_order : function(table, row) {
+    update_picture_order : function(table, row) {
       var galleries = {};
       var change_list = $("#changelist tbody");
       change_list.children().each(function(i) {
@@ -19,6 +19,20 @@ var gallery = function() {
         _private.order[pk] = max_order;
       }); //End change_list each
     }, //End update_order
+    
+    update_gallery_order : function(table, row) {
+      var current = 0;
+      var change_list = $("#changelist tbody");
+      change_list.children().each(function(i) {
+        var tds = $(this).children();
+        $(tds.get(2)).text(++current);
+        var pk = $(tds.get(0)).find('a').attr('href');
+        if(pk.charAt(pk.length-1) == '/') {
+          pk = pk.substring(0, pk.length-1);
+        }
+        _private.order[pk] = current;
+      }); //End change_list each
+    },
     
     save_order : function(url) {
       $.post(url, 
