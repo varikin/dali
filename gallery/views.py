@@ -3,17 +3,6 @@ from django.shortcuts import render_to_response
 from django.views.generic import list_detail
 from gallery.models import Picture, Gallery
 
-def _gallery_detail(request, gallery, queryset):
-    """View to show a specific gallery."""
-    try:
-        context = {
-            'gallery': queryset.get(slug=gallery),
-            'pictures': Picture.objects.filter(gallery__slug=gallery),
-        }
-    except Gallery.DoesNotExist:
-        raise Http404
-    return render_to_response('gallery/gallery_detail.html', context)
-
 def privileged_gallery_queryset(view):
     """
     Decorator to set the gallery queryset.
@@ -28,9 +17,20 @@ def privileged_gallery_queryset(view):
         return view(request, *args, **kwargs)
     return _wrapped_view
 
-gallery_detail = privileged_gallery_queryset(_gallery_detail)
-gallery_list = privileged_gallery_queryset(list_detail.object_list)
-
+@privileged_gallery_queryset
+def gallery_detail(request, gallery=None, queryset=None):
+    """View to show a specific gallery."""
+    context = {}
+    if gallery is not None:
+        try:
+            gallery  = queryset.get(slug=gallery)
+            context['gallery'] = gallery
+            context['pictures'] = Picture.objects.filter(gallery=gallery)
+        except Gallery.DoesNotExist:
+            raise Http404
+    
+    context['gallery_list'] = queryset.filter(parent_gallery=gallery)
+    return render_to_response('gallery/gallery_detail.html', context)
 
 def picture_detail(request, gallery, picture):
     """View to show a specific picture."""
