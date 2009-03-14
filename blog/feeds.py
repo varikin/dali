@@ -10,3 +10,6 @@ class LatestPosts(Feed):
     
     def items(self):
         return Post.objects.published().order_by('-date_published')[:10]
+    
+    def item_pubdate(self, item):
+        return item.date_published
