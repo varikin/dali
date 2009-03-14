@@ -1,7 +1,8 @@
 (function (){ 
     function initMCE() {
       tinyMCE.init({
-      	mode : "textareas",
+      	mode : "exact",
+      	elements: "id_body,_mce", //id_body is for Post admin, _mce is for jeditable textareas
       	width : "800",
       	height : "600",
       	theme : "advanced",
