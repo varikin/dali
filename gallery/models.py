@@ -104,7 +104,7 @@ class Picture(models.Model):
         if name is None:
             name = os.path.basename(self.original.name)
         
-        width, height = _get_size(image.size[0], image.size[1], Picture.VIEWABLE_SIZE)
+        width, height = _get_viewable_size(image.size[0], image.size[1])
         resized = image.resize((width, height), Image.ANTIALIAS)
         tf = tempfile.NamedTemporaryFile('w+b')
         resized.save(tf, Picture.IMAGE_TYPE)
@@ -126,7 +126,7 @@ class Picture(models.Model):
         if name is None:
             name = os.path.basename(self.original.name)
 
-        width, height = _get_size(image.size[0], image.size[1], Picture.THUMBNAIL_SIZE)
+        width, height = _get_thumbnail_size(image.size[0], image.size[1])
         resized = image.resize((width, height), Image.ANTIALIAS)
 
         lower, remainder = divmod(Picture.THUMBNAIL_SIZE, 2)
@@ -147,21 +147,30 @@ class Picture(models.Model):
         self.thumbnail.save(name,File(tf), save)
         tf.close()
 
-def _get_size(width, height, target_size):
+def _get_viewable_size(width, height):
     """
     Returns a 2-tuple of (width, height).
     
-    Calculates a new width and height given a width, height, and a target size.
-    The larger of the width and height will be the target_size. The smaller of the 
-    two will be calculated so that the ratio is the same for the new width and height.
-    
-    width: The original width
-    height: the original height
-    target_size: The size the longer of the 2 should be. This means at least
-        one returned value will be the target_size.
-    
+    Calculates a new width and height given a width, height.
+    The larger of the width and height will be the Picture.VIEWABLE_SIZE. 
+    The smaller of the two will be calculated so that the ratio is the 
+    same for the new width and height.
     """
     if width > height:
-        return target_size, int(target_size * height / width)
+        return Picture.VIEWABLE_SIZE, int(Picture.VIEWABLE_SIZE * height / width)
     else:
-        return int(target_size * width / height), target_size
+        return int(Picture.VIEWABLE_SIZE * width / height), Picture.VIEWABLE_SIZE
+
+def _get_thumbnail_size(width, height):
+    """
+    Returns a 2-tuple of (width, height).
+    
+    Calculates a new width and height given a width, height.
+    The smaller of the width and height will be the Picture.THUMBNAILE_SIZE. 
+    The larger of the two will be calculated so that the ratio is the 
+    same for the new width and height.
+    """
+    if width > height:
+        return int(Picture.THUMBNAIL_SIZE * width / height), Picture.THUMBNAIL_SIZE
+    else:
+        return Picture.THUMBNAIL_SIZE, int(Picture.THUMBNAIL_SIZE * height / width)

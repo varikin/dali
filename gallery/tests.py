@@ -6,7 +6,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 from django.test.client import Client
-from gallery.models import Gallery, Picture, _get_size
+from gallery.models import Gallery, Picture, _get_viewable_size, _get_thumbnail_size
 from gallery.admin.views import save_picture_order
         
 class GalleryTestCase(TestCase):
@@ -46,20 +46,33 @@ class PictureTestCase(TestCase):
         pic.original = _get_image(_get_temp_name())
         self.assert_(pic.save())
     
-    def test_get_size_landscape(self):
-        w, h = _get_size(1000, 800, 400)
+    def test_get_viewable_size_landscape(self):
+        w, h = _get_viewable_size(1000, 800)
         self.assertEquals(320, h, 'The height is not correct')
         self.assertEquals(400, w, 'The width is not correct')
         
-    def test_get_size_portrait(self):
-        w, h = _get_size(800, 1000, 400)
+    def test_get_viewable_size_portrait(self):
+        w, h = _get_viewable_size(800, 1000)
         self.assertEquals(400, h, 'The height is not correct')
         self.assertEquals(320, w, 'The width is not correct')
         
-    def test_get_size_square(self):
-        w, h = _get_size(832, 832, 400)
+    def test_get_viewable_size_square(self):
+        w, h = _get_viewable_size(832, 832)
         self.assertEquals(w, h, 'The width is not equal to the height')
-        self.assertEquals(400, w, 'The width is not target size')
+        
+    def test_get_thumbnail_size_landscape(self):
+        w, h = _get_thumbnail_size(1000, 800)
+        self.assertEquals(75, h, 'The height is not correct')
+        self.assertEquals(93, w, 'The width is not correct')
+    
+    def test_get_thumbnail_size_portrait(self):
+        w, h = _get_thumbnail_size(800, 1000)
+        self.assertEquals(93, h, 'The height is not correct')
+        self.assertEquals(75, w, 'The width is not correct')
+
+    def test_get_thumbnail_size_square(self):
+        w, h = _get_thumbnail_size(1232, 1232)
+        self.assertEquals(w, h, 'The width is not equal to the height')
 
 class SaveOrderTestCase(TestCase):
     fixtures = ['gallery.json', 'pictures.json', 'user.json']
