@@ -13,7 +13,7 @@ feeds = {
 }
 
 urlpatterns = patterns('',
-    url(r'^feeds/(?P<url>.*)/$', feed, {'feed_dict': feeds}),
+    url(r'^feeds/(?P<url>.*)/$', feed, {'feed_dict': feeds}, name='blog_feed'),
     url(r'^(?P<slug>[-\w]+)/update/$', update_post, name='blog_update_post'),
     url(r'^(?P<slug>[-\w]+)/$', post_detail, posts, name='blog_post_detail'),
     url(r'^$', post_list, posts, name='blog_post_index'),
