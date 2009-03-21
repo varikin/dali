@@ -49,7 +49,8 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.comments',
     'django_extensions',
-    'django.contrib.flatpages', 
+    'django.contrib.flatpages',
+    'mailer',
     'dali_flatpages',
     'gallery',
     'tagging',
@@ -57,6 +58,7 @@ INSTALLED_APPS = (
 )
 
 FORCE_LOWERCASE_TAGS = True
+BLOG_AUTHOR = ('Jes Lee', 'jesleephotos@gmail.com')
 
 try:
     from local_settings import *

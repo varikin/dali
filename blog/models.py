@@ -1,6 +1,14 @@
 from datetime import datetime
+
+from django.conf import settings
+from django.contrib.comments.signals import comment_was_posted, comment_was_flagged
+from django.core.mail import send_mail
 from django.db import models
+from django.template.loader import render_to_string
+
+from mailer import send_mail
 from tagging.fields import TagField
+
 from blog.managers import PostManager
 
 class Post(models.Model):
@@ -24,3 +32,11 @@ class Post(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return ("blog_post_detail", (), {"slug": self.slug})
+
+def comment_added(sender, comment, request, **kwargs):
+    subject = '(%s) Comment add to: %s' % \
+        (comment.site.name, comment.content_object.title)
+    message = render_to_string('comments/comment_added.email', {'comment': comment})
+    send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [settings.BLOG_AUTHOR[1]])
+    
+comment_was_posted.connect(comment_added)

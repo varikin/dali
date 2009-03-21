@@ -20,5 +20,5 @@ class PostAdmin(admin.ModelAdmin):
 	        '/static/js/tiny_mce/tiny_mce.js',
 	        '/static/js/tiny_init.js',
 	    )
-        
+
 admin.site.register(Post, PostAdmin)

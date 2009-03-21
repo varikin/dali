@@ -1,0 +1,12 @@
+Comment added to your post: {{ comment.content_object.title }}
+Post URL : http://{{ comment.site.domain }}/{{ comment.content_object.get_absolute_url }}
+Author : {{ comment.name }}
+IP : {{ comment.ip_address }}
+Email : {{ comment.email }}
+URL : {{ comment.url }}
+Whois : http://ws.arin.net/cgi-bin/whois.pl?queryinput={{ comment.ip_address }}
+Comment:
+{{ comment.comment }}
+
+You can edit or delete the comment here:
+http://{{ comment.site.domain }}/admin/comments/comment/{{ comment.id }}
