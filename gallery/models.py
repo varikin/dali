@@ -1,9 +1,11 @@
 from __future__ import division
 import os
 import tempfile
-import Image
+from PIL import Image
+
 from django.core.files import File
 from django.db import models
+
 from gallery.managers import GalleryManager
 
 class Gallery(models.Model):    
@@ -69,28 +71,44 @@ class Picture(models.Model):
         Saves a Picture instance. Return True if a thumbnail and viewable is
         generated, False otherwise.
         """
-        
         # Determine if new file, if not, get path of old original image
         if self.id is not None:
             old_path = Picture.objects.get(pk=self.id).original.path
         else:
             old_path = None
         
-        # Save before generating image
-        # The uploaded images are not avalable till after saving
-        super(Picture, self).save(**kwargs) 
-
         # Generate images if new Picture or change original file
         if old_path is None or self.original.path != old_path:
-            orig = Image.open(self.original.path)
             name = os.path.basename(self.original.name)
-            self.create_viewable(orig, name, save=True)
-            self.create_thumbnail(orig, name, save=True)
-            return True
-        else: # The return is to ease testing
-            return False
-        
-    def create_viewable(self, image=None, name=None, save=False):
+
+            # Save before generating image
+            # The uploaded images are not avalable till after saving
+            super(Picture, self).save(**kwargs)            
+            try:
+                orig = Image.open(self.original.path)
+                orig.verify() # Need to reload image after verifying
+            except:
+                # Treating errors to mean a bad image file. If new Picture,
+                # delete the Picture. Else, set original to the old original
+                # Then re-raise the exception
+                if old_path is None:
+                    self.delete()
+                else:
+                    self.original.save(self.name,File(file(old_path)), save=True)
+                raise
+            
+            orig = Image.open(self.original.path)
+            self.create_viewable(orig, name)
+            self.create_thumbnail(orig, name)
+            generate_images = True
+        else:
+            generate_images = False
+
+        # Lets see how many times we can save this fucking image
+        super(Picture, self).save(**kwargs)
+        return generate_images # Return to ease testing
+
+    def create_viewable(self, image, name, save=False):
         """
         Creates a viewable for a Picture.
         
@@ -99,11 +117,6 @@ class Picture(models.Model):
             original
         save: Whether to save the object or not.
         """
-        if image is None:
-            image = Image.open(self.original.path)
-        if name is None:
-            name = os.path.basename(self.original.name)
-        
         width, height = _get_viewable_size(image.size[0], image.size[1])
         resized = image.resize((width, height), Image.ANTIALIAS)
         tf = tempfile.NamedTemporaryFile('w+b')
@@ -111,7 +124,7 @@ class Picture(models.Model):
         self.viewable.save(name,File(tf), save)
         tf.close()
         
-    def create_thumbnail(self, image=None, name=None, save=False):
+    def create_thumbnail(self, image, name, save=False):
         """
         Creates a thumbnail for a Picture.
         
@@ -121,11 +134,6 @@ class Picture(models.Model):
             original
         save: Whether to save the object or not.
         """
-        if image is None:
-            image = Image.open(self.original.path)
-        if name is None:
-            name = os.path.basename(self.original.name)
-
         width, height = _get_thumbnail_size(image.size[0], image.size[1])
         resized = image.resize((width, height), Image.ANTIALIAS)
 

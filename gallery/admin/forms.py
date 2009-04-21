@@ -1,9 +1,11 @@
-from os.path import splitext
+import os
 import re
 import tempfile
 import zipfile
+
 from django import forms
 from django.core.files import File
+
 from gallery.models import Gallery, Picture
 
 class ZipFileForm(forms.Form):
@@ -41,7 +43,7 @@ class ZipFileForm(forms.Form):
         files = {'valid': [], 'invalid': []}
         filenames = zip.namelist()
         for filename in filenames:
-            name = splitext(filename)[0]
+            name = os.path.splitext(filename)[0]
             slug = _unique_webname(name)
             pic = Picture(name=name, slug=slug, gallery=self.cleaned_data['gallery'])
             tf = tempfile.NamedTemporaryFile('wb+')
@@ -58,7 +60,7 @@ class ZipFileForm(forms.Form):
 
 def _file_ext(filename):
     """Returns the extension of the filename as a lower case string."""
-    return splitext(filename)[1][1:].lower()
+    return os.path.splitext(filename)[1][1:].lower()
 
 def _unique_webname(webname):
     """Returns a slug that is not in use."""
