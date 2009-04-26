@@ -20,6 +20,20 @@ var dali = function() {
       return value;
     },
     
+    toggle_publish : function(event) {
+      if(event.target.alt != 'Published') {
+        event.target.alt = 'Published';
+        event.target.title = 'Published';
+        event.target.src = '/static/icons/accept.png';
+        dali.update_post('True', { id: 'published' });
+      } else {
+        event.target.alt = 'Not Published';
+        event.target.title = 'Not Published';
+        event.target.src = '/static/icons/exclamation.png';
+        dali.update_post('False', { id: 'published' });
+      }
+    },
+    
     save_post : function(url) {
       if(dali.object_size(post_fields) > 0) {
         $.post(url, post_fields, save_callback, 'text');

@@ -31,7 +31,6 @@ p { line-height: 1.5em; }
 .above_line a { text-decoration: none; }
 .below_line { text-align: right; }
 
-#icon_list { text-align: right; float: right; }
 #footer { clear: both; padding-top: 30px; text-align: center; }
 .content { margin: 10px 0 35px; }
 

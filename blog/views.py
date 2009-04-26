@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import permission_required
 from django.http import HttpResponse
 from django.views.generic import list_detail
 from blog.models import Post
+from blog.forms import PostForm
 
 def privileged_post_queryset(view):
     """
@@ -25,28 +26,24 @@ post_detail = privileged_post_queryset(list_detail.object_detail)
 def update_post(request, slug):
     """
     Updates a post for the given slug.
-    
+
     For every key in the POST, tries to set a post attr with the key name.
     """
     status = u'Failure'
     if request.method == 'POST':
         try:
             post = Post.objects.get(slug=slug)
+            form = PostForm(request.POST)
             keys = request.POST.keys()
-            updated = False
-            for key in keys:
-                value = request.POST.get(key).strip()
-                if hasattr(post, key):
-                    setattr(post, key, value)
-                    updated = True
-                else:
-                    logging.warn("Warning, %s isn't part of Post" % key)
-            
-            if updated:
+            if form.is_valid():
+                for key in keys:
+                    setattr(post, key, form.cleaned_data[key])
                 post.save()
                 status = u'Success'
-        except (KeyError, Post.DoesNotExist):
-            logging.error("Error, no post with slug: %s" % slug)
+            else:
+                logging.error('POST data not valid: %s' % request.POST)
+        except (Post.DoesNotExist):
+            logging.error("No post with slug: %s" % slug)
     else:
-        loggiing.error("Error, not a HTTP POST")     
+        logging.error("Not a HTTP POST")
     return HttpResponse(status, mimetype="text/plain")

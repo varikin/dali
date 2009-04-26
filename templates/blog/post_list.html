@@ -8,19 +8,14 @@
  <div class="post">
    <h1 class="above_line">
      <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
-   </h1>
-   
-   <div class="below_line">
-     {{ post.date_published|format_date }}
      {% if user.is_authenticated and not post.published %}
      <span id="icon_list">
        <img src="/static/icons/exclamation.png" alt="Not published" title="Not Published"/>
      </span>
      {% endif %}
-   </div>
-   <div class="picture_list">
-     {% image_preview post 5 %}
-   </div>
+   </h1>
+   <div class="below_line">{{ post.date_published|format_date }}</div>
+   <div class="picture_list">{% image_preview post 5 %}</div>
  </div>
  {% endfor %}
 {% endblock %}

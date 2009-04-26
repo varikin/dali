@@ -23,6 +23,10 @@ $('#save').click(function () {
    dali.save_post('{% url blog_update_post post.slug %}');
 });
 
+$('#publish').click(function(event) {
+  dali.toggle_publish(event);
+});
+
 $('.edit_area').editable(dali.update_post, {
       type : 'mce',
       onblur : 'ignore',
@@ -47,20 +51,21 @@ $('.edit').editable(dali.update_post, {
 {% block content %}
 
 <div class="post">
-  <h1 class="above_line {% if user.is_authenticated %}edit{% endif %}">{{ post.title }}</h1>
-     
-  <div class="time below_line">
-    {{ post.date_published|format_date }}
+  <h1 class="above_line"><span class="edit">{{ post.title }}</span>
     {% if user.is_authenticated %}
     <span id="icon_list">
       {% if post.published %}
-        <img src="/static/icons/accept.png" id="publish" alt="Not published" title="Not published"/>
+        <img src="/static/icons/accept.png" id="publish" alt="Published" title="Published"/>
       {% else %}  
         <img src="/static/icons/exclamation.png" id="publish" alt="Not published" title="Not published"/>
       {% endif %}
-      <img src="/static/icons/page_save.png" id="save" alt="Save:)" title="Save:)"/>
+      <img src="/static/icons/disk.png" id="save" alt="Save:)" title="Save:)"/>
     </span>
-    {% endif %} 
+    {% endif %}
+  </h1>
+     
+  <div class="time below_line">
+    {{ post.date_published|format_date }}
   </div>
   <div class="content {% if user.is_authenticated %}edit_area{% endif %}">{{ post.body|safe }}</div>
 </div>
