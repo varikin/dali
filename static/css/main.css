@@ -24,6 +24,10 @@ p { line-height: 1.5em; }
     border: 1px solid #BB7FED;
     color: #C6CDCA;
     padding: 2px 11px;
+    
+    /*Rounded corners for the boxes, fuck IE!*/
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
 }
 
 .clear { clear: both; }
