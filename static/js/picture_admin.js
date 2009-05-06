@@ -5,14 +5,14 @@ var gallery = function() {
       var change_list = $("#changelist tbody");
       change_list.children().each(function(i) {
         var tds = $(this).children();
-        var gallery = $(tds.get(2)).text();
+        var gallery = $(tds.get(3)).text();
         var max_order = galleries[gallery];
         if(max_order === undefined) { 
           max_order = 0; 
         }
         galleries[gallery] = ++max_order;
-        $(tds.get(3)).text(max_order);
-        var pk = $(tds.get(0)).find('a').attr('href');
+        $(tds.get(4)).text(max_order);
+        var pk = $(tds.get(1)).find('a').attr('href');
         if(pk.charAt(pk.length-1) == '/') {
           pk = pk.substring(0, pk.length-1);
         }
@@ -25,8 +25,8 @@ var gallery = function() {
       var change_list = $("#changelist tbody");
       change_list.children().each(function(i) {
         var tds = $(this).children();
-        $(tds.get(2)).text(++current);
-        var pk = $(tds.get(0)).find('a').attr('href');
+        $(tds.get(3)).text(++current);
+        var pk = $(tds.get(1)).find('a').attr('href');
         if(pk.charAt(pk.length-1) == '/') {
           pk = pk.substring(0, pk.length-1);
         }
