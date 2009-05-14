@@ -86,7 +86,11 @@ $('.edit').editable(dali.update_post, {
 <div id="comment_list">
     {% for comment in comment_list %}
       <div class="comment">
-        <h2 class="above_line">{{ comment.user_name }}</h2>
+        {% if comment.user_url %}
+          <h2 class="above_line"><a href="{{ comment.user_url }}">{{ comment.user_name }}</a></h2>
+        {% else %}
+          <h2 class="above_line">{{ comment.user_name }}</h2>
+        {% endif %}
         <div class="time below_line">
           <strong>{{ comment.submit_date|date:"M j, Y" }}</strong>
           {{ comment.submit_date|time:"f A" }}
