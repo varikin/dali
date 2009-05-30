@@ -29,6 +29,7 @@ p { line-height: 1.5em; }
 }
 
 .clear { clear: both; }
+h1.above_line { font-size: 1.9em; }
 .above_line { border-bottom: 1px solid; font-weight: normal; margin-bottom: auto; width: 800px; }
 .above_line a { text-decoration: none; }
 .below_line { text-align: right; }
