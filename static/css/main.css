@@ -1,7 +1,7 @@
 body{
     color: #C6CDCA;
     background: #000 url('../background.png') repeat-y center;
-    font-family: "Century Gothic", Helvetica, Arial, sans-serif;
+    font-family: "Century Gothic", AppleGothic, sans-serif;
     font-size: 16px;
     margin: 0 auto;
     padding: 0;
@@ -13,11 +13,8 @@ a:hover { color: #BB7FED; }
 li { list-style-position: outside; list-style-type: none; }
 p { line-height: 1.5em; }
 
-#header { font-size: 3.5em; font-weight: 500; margin-bottom: 1em; text-align: center; }
+#header { font-size: 3.5em; font-weight: normal; margin-bottom: 1em; text-align: center; }
 #header a { text-decoration: none; color: #C6CDCA; }
-
-h1 { font-size: 1.9em;}
-
 #nav { font-size: 1.25em; margin-bottom: 2em; text-align: center; }
 #nav a { letter-spacing: 1px; padding: 2px 20px; text-decoration: none; }
 
@@ -26,14 +23,13 @@ h1 { font-size: 1.9em;}
     border: 1px solid #BB7FED;
     color: #C6CDCA;
     padding: 2px 19px;
-    
     /*Rounded corners for the boxes, fuck IE!*/
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
 }
 
 .clear { clear: both; }
-.above_line { border-bottom: 1px solid; font-weight: 500; margin-bottom: auto; width: 800px; }
+.above_line { border-bottom: 1px solid; font-weight: normal; margin-bottom: auto; width: 800px; }
 .above_line a { text-decoration: none; }
 .below_line { text-align: right; }
 
