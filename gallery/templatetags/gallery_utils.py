@@ -14,7 +14,7 @@ def caption(picture):
     """
     if hasattr(picture, 'name') and hasattr(picture, 'description'):
         return '<a href="%s">%s</a><p>%s</p>' % \
-            (picture.get_absolute_url(), picture.name, picture.description)
+            (picture.get_absolute_url(), picture.name, picture.description or '')
     else:
         return ''
 caption.is_safe = True
