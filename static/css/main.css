@@ -38,6 +38,7 @@ h1.above_line { font-size: 1.9em; }
 .content { margin: 10px 0 35px; }
 
 /* Gallery styles */
+img#detail { display: block; margin-left: auto; margin-right: auto;}
 .picture_list .first { margin-left: 0; }
 .picture_list img { margin: 0 0 11px 11px; }
 
