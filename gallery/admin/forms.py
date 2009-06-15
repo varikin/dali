@@ -4,6 +4,7 @@ import tempfile
 import zipfile
 
 from django import forms
+from django.template.defaultfilters import slugify
 from django.core.files import File
 
 from gallery.models import Gallery, Picture
@@ -26,7 +27,6 @@ class ZipFileForm(forms.Form):
         if _file_ext(zf.name) in ZipFileForm.valid_file_extensions \
                 and zf.content_type in ZipFileForm.valid_content_types:
             return zf
-        
         raise forms.ValidationError("A zip file is required:)")
     
     def save(self):
@@ -44,7 +44,7 @@ class ZipFileForm(forms.Form):
         filenames = zip.namelist()
         for filename in filenames:
             name = os.path.splitext(filename)[0]
-            slug = _unique_webname(name)
+            slug = _unique_slug(name)
             pic = Picture(name=name, slug=slug, gallery=self.cleaned_data['gallery'])
             tf = tempfile.NamedTemporaryFile('wb+')
             tf.write(zip.read(filename))
@@ -62,16 +62,16 @@ def _file_ext(filename):
     """Returns the extension of the filename as a lower case string."""
     return os.path.splitext(filename)[1][1:].lower()
 
-def _unique_webname(webname):
+def _unique_slug(slug):
     """Returns a slug that is not in use."""
-    webname = re.sub('\W', "_", webname)
+    slug = slugify(slug)
     count = 1
-    name = webname
+    name = slug
     while True:
         try:
             Picture.objects.get(slug=name)
         except Picture.DoesNotExist:
             return name
         else:
-            name = "%s_%d" % (webname, count)
+            name = "%s-%d" % (slug, count)
             count += 1
