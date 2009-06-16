@@ -1,79 +1,12 @@
-import random
-import Image
-from StringIO import StringIO
 from django.contrib.auth.models import User, Permission
-from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.exceptions import ValidationError
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.http import HttpRequest, QueryDict
 from django.test import TestCase
 from django.test.client import Client
-from gallery.models import Gallery, Picture, _get_viewable_size, _get_thumbnail_size
 from gallery.admin.forms import ZipFileForm, _unique_slug
-
-class GalleryTestCase(TestCase):
-    fixtures = ['gallery.json']
-
-    def setUp(self):
-        self.gallery = Gallery.objects.get(slug='TestGallery') 
-
-    def test_count_no_pictures(self):
-        count = self.gallery.picture_count()
-        self.assertEquals(0, count)
-
-    def test_count_with_pictures(self):
-        expected = 4
-        for i in range(expected):
-            create_picture(self.gallery).save()
-        actual = self.gallery.picture_count()
-        self.assertEquals(expected, actual)
-
-class PictureTestCase(TestCase):
-    fixtures = ['gallery.json']
-
-    def setUp(self):
-        self.gallery = Gallery.objects.get(slug='TestGallery')
-        self.picture = create_picture(self.gallery)
-
-    def test_generate_on_new_picture(self):
-        self.assert_(self.picture.save())
-
-    def test_no_generate_on_save(self):
-        self.assert_(self.picture.save())
-        self.failIf(self.picture.save())
-
-    def test_generate_on_save_with_new_image(self):
-        pic = self.picture
-        self.assert_(pic.save())
-        pic.original = _get_image(_get_temp_name())
-        self.assert_(pic.save())
-
-    def test_get_viewable_size_landscape(self):
-        w, h = _get_viewable_size(1000, 800)
-        self.assertEquals(320, h, 'The height is not correct')
-        self.assertEquals(400, w, 'The width is not correct')
-
-    def test_get_viewable_size_portrait(self):
-        w, h = _get_viewable_size(800, 1000)
-        self.assertEquals(400, h, 'The height is not correct')
-        self.assertEquals(320, w, 'The width is not correct')
-
-    def test_get_viewable_size_square(self):
-        w, h = _get_viewable_size(832, 832)
-        self.assertEquals(w, h, 'The width is not equal to the height')
-
-    def test_get_thumbnail_size_landscape(self):
-        w, h = _get_thumbnail_size(1000, 800)
-        self.assertEquals(75, h, 'The height is not correct')
-        self.assertEquals(93, w, 'The width is not correct')
-
-    def test_get_thumbnail_size_portrait(self):
-        w, h = _get_thumbnail_size(800, 1000)
-        self.assertEquals(93, h, 'The height is not correct')
-        self.assertEquals(75, w, 'The width is not correct')
-
-    def test_get_thumbnail_size_square(self):
-        w, h = _get_thumbnail_size(1232, 1232)
-        self.assertEquals(w, h, 'The width is not equal to the height')
+from gallery.models import Gallery, Picture
+from gallery.tests.utils import add_permission, create_picture
 
 class UniqueSlugTestCase(TestCase):
     fixtures = ['gallery.json']
@@ -200,26 +133,4 @@ class SaveOrderTestCase(TestCase):
         picture = Picture.objects.get(slug='TestPicture1')
         self.failIf(picture.order)
 
-def add_permission(user, perm):
-    """Add a permission to a user."""
-    user.user_permissions.add(perm)
-    user.save()
 
-def create_picture(gallery, name=None, width=100, height=100):
-    """Return a Picture that is not saved."""
-    name = name or _get_temp_name()
-    pic = Picture(name=name, slug=name, gallery=gallery)
-    pic.original = _get_image(name, width, height)
-    return pic
-
-def _get_temp_name():
-    return "test_%d" % random.randint(1,10000000)
-
-def _get_image(name, width=100, height=100):
-    """
-    Return an image.
-    """
-    f = StringIO()
-    im = Image.new('RGB', (width, height))
-    im.save(f, 'JPEG')    
-    return SimpleUploadedFile(name + '.jpg', f.getvalue())

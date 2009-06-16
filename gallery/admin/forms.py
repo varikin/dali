@@ -12,12 +12,12 @@ from gallery.models import Gallery, Picture
 class ZipFileForm(forms.Form):
     gallery = forms.ModelChoiceField(queryset=Gallery.objects.all())
     zip_file = forms.FileField()
-    
+
     valid_content_types = ('application/zip', 'application/x-zip',
             'application/x-zip-compressed', 'application/x-compress',
             'application/x-compressed', 'multipart/x-zip')
     valid_file_extensions = ('zip',)
-    
+
     def clean_zip_file(self):
         """
         Returns the zip file as an UploadedFile if valid, else raises
@@ -28,18 +28,18 @@ class ZipFileForm(forms.Form):
                 and zf.content_type in ZipFileForm.valid_content_types:
             return zf
         raise forms.ValidationError("A zip file is required:)")
-    
+
     def save(self):
         """
         Add all images in zip_file to gallery.
-        
+
         Returns a list of names of invalid files in the zip file.
         """
         try:
             zip = zipfile.ZipFile(self.cleaned_data['zip_file'])
         except zipfile.BadZipfile:
             raise forms.ValidationError("The zip file is corrupted:(")
-        
+
         files = {'valid': [], 'invalid': []}
         filenames = zip.namelist()
         for filename in filenames:
@@ -54,7 +54,7 @@ class ZipFileForm(forms.Form):
             except IOError:
                 files['invalid'].append(filename)
             tf.close()
-        
+
         zip.close()
         return files
 
