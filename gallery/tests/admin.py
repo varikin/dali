@@ -37,10 +37,6 @@ class CleanZipFileTestCase(TestCase):
         form = self.get_form('a_file.txt', 'applciation/zip')
         self.assertEquals(self.zip_error, form.errors)
 
-    def test_invalid_content_type_text(self):
-        form = self.get_form('a_file.zip', 'text/plain')
-        self.assertEquals(self.zip_error, form.errors, 'Should not allow text/plain content type.')
-
     def test_invalid_content_type_html(self):
         form = self.get_form('a_file.zip', 'text/html')
         self.assertEquals(self.zip_error, form.errors, 'Should not allow text/html content type.')
