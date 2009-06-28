@@ -2,11 +2,20 @@ import random
 import Image
 from StringIO import StringIO
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.db.models.query import QuerySet
 from gallery.models import Picture
 
 def add_permission(user, perm):
-    """Add a permission to a user."""
-    user.user_permissions.add(perm)
+    """
+    Add a permission or set of permissions to a user.
+    
+    perm can either be a Permission object or a QuerySet of permissions.
+    """
+    if(type(perm) == QuerySet):
+        for p in perm:
+            user.user_permissions.add(p)
+    else:
+        user.user_permissions.add(perm)
     user.save()
 
 def create_picture(gallery, name=None, width=100, height=100):

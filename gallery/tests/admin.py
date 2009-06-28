@@ -4,7 +4,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.http import HttpRequest, QueryDict
 from django.test import TestCase
 from django.test.client import Client
-from gallery.admin.forms import ZipFileForm, _unique_slug
+from gallery.admin.forms import ZipFileForm, _normalize_name, _unique_slug
 from gallery.models import Gallery, Picture
 from gallery.tests.utils import add_permission, create_picture
 
@@ -129,4 +129,91 @@ class SaveOrderTestCase(TestCase):
         picture = Picture.objects.get(slug='TestPicture1')
         self.failIf(picture.order)
 
+class UploadZipFileTestCase(TestCase):
+    fixtures = ['gallery.json', 'user.json']
 
+    def setUp(self):
+        self.user = User.objects.get(username='test')
+        self.perm = Permission.objects.filter(content_type__name='picture')
+        self.url = '/gallery/picture/add_from_zip/'
+        self.redirect = '/admin/gallery/picture/'
+        self.gallery = Gallery.objects.get(slug='TestGallery')
+        self.path = 'gallery/tests/example'
+        
+    def test_not_logged_in(self):
+        f = file('%s/valid_images.zip' % self.path)
+        data = {u'gallery': self.gallery.id, u'zip_file': f}
+        self.client.post(self.url, data)
+        f.close()
+        pictures = Picture.objects.filter(gallery=self.gallery.id)
+        self.assertEquals(0, len(pictures))
+
+    def test_logged_in_no_permission(self):
+        self.client.login(username='test', password='test')
+        f = file('%s/valid_images.zip' % self.path)
+        data = {u'gallery': self.gallery.id, u'zip_file': f}
+        self.client.post(self.url, data)
+        f.close()
+        pictures = Picture.objects.filter(gallery=self.gallery.id)
+        self.assertEquals(0, len(pictures))
+
+    def test_all_valid_images(self):
+        add_permission(self.user, self.perm)
+        self.client.login(username='test', password='test')
+        f = file('%s/valid_images.zip' % self.path)
+        data = {u'gallery': self.gallery.id, u'zip_file': f}
+        response = self.client.post(self.url, data)
+        f.close()
+        pictures = Picture.objects.filter(gallery=self.gallery.id)
+        self.assertEquals(2, len(pictures))
+        self.assertRedirects(response, self.redirect)
+
+    def test_all_invalid_images(self):
+        add_permission(self.user, self.perm)
+        self.client.login(username='test', password='test')
+        f = file('%s/invalid_images.zip' % self.path)
+        data = {u'gallery': self.gallery.id, u'zip_file': f}
+        response = self.client.post(self.url, data)
+        f.close()
+        pictures = Picture.objects.filter(gallery=self.gallery.id)
+        self.assertEquals(0, len(pictures))
+        self.assertRedirects(response, self.redirect)
+
+    def test_valid_invalid_mix(self):
+        add_permission(self.user, self.perm)
+        self.client.login(username='test', password='test')
+        f = file('%s/mixed_images.zip' % self.path)
+        data = {u'gallery': self.gallery.id, u'zip_file': f}
+        response = self.client.post(self.url, data)
+        f.close()
+        pictures = Picture.objects.filter(gallery=self.gallery.id)
+        self.assertEquals(2, len(pictures))
+        self.assertRedirects(response, self.redirect)
+        
+class NormalizeNameTestCase(TestCase):
+    
+    def setUp(self):
+        self.normalized = 'Awesome Picture'
+    
+    def test_no_changes(self):
+        self.assertEquals(self.normalized, _normalize_name(self.normalized))
+
+    def test_remove_extension(self):
+        name = '%s.jpg' % self.normalized
+        self.assertEquals(self.normalized, _normalize_name(name))
+
+    def test_remove_multiple_extensions(self):
+        name = '%s.jpg.jpg' % self.normalized
+        self.assertEquals(self.normalized, _normalize_name(name))
+
+    def test_remove_leading_path(self):
+        name = 'some/path/%s' % self.normalized
+        self.assertEquals(self.normalized, _normalize_name(name))
+
+    def test_replace_underscores(self):
+        name = 'Awesome_Picture'
+        self.assertEquals(self.normalized, _normalize_name(name))
+
+    def test_extensions_paths_underscores(self):
+        name = '/some/path/Awesome_Picture.jpg.jpg'
+        self.assertEquals(self.normalized, _normalize_name(name))

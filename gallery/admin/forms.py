@@ -43,7 +43,7 @@ class ZipFileForm(forms.Form):
         files = {'valid': [], 'invalid': []}
         filenames = zip.namelist()
         for filename in filenames:
-            name = os.path.splitext(filename)[0]
+            name = _normalize_name(filename)
             slug = _unique_slug(name)
             pic = Picture(name=name, slug=slug, gallery=self.cleaned_data['gallery'])
             tf = tempfile.NamedTemporaryFile('wb+')
@@ -61,6 +61,31 @@ class ZipFileForm(forms.Form):
 def _file_ext(filename):
     """Returns the extension of the filename as a lower case string."""
     return os.path.splitext(filename)[1][1:].lower()
+
+def _normalize_name(name):
+    """ 
+    Returns a normalized name for the image.
+    
+    Removes the extension from the end.
+    Removes leading paths.
+    Replace underscores "_" with spaces " ".
+    """
+    # Remove leading paths
+    name = os.path.split(name)[1]
+    
+    # Remove all extentions
+    # Seem to get many .jpg.jgp from Photoshop exports
+    try:
+        period = name.index('.')
+        if period > 0:
+            name = name[:period]
+        else:
+            name = name[1:]
+    except ValueError:
+        pass # Do nothing:)
+    
+    name = name.replace('_', ' ')
+    return name
 
 def _unique_slug(slug):
     """Returns a slug that is not in use."""
