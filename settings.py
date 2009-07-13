@@ -1,4 +1,5 @@
 import os
+import logging
 
 PROJECT_BASE = os.path.dirname(__file__)
 
@@ -59,6 +60,12 @@ INSTALLED_APPS = (
 
 FORCE_LOWERCASE_TAGS = True
 BLOG_AUTHOR = ('Jes Lee', 'jesleephotos@gmail.com')
+
+LOG_FILENAME = os.path.join(PROJECT_BASE, 'dali.log')
+LOG_FORMAT = "%(asctime)s:%(levelname)s:%(module)s.%(funcName)s:%(lineno)d:%(message)s"
+logging.basicConfig(filename=LOG_FILENAME, level=logging.DEBUG, \
+    format=LOG_FORMAT)
+
 
 try:
     from local_settings import *

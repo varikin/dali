@@ -1,3 +1,4 @@
+import logging
 import os
 import re
 import tempfile
@@ -70,6 +71,9 @@ def _normalize_name(name):
     Removes leading paths.
     Replace underscores "_" with spaces " ".
     """
+    
+    logging.debug("name is [%s]", name)
+    
     # Remove leading paths
     name = os.path.split(name)[1]
     
@@ -85,6 +89,8 @@ def _normalize_name(name):
         pass # Do nothing:)
     
     name = name.replace('_', ' ')
+    
+    logging.debug("resulting name is [%s]", name)
     return name
 
 def _unique_slug(slug):
