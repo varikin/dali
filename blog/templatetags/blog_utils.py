@@ -1,3 +1,4 @@
+import logging
 import re
 from BeautifulSoup import BeautifulSoup
 from django.conf import settings
@@ -95,7 +96,7 @@ def image_preview(post, count):
             for method in methods:
                 src = method(img['src'])
                 if src:
-                    img['src']
+                    img['src'] = src
                     break
            
             img['width'] = 75

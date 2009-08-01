@@ -15,7 +15,7 @@ def add_pictures_from_zip(request):
             form.save()
             return HttpResponseRedirect('/admin/gallery/picture/')
     else:
-        form = ZipFileForm()        
+        form = ZipFileForm()
     
     response = {'form': form, 'title': 'Upload Multiple Pictures'}
     return render_to_response('admin/gallery/picture/upload_zip_file.html', response)          

@@ -1,7 +1,7 @@
 body{
     color: #C6CDCA;
     background: #000 url('../background.png') repeat-y center;
-    font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+    font-family: "Century Gothic", AppleGothic, sans-serif;
     font-size: 16px;
     margin: 0 auto;
     padding: 0;
@@ -13,25 +13,24 @@ a:hover { color: #BB7FED; }
 li { list-style-position: outside; list-style-type: none; }
 p { line-height: 1.5em; }
 
-#header { font-size: 3.75em; font-weight: bold; text-align: center; }
+#header { font-size: 3.5em; font-weight: normal; margin-bottom: 1em; text-align: center; }
 #header a { text-decoration: none; color: #C6CDCA; }
-
-#nav { font-size: 1.5em; margin-bottom: 2em; text-align: center; }
-#nav a { letter-spacing: 1px; padding: 2px 12px; text-decoration: none; }
+#nav { font-size: 1.25em; margin-bottom: 2em; text-align: center; }
+#nav a { letter-spacing: 1px; padding: 2px 20px; text-decoration: none; }
 
 #nav a#active, #nav a:hover { 
     background-color: #202020; 
     border: 1px solid #BB7FED;
     color: #C6CDCA;
-    padding: 2px 11px;
-    
+    padding: 2px 19px;
     /*Rounded corners for the boxes, fuck IE!*/
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
 }
 
 .clear { clear: both; }
-.above_line { border-bottom: 1px solid; margin-bottom: auto; width: 800px; }
+h1.above_line { font-size: 1.9em; }
+.above_line { border-bottom: 1px solid; font-weight: normal; margin-bottom: auto; width: 800px; }
 .above_line a { text-decoration: none; }
 .below_line { text-align: right; }
 
@@ -39,6 +38,7 @@ p { line-height: 1.5em; }
 .content { margin: 10px 0 35px; }
 
 /* Gallery styles */
+img#detail { display: block; margin-left: auto; margin-right: auto;}
 .picture_list .first { margin-left: 0; }
 .picture_list img { margin: 0 0 11px 11px; }
 

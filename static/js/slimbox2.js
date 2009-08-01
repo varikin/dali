@@ -8,7 +8,9 @@
 // AUTOLOAD CODE BLOCK (MAY BE CHANGED OR REMOVED)
 jQuery(function($) {
   $("a[rel^='lightbox']").slimbox({
-  }, null, function(el) {
+  }, function(el) {
+    return [el.href, $('img:first', el).attr('alt')];
+  }, function(el) {
 		return (this == el) || ((this.rel.length > 8) && (this.rel == el.rel));
   });
 });

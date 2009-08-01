@@ -1,14 +1,17 @@
 {% extends "gallery/base_gallery.html" %}
 
 {% block content %}
- <div>
-     <img src="{{ picture.viewable.url }}" alt="{{ picture.description }}" name="{{ picture.name }}" />
-     <span>{{ picture.name }}</span><br/>
-     <span>{{ picture.description }} </span><br/>
- </div>
- <div>
-    <a href="{{ picture.gallery.get_absolute_url }}">
-       Return to {{ picture.gallery.name}}.
-    </a>
- </div>
+<div>
+  <h1 class="above_line">{{ picture.name }}</h1>
+  <div class="below_line">&nbsp;</div>
+</div>
+<div class="content">
+  <img id="detail" src="{{ picture.viewable.url }}" alt="{{ picture.name }}"/>
+  <p>{{ picture.description|default:""|safe }}</p>
+</div>
+<div>
+  <a href="{{ picture.gallery.get_absolute_url }}">
+    Return to {{ picture.gallery.name}}.
+  </a>
+</div>
 {% endblock %}

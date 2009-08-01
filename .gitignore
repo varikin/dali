@@ -13,3 +13,4 @@ local_settings.py
 fabfile.py
 .DS_Store
 dali.wsgi
+dali.log
