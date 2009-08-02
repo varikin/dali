@@ -1,46 +1,30 @@
 var gallery = function() {
   var _public = {
+    
     update_picture_order : function(table, row) {
       var galleries = {};
-      var change_list = $("#changelist tbody");
-      change_list.children().each(function(i) {
-        var tds = $(this).children();
-        var gallery = $(tds.get(3)).text();
+      $("#changelist tbody").children().each(function() {
+        var gallery = $(this).find("select[id$='gallery']").val();
         var max_order = galleries[gallery];
-        if(max_order === undefined) { 
+        if(max_order === undefined) {
           max_order = 0; 
         }
         galleries[gallery] = ++max_order;
-        $(tds.get(4)).text(max_order);
-        var pk = $(tds.get(1)).find('a').attr('href');
-        if(pk.charAt(pk.length-1) == '/') {
-          pk = pk.substring(0, pk.length-1);
-        }
+        
+        $(this).find("input[id$='order']").val(max_order);
+        var pk = $(this).find("input[id$='id']").val();
         _private.order[pk] = max_order;
       }); //End change_list each
-    }, //End update_order
+    }, //End update_picture_order
     
     update_gallery_order : function(table, row) {
       var current = 0;
-      var change_list = $("#changelist tbody");
-      change_list.children().each(function(i) {
-        var tds = $(this).children();
-        $(tds.get(3)).text(++current);
-        var pk = $(tds.get(1)).find('a').attr('href');
-        if(pk.charAt(pk.length-1) == '/') {
-          pk = pk.substring(0, pk.length-1);
-        }
+      $("#changelist tbody").children().each(function() {
+        $(this).find("input[id$='order']").val(++current)
+        var pk = $(this).find("input[id$='id']").val();
         _private.order[pk] = current;
       }); //End change_list each
-    },
-    
-    save_order : function(url) {
-      $.post(url, 
-        _private.order,
-		    function(xml) {
-		      $("#footer").text("Order saved!").hide().fadeIn(2000).fadeOut(2000);
-		  });
-    } //End save_order
+    }, //End update_gallery_order
   }; //End _public
   
   var _private = {

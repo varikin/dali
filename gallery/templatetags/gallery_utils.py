@@ -3,6 +3,10 @@ from gallery.models import Picture
 
 register = Library()
 
+@register.inclusion_tag('admin/gallery/reorder.html')
+def register_reorder(callback):
+    return {'drop_callback': callback}
+
 @register.filter
 def caption(picture):
     """
