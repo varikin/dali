@@ -2,7 +2,8 @@
 {% load gallery_utils %}
 
 {% block extrahead %}
- {% register_reorder 'gallery.update_picture_order' %}
+  {{ block.super }}
+  {% register_reorder 'gallery.update_picture_order' %}
 {% endblock %}
 
 {% block object-tools %}
