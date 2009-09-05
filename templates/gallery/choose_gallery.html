@@ -1,15 +1,39 @@
-{% comment %}
-Meant for dynamic loading via ajax so it is just an html fragment.
-{% endcomment %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link rel="stylesheet" href="/static/css/main.css" type="text/css" media="screen, projection"/>
+  <title>Choose Picture - Jes Lee Photos</title>
+</head>
 
-<fieldset>
-  <legend>Select Gallery</legend>
-  <div id="dynamic_images_list">
-    <ul>
+<body>
+  <fieldset>
+    <legend>Select Gallery</legend>
+    <select id="gallery">
+      <option value="">Please choose a gallery</option>
       {% for gallery in galleries %}
-      <li id="{{ gallery.slug }}">{{ gallery.name }}</li>
+      <option value="{% url gallery_choose_picture gallery.slug %}">{{ gallery.name }}</option>
       {% endfor %}
-    </ul>
-  </div>
-</fieldset>
+    </select>
+  </fieldset>
+  <div id="pictures"></div>
+  {% include "jquery.html" %}
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('#gallery').change(function() {
+        var url = $('#gallery').val();
+        if(url !== '') {
+          $('#pictures').load(url);
+        }
+      });
+      $('#pictures img').live('click', function(e) {
+        opener.CKEDITOR.tools.callFunction(1, this.id);
+        window.close();
+      });
+    });
+  </script>
+</body>
+</html>
+
+
 

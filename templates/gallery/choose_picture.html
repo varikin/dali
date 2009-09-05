@@ -3,8 +3,8 @@ Meant for dynamic loading via ajax so it is just an html fragment.
 {% endcomment %}
 
 <fieldset>
-  <legend>Select Gallery</legend>
-  <div id="dynamic_images_list">
+  <legend>Select Picture</legend>
+  <div id="pictures">
     {% for picture in pictures %}
     <img src="{{ picture.thumbnail.url }}" id="{{ picture.viewable.url }}" 
       title="{{ picture.name }}" alt="{{ picture.description}}"/>
