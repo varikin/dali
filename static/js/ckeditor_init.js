@@ -1,5 +1,5 @@
-$(document).ready(function() {
-  CKEDITOR.replace('id_body', {
+var ck = {
+  config : {
     filebrowserImageBrowseUrl : '/gallery/choose_picture/',
     toolbar:  [
       ['Cut','Copy','Paste','PasteText','PasteFromWord','-', 'SpellChecker', 'Scayt'],
@@ -15,7 +15,15 @@ $(document).ready(function() {
       ['TextColor','BGColor'],
       ['Maximize', 'ShowBlocks']
     ]
+  }
+};
+
+$(document).ready(function() {
+  $.each(['id_body', 'id_content'], function(index, element) {
+    if($('#' + element).length > 0) {
+      $('label[for="' + element + '"]').hide();
+      CKEDITOR.replace(element, ck.config);
+    }
   });
-  $('label[for="id_body"]').hide();
 });
   

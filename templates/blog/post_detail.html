@@ -7,10 +7,10 @@
 
 {% block javascripts %}
 {% if user.is_authenticated %}
-<script type="text/javascript" src="/static/js/tiny_mce/tiny_mce_src.js"></script>
-<script type="text/javascript" src="/static/js/tiny_init.js"></script>
+<script type="text/javascript" src="/static/js/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="/static/js/ckeditor_init.js"></script>
 <script type="text/javascript" src="/static/js/jquery.jeditable.js"></script>
-<script type="text/javascript" src="/static/js/jquery.jeditable.tinymce.js"></script>
+<script type="text/javascript" src="/static/js/jquery.jeditable.ckeditor.js"></script>
 <script type="text/javascript" src="/static/js/dali.js"></script>
 {% endif %}
 {% endblock %}
@@ -28,24 +28,23 @@ $('#publish').click(function(event) {
 });
 
 $('.edit_area').editable(dali.update_post, {
-      type : 'mce',
+      type : 'ckeditor',
       onblur : 'ignore',
       submit : 'OK',
       cancel : 'Cancel',
-      tooltip : 'Click to edit...',
+      tooltip : 'Click to edit',
       id : 'body',
 });
 
 $('.edit').editable(dali.update_post, {
       indicator : 'Saving...',
-      tooltip   : 'Click to edit...',
+      tooltip   : 'Click to edit',
       submit : 'OK',
       cancel : 'Cancel',
       id : 'title',
 });
 
 {% endif %}
-
 {% endblock %}
 
 {% block content %}

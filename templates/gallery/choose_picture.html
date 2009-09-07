@@ -4,10 +4,8 @@ Meant for dynamic loading via ajax so it is just an html fragment.
 
 <fieldset>
   <legend>Select Picture</legend>
-  <div id="pictures">
-    {% for picture in pictures %}
-    <img src="{{ picture.thumbnail.url }}" id="{{ picture.viewable.url }}" 
-      title="{{ picture.name }}" alt="{{ picture.description}}"/>
-    {% endfor %}
-  </div>
+  {% for picture in pictures %}
+  <img src="{{ picture.thumbnail.url }}" id="{{ picture.viewable.url }}" 
+    title="{{ picture.name }}" alt="{{ picture.description}}"/>
+  {% endfor %}
 </fieldset>
