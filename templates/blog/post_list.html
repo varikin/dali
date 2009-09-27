@@ -4,18 +4,27 @@
 {% block title %}Recent posts | {{ block.super }}{% endblock %}
 
 {% block content %}
- {% for post in post_list %}
- <div class="post">
-   <h1 class="above_line">
-     <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
-     {% if user.is_authenticated and not post.published %}
-     <span id="icon_list">
-       <img src="/static/icons/exclamation.png" alt="Not published" title="Not Published"/>
-     </span>
-     {% endif %}
-   </h1>
-   <div class="below_line">{{ post.date_published|format_date }}</div>
-   <div class="picture_list">{% image_preview post 5 %}</div>
- </div>
- {% endfor %}
+  {% for post in post_list %}
+  <div class="post">
+    <h1 class="above_line">
+      <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+      {% if user.is_authenticated and not post.published %}
+      <span id="icon_list">
+        <img src="/static/icons/exclamation.png" alt="Not published" title="Not Published"/>
+      </span>
+      {% endif %}
+    </h1>
+    <div class="below_line">{{ post.date_published|format_date }}</div>
+    <div class="picture_list">{% image_preview post 5 %}</div>
+  </div>
+  {% endfor %}
+  <div class="above_line">&nbsp;</div>
+  <div class="pagination">
+    <div class="older">
+      {% if has_next %}<a href="?page={{ next }}">Older posts</a>{% else %}&nbsp;{% endif %}
+    </div>
+    {% if has_previous %}
+      <div class="newer"><a href="?page={{ previous }}">Newer posts</a></div>
+    {% endif %}
+  </div>
 {% endblock %}
