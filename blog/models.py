@@ -32,6 +32,21 @@ class Post(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return ("blog_post_detail", (), {"slug": self.slug})
+    
+    def next(self):
+        next = Post.objects.published().filter(date_published__gt=self.date_published).order_by('date_published')
+        if next.count() > 0:
+            return next[0]
+        else:
+            return None
+    
+    def previous(self):
+        previous = Post.objects.published().filter(date_published__lt=self.date_published)
+        if previous.count() > 0:
+            return previous[0]
+        else:
+            return None
+        
 
 def comment_added(sender, comment, request, **kwargs):
     subject = '(%s) Comment add to: %s' % \

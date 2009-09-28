@@ -18,13 +18,11 @@
     <div class="picture_list">{% image_preview post 5 %}</div>
   </div>
   {% endfor %}
-  <div class="above_line">&nbsp;</div>
-  <div class="pagination">
-    <div class="older">
-      {% if has_next %}<a href="?page={{ next }}">Older posts</a>{% else %}&nbsp;{% endif %}
-    </div>
-    {% if has_previous %}
-      <div class="newer"><a href="?page={{ previous }}">Newer posts</a></div>
-    {% endif %}
+  
+  <div class="above_line">
+    {% if has_next %}<a href="?page={{ next }}">« Older posts</a>{% endif %}
+  </div>
+  <div class="below_line">
+    {% if has_previous %}<a href="?page={{ previous }}">Newer posts »</a>{% endif %}
   </div>
 {% endblock %}

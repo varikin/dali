@@ -34,11 +34,6 @@ h1.above_line { font-size: 1.9em; }
 .above_line a { text-decoration: none; }
 .below_line { text-align: right; }
 
-.pagination div { width: 400px; float: left;}
-.older { text-align: left; }
-.newer { text-align: right; }
-
-
 #footer { clear: both; padding-top: 30px; text-align: center; }
 .content { margin: 10px 0 35px; }
 
