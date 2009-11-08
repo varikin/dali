@@ -20,7 +20,12 @@
     </span>
   </div>
   <div id="main">{% block content %}{% endblock %}</div>
-  <div id="footer">{% block footer %}Copyright of Jes Lee Photos 2009{% endblock %}</div>
+  <div id="footer">
+  {% block footer %}
+    <p>Want to follow me on <a href="http://twitter.com/moonsweetie">Twitter</a>?<br />
+    Copyright of Jes Lee Photos 2009</p>
+  {% endblock %}
+  </div>
 
   {% include "jquery.html" %}
   {% if not debug %} 
