@@ -52,6 +52,7 @@ INSTALLED_APPS = (
     'django_extensions',
     'django.contrib.flatpages',
     'mailer',
+    'disqus',
     'dali_flatpages',
     'gallery',
     'tagging',
@@ -66,6 +67,7 @@ LOG_FORMAT = "%(asctime)s:%(levelname)s:%(module)s.%(funcName)s:%(lineno)d:%(mes
 logging.basicConfig(filename=LOG_FILENAME, level=logging.DEBUG, \
     format=LOG_FORMAT)
 
+DISQUS_WEBSITE_SHORTNAME = 'jesleephotos'
 
 try:
     from local_settings import *

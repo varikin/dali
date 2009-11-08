@@ -2,8 +2,10 @@
 {% load comments %}
 {% load tagging_tags %}
 {% load blog_utils %}
+{% load disqus_tags %}
 
 {% block title %}{{ post.title }} | {{ block.super }}{% endblock %}
+{% block extrahead %}{% disqus_dev %}{% endblock %}
 
 {% block javascripts %}
 {% if user.is_authenticated %}
@@ -81,39 +83,6 @@ $('.edit').editable(dali.update_post, {
   </div>
 {% endif %}
 
-<div class="above_line">
-  {% with post.previous as prev %}
-  {% if prev %}<a href="{{ prev.get_absolute_url }}">« Previous post - {{ prev.title }}</a>{% endif %}
-  {% endwith %}
-</div>
-<div class="below_line">
-  {% with post.next as next %}
-  {% if next %}<a href="{{ next.get_absolute_url }}">Next post - {{ next.title }} »</a>{% endif %}
-  {% endwith %}
-</div>
+{% disqus_show_comments %}
 
-<div class="comment"><h2 class="above_line">Comments</h2></div>
-{% get_comment_list for post as comment_list %}
-<div id="comment_list">
-    {% for comment in comment_list %}
-      <div class="comment">
-        {% if comment.user_url %}
-          <h3 class="above_line"><a href="{{ comment.user_url }}">{{ comment.user_name }}</a></h3>
-        {% else %}
-          <h3 class="above_line">{{ comment.user_name }}</h3>
-        {% endif %}
-        <div class="time below_line">
-          <strong>{{ comment.submit_date|date:"M j, Y" }}</strong>
-          {{ comment.submit_date|time:"f A" }}
-        </div>
-        <div class="comment_body">
-          {{ comment.comment }}
-        </div>
-      </div>
-    {% endfor %}
-</div>
-<div id="comment_form">
-    <h2 class="above_line">Post a comment...</h2>
-    {% render_comment_form for post %}
-</div>
 {% endblock %}
