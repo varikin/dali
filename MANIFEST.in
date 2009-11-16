@@ -1,0 +1,6 @@
+include README
+include LICENSE
+include NOTICE
+include dali/local_settings.py.template
+recursive-include dali/templates *.html
+recursive-include dali/static *.js *.css *.html *.png *.gif

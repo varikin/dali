@@ -8,7 +8,7 @@
 *.pyc
 *.db
 *.swp
-media/*
+dali/media/*
 local_settings.py
 fabfile.py
 .DS_Store
