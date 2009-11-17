@@ -6,5 +6,5 @@ django-extensions==0.4
 django-disqus==0.2
 Werkzeug==0.5.1
 django-mailer==0.1.0alpha
-tagging==0.3-pre
+django-tagging==0.3
 PIL==1.1.6
