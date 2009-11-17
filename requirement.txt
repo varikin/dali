@@ -5,7 +5,6 @@ BeautifulSoup
 -e git://github.com/varikin/dali.git#egg=django-extensions
 -e git://github.com/varikin/django-disqus#egg=django-disqus
 Werkzeug
-ipython
 django-mailer
 tagging
 PIL
