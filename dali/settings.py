@@ -20,7 +20,7 @@ USE_I18N = False
 
 MEDIA_ROOT = os.path.join(PROJECT_BASE, 'media')
 MEDIA_URL = '/media/'
-ADMIN_MEDIA_PREFIX = '/media/admin/'
+ADMIN_MEDIA_PREFIX = 'http://django.admin.s3.amazonaws.com/'
 
 SECRET_KEY = 'ds(%#lzza1dpe1k@h@ikzuffk4cnr8zlldoms5dmrp!l7^k08s'
 
