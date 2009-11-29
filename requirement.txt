@@ -8,3 +8,4 @@ Werkzeug
 django-mailer
 django-tagging
 PIL
+tigre
