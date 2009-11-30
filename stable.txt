@@ -8,4 +8,4 @@ Werkzeug==0.5.1
 django-mailer==0.1.0alpha
 django-tagging==0.3
 PIL==1.1.6
-tigre==0.1.5
+tigre==0.1.6
