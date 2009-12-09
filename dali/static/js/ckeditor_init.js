@@ -13,7 +13,7 @@ var ck = {
       '/',
       ['Styles','Format','Font','FontSize'],
       ['TextColor','BGColor'],
-      ['Maximize', 'ShowBlocks']
+      ['Maximize', 'ShowBlocks', 'Source']
     ]
   }
 };
