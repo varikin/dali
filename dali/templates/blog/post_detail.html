@@ -5,7 +5,7 @@
 {% load disqus_tags %}
 
 {% block title %}{{ post.title }} | {{ block.super }}{% endblock %}
-{% block extrahead %}{% disqus_dev %}{% endblock %}
+{% block extrahead %}{% disqus_dev %} {{ block.super }}{% endblock %}
 
 {% block javascripts %}
 {% if user.is_authenticated %}
