@@ -4,7 +4,7 @@ var ck = {
     toolbar:  [
       ['Cut','Copy','Paste','PasteText','PasteFromWord','-', 'SpellChecker', 'Scayt'],
       ['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
-      ['Link','Unlink','Anchor', 'Image'],
+      ['Link','Unlink','Anchor', 'Image', 'MediaEmbed'],
       ['HorizontalRule','Smiley','SpecialChar','PageBreak'],
       '/',
       ['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
