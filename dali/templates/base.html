@@ -11,12 +11,12 @@
   <h1 id="header"><a href="/">Jes Lee</a></h1>
   <div id="nav">
     <span>
-      <a {% block home-nav %}{% endblock %} href="/">Home</a>
       <a {% block gallery-nav %}{% endblock %} href="{% url gallery_list %}">Galleries</a>
       <a {% block blog-nav %}{% endblock %} href="{% url blog_post_index %}">Blog</a>
       <a {% block contact-nav %}{% endblock %} href="/contact/">Contact Me</a>
       <a {% block about-nav %}{% endblock %} href="/about/">About Me</a>
       <a {% block links-nav %}{% endblock %} href="/links/">Links</a>
+      <a {% block shop-nav %}{% endblock %} href="/shop/">Shop</a>
     </span>
   </div>
   <div id="main">{% block content %}{% endblock %}</div>
