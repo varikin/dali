@@ -3,7 +3,7 @@ PyYAML
 Fabric
 BeautifulSoup
 -e git://github.com/varikin/dali.git#egg=django-extensions
--e git://github.com/varikin/django-disqus#egg=django-disqus
+djang-disqus
 Werkzeug
 django-mailer
 django-tagging

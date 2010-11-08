@@ -3,7 +3,7 @@ PyYAML==3.08
 Fabric==0.0.9
 BeautifulSoup==3.0.7a
 django-extensions==0.4
-django-disqus==0.2
+django-disqus==0.3.3
 Werkzeug==0.5.1
 django-mailer==0.1.0alpha
 django-tagging==0.3
