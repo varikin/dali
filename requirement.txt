@@ -9,3 +9,5 @@ django-mailer
 django-tagging
 PIL
 tigre
+-e git+http://github.com/nureineide/posterous-python.git@76eecfda5a81d3dcfab260f043cc1d6c92061a1b#egg=posterous_python-v1.0
+
