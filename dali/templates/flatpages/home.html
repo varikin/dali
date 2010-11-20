@@ -35,12 +35,6 @@ $('#slide_left').click(function() {
      <div id="slide_right"><img src="/static/slide_right.png" alt="Right Arrow"/></div>
   </div>
 </div>
-{% get_latest_post as post %}
-<div class="post">
-   <h1 class="above_line"><a href="{{ post.get_absolute_url }}">Latest Post - {{ post.title }}</a></h1>
-   <div class="below_line">{{ post.date_published|format_date }}</div>
-   <div class="picture_list">{% image_preview post 5 %}</div>
-</div>
 <div>
    <h1 class="above_line">Announcements</h1>
    <div class="content {% if user.is_authenticated %}edit{% endif %}">{{ flatpage.content }}</div>
