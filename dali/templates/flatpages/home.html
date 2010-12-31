@@ -19,9 +19,9 @@ $('#slide_left').click(function() {
 
 {% block content %}
 <div>
-  <h1 class="above_line">Recent Pictures</h1>
+  <h1 class="above_line"><img src="/static/images/recent_pictures.png"></h1>
   <div class="content" id="slider_container">
-    <div id="slide_left"><img src="/static/slide_left.png" alt="Left Arrow"/></div>
+    <div id="slide_left"><img src="/static/images/slide_left.png" alt="Left Arrow"/></div>
       <div id="slider">
         <div id="sliding_images">
         {% get_latest_pictures as pictures limit 20 %}
@@ -32,11 +32,11 @@ $('#slide_left').click(function() {
         {% endfor %}
         </div>
      </div>
-     <div id="slide_right"><img src="/static/slide_right.png" alt="Right Arrow"/></div>
+     <div id="slide_right"><img src="/static/images/slide_right.png" alt="Right Arrow"/></div>
   </div>
 </div>
 <div>
-   <h1 class="above_line">Announcements</h1>
+   <h1 class="above_line"><img src="/static/images/announcements.png"></h1>
    <div class="content {% if user.is_authenticated %}edit{% endif %}">{{ flatpage.content }}</div>
 </div>
 {% endblock %}

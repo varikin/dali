@@ -1,7 +1,7 @@
 body{
     color: #C6CDCA;
-    background: #000 url('../background.png') repeat-y center;
-    font-family:  "Century Gothic", Helvetica, sans-serif;
+    background: #000 url('../images/background.png') repeat-y center;
+    font-family:  "Optima", Helvetica, sans-serif;
     font-size: 16px;
     margin: 0 auto;
     padding: 0;
@@ -18,15 +18,7 @@ p { line-height: 1.5em; }
 #nav { font-size: 1.25em; margin-bottom: 2em; text-align: center; }
 #nav a { letter-spacing: 1px; padding: 2px 20px; text-decoration: none; }
 
-#nav a#active, #nav a:hover { 
-    background-color: #202020; 
-    border: 1px solid #BB7FED;
-    color: #C6CDCA;
-    padding: 2px 19px;
-    /*Rounded corners for the boxes, fuck IE!*/
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-}
+
 
 .clear { clear: both; }
 h1.above_line { font-size: 1.9em; }
@@ -35,6 +27,7 @@ h1.above_line { font-size: 1.9em; }
 .below_line { text-align: right; }
 
 #footer { clear: both; padding-top: 30px; padding-bottom: 10px; text-align: center; }
+#badges a { margin-left: 15px; }
 .content { margin: 10px 0 35px; }
 
 /* Gallery styles */
