@@ -31,7 +31,6 @@ TEMPLATE_LOADERS = (
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
-    'blog.middleware.SetRemoteAddrFromForwardedFor',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -52,23 +51,14 @@ INSTALLED_APPS = (
     'django.contrib.comments',
     'django_extensions',
     'django.contrib.flatpages',
-    'mailer',
-    'disqus',
     'dali_flatpages',
     'gallery',
-    'tagging',
-    'blog',
 )
-
-FORCE_LOWERCASE_TAGS = True
-BLOG_AUTHOR = ('Jes Lee', 'jesleephotos@gmail.com')
 
 LOG_FILENAME = os.path.join(PROJECT_BASE, 'dali.log')
 LOG_FORMAT = "%(asctime)s:%(levelname)s:%(module)s.%(funcName)s:%(lineno)d:%(message)s"
 logging.basicConfig(filename=LOG_FILENAME, level=logging.DEBUG, \
     format=LOG_FORMAT)
-
-DISQUS_WEBSITE_SHORTNAME = 'jesleephotos'
 
 try:
     from local_settings import *

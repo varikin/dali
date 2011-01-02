@@ -18,8 +18,6 @@ p { line-height: 1.5em; }
 #nav { font-size: 1.25em; margin-bottom: 2em; text-align: center; }
 #nav a { letter-spacing: 1px; padding: 2px 20px; text-decoration: none; }
 
-
-
 .clear { clear: both; }
 h1.above_line { font-size: 1.9em; }
 .above_line { border-bottom: 1px solid; font-weight: normal; margin-bottom: auto; width: 800px; }
@@ -34,15 +32,6 @@ h1.above_line { font-size: 1.9em; }
 img#detail { display: block; margin-left: auto; margin-right: auto;}
 .picture_list .first { margin-left: 0;}
 .picture_list img { margin: 0 0 11px 11px; }
-
-
-/* Blog and comment styles */
-.comment { margin-bottom: 20px; }
-#comment_form { margin-top: 15px; }
-#comment_form form p { margin-bottom: 0; margin-top: 5px; }
-
-.tag_cloud a { text-decoration: none; }
-.tag_cloud a:hover { text-decoration: underline; }
 
 /* Home page */
 #slider_container { margin-left: -12px; height: 75px; width: 825px; }
