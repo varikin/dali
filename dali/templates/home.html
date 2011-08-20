@@ -33,8 +33,4 @@ $('#slide_left').click(function() {
      <div id="slide_right"><img src="/static/images/slide_right.png" alt="Right Arrow"/></div>
   </div>
 </div>
-<div>
-   <h1 class="above_line"><img src="/static/images/announcements.png"></h1>
-   <div class="content {% if user.is_authenticated %}edit{% endif %}">{{ flatpage.content }}</div>
-</div>
 {% endblock %}
