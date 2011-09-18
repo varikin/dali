@@ -1,4 +1,4 @@
-A small blog and image gallery application written in Python using Django and
+A small image gallery application written in Python using Django and
 the jQuery JavaScript library. It is very alpha at the moment and not 
 recommended for use yet.
  

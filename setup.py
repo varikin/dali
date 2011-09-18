@@ -18,7 +18,7 @@ setup(
     author_email = "varikin@gmail.com",
     description = ("The website of jesleephotos.com, Something Amazing!"),
     license = "Apache Software License 2.0",
-    keywords = "django blog gallery",
+    keywords = "django gallery",
     url = "http://github.com/varikin/dali",
     packages = ['dali'],
     long_description = read('README'),

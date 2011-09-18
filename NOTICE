@@ -1,17 +1,11 @@
 Dali
-A small blog and image gallery web application.
+A small image gallery web application.
 Copyright (c) 2008 John C. Shimek
 
 This software uses the following open source software libraries:
 The Django framework, http://www.djangoproject.com, 
 which is released under the BSD license,
 http://code.djangoproject.com/browser/django/trunk/LICENSE.
-
-Django Tagging, a generic tagging application for Django projects, 
-http://code.google.com/p/django-tagging/.
-Copyright (c) 2007, Jonathan Buchanan
-Django Tagging is released under the MIT License:
-http://www.opensource.org/license/mit-license.php
 
 jQuery Javascript library, http://jquery.com/, 
 which is released under the MIT License,
