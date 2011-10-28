@@ -18,12 +18,10 @@ $('#slide_left').click(function() {
 {% block content %}
 <div>
   <h1 class="above_line" class="museo">Recent artwork</h1>
-  <div class="content">
+  <div class="content picture-list">
 	{% get_latest_pictures as pictures limit 10 %}
 	{% for picture in pictures %}
-	<div>
 	  <a href="{{ picture.gallery.get_absolute_url }}"><img src="{{ picture.thumbnail.url }}" alt="{{ picture.name }}"/></a>
-	</div>
 	{% endfor %}
   </div>
 </div>
