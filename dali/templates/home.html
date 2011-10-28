@@ -18,19 +18,13 @@ $('#slide_left').click(function() {
 {% block content %}
 <div>
   <h1 class="above_line" class="museo">Recent artwork</h1>
-  <div class="content" id="slider_container">
-    <div id="slide_left"></div>
-      <div id="slider">
-        <div id="sliding_images">
-        {% get_latest_pictures as pictures limit 20 %}
-        {% for picture in pictures %}
-        <div class="sliding_image {% if forloop.first %}first{% endif %}">
-          <a href="{{ picture.gallery.get_absolute_url }}"><img src="{{ picture.thumbnail.url }}" alt="{{ picture.name }}"/></a>
-        </div>
-        {% endfor %}
-        </div>
-     </div>
-     <div id="slide_right"></div>
+  <div class="content">
+	{% get_latest_pictures as pictures limit 10 %}
+	{% for picture in pictures %}
+	<div>
+	  <a href="{{ picture.gallery.get_absolute_url }}"><img src="{{ picture.thumbnail.url }}" alt="{{ picture.name }}"/></a>
+	</div>
+	{% endfor %}
   </div>
 </div>
 {% endblock %}
