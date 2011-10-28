@@ -1,6 +1,6 @@
 body{
-    color: #C6CDCA;
-    background: #000 url('../images/background.png') repeat-y center;
+    color: #e1e1e1;
+    background: #e1e1e1 url('http://purplerobots.s3.amazonaws.com/background2.jpg') repeat-y center;
     font-family:  "Optima", Helvetica, sans-serif;
     font-size: 16px;
     margin: 0 auto;
