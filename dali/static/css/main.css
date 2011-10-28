@@ -8,13 +8,13 @@ body{
     width: 800px;
 }
 
-a, img { border: 0; color: #C6CDCA; outline: 0; }
+a, img { border: 0; color: #4f4f4f; outline: 0; }
 a:hover { color: #BB7FED; }
 li { list-style-position: outside; list-style-type: none; }
 p { line-height: 1.5em; }
 
-#header { font-size: 3.5em; font-weight: normal; margin-bottom: 1em; text-align: center; }
-#header a { text-decoration: none; color: #C6CDCA; }
+#header { font-size: 4.5em; font-weight: normal; margin-bottom: 1em; text-align: center; }
+#header a { text-decoration: none;}
 #nav { font-weight: 300; font-size: 1.5em; margin-bottom: 2em; text-align: center; }
 #nav a { letter-spacing: 1px; padding: 2px 20px; text-decoration: none; }
 
