@@ -12,12 +12,11 @@
 <body>
   <div id="nav">
     <span>
-	  <br>
       <a {% block gallery-nav %}{% endblock %} href="{% url gallery_list %}" class="museo">Galleries</a>
-	  <a {% block announcements-nav %}{% endblock %} href="/announcements/"><img src= "/static/images/announcements-nav.png"></a>
-      <a {% block about-nav %}{% endblock %} href="/about/"><img src= "/static/images/about_me.png"></a>
-      <a href="http://www.shadesofsilver.me"><img src= "/static/images/blog.png"></a>
-	  <a href="http://store.jesleephotos.com/"><img src= "/static/images/shop.png"></a>
+	  <a {% block announcements-nav %}{% endblock %} href="/announcements/" class="museo">Announements</a>
+      <a {% block about-nav %}{% endblock %} href="/about/" class="museo">About Me</a>
+      <a href="http://www.shadesofsilver.me" class="museo">Blog</a>
+	  <a href="http://store.jesleephotos.com/" class="museo">Shop</a>
     </span>
   </div>
   <h1 id="header"><a href="/"> <img src= "/static/images/jes_lee.png"></a> </h1>

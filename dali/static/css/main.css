@@ -15,7 +15,7 @@ p { line-height: 1.5em; }
 
 #header { font-size: 3.5em; font-weight: normal; margin-bottom: 1em; text-align: center; }
 #header a { text-decoration: none; color: #C6CDCA; }
-#nav { font-size: 1.25em; margin-bottom: 2em; text-align: center; }
+#nav { font-weight: 400; font-size: 2em; margin-bottom: 2em; text-align: center; }
 #nav a { letter-spacing: 1px; padding: 2px 20px; text-decoration: none; }
 
 .clear { clear: both; }
