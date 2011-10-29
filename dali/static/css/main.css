@@ -1,5 +1,5 @@
 body{
-    color: #e1e1e1;
+    color: #000000;
     background: #e1e1e1 url('http://purplerobots.s3.amazonaws.com/background2.jpg') repeat-y center;
     font-family:  "Optima", Helvetica, sans-serif;
     font-size: 16px;
@@ -8,14 +8,14 @@ body{
     width: 800px;
 }
 
-a, img { border: 0; color: #C6CDCA; outline: 0; }
+a, img { border: 0; color: #4f4f4f; outline: 0; }
 a:hover { color: #BB7FED; }
 li { list-style-position: outside; list-style-type: none; }
 p { line-height: 1.5em; }
 
-#header { font-size: 3.5em; font-weight: normal; margin-bottom: 1em; text-align: center; }
-#header a { text-decoration: none; color: #C6CDCA; }
-#nav { font-size: 1.25em; margin-bottom: 2em; text-align: center; }
+#header { font-size: 4.5em; font-weight: normal; margin-bottom: 1em; text-align: center; }
+#header a { text-decoration: none;}
+#nav { font-weight: 300; font-size: 1.5em; margin: 2em 0; text-align: center; }
 #nav a { letter-spacing: 1px; padding: 2px 20px; text-decoration: none; }
 
 .clear { clear: both; }

@@ -5,20 +5,21 @@
   <link rel="stylesheet" href="/static/css/main.css" type="text/css" media="screen, projection"/>
   {% block extrahead %}{% endblock %}
   <title>{% block title %}Jes Lee Photos{% endblock %}</title>
+  <script type="text/javascript" src="http://use.typekit.com/cfe6inb.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 </head>
 
 <body>
   <div id="nav">
     <span>
-	  <br>
-      <a {% block gallery-nav %}{% endblock %} href="{% url gallery_list %}"><img src= "/static/images/galleries.png"></a>
-	  <a {% block announcements-nav %}{% endblock %} href="/announcements/"><img src= "/static/images/announcements-nav.png"></a>
-      <a {% block about-nav %}{% endblock %} href="/about/"><img src= "/static/images/about_me.png"></a>
-      <a href="http://www.shadesofsilver.me"><img src= "/static/images/blog.png"></a>
-	  <a href="http://store.jesleephotos.com/"><img src= "/static/images/shop.png"></a>
+      <a {% block gallery-nav %}{% endblock %} href="{% url gallery_list %}" class="museo">Galleries</a>
+	  <a {% block announcements-nav %}{% endblock %} href="/announcements/" class="museo">Announcements</a>
+      <a {% block about-nav %}{% endblock %} href="/about/" class="museo">About Me</a>
+      <a href="http://www.shadesofsilver.me" class="museo">Blog</a>
+	  <a href="http://store.jesleephotos.com/" class="museo">Shop</a>
     </span>
   </div>
-  <h1 id="header"><a href="/"> <img src= "/static/images/jes_lee.png"></a> </h1>
+  <h1 id="header"><a href="/" class="museo">Jes Lee</a> </h1>
   <div id="main">{% block content %}{% endblock %}</div>
   <div id="footer">
   {% block footer %}
