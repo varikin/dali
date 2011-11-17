@@ -2,6 +2,7 @@ from __future__ import division
 import os
 import tempfile
 from PIL import Image
+from ckeditor.fields import HTMLField
 
 from django.core.files import File
 from django.db import models
@@ -11,7 +12,7 @@ from gallery.managers import GalleryManager
 class Gallery(models.Model):    
     name = models.CharField(max_length=100)
     slug = models.SlugField(unique=True)
-    description = models.TextField(null=True, blank=True)
+    description = HTMLField(null=True, blank=True)
     parent_gallery = models.ForeignKey('self', null=True, blank=True)
     published = models.BooleanField(default=False)
     order = models.PositiveSmallIntegerField(blank=True, null=True)
@@ -47,7 +48,7 @@ class Picture(models.Model):
     original = models.ImageField(upload_to='original')
     viewable = models.ImageField(upload_to='viewable')
     thumbnail = models.ImageField(upload_to='thumbnail')
-    description = models.TextField(null=True, blank=True)
+    description = HTMLField(null=True, blank=True)
     gallery = models.ForeignKey(Gallery)
     order = models.PositiveSmallIntegerField(null=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)

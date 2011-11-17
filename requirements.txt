@@ -6,3 +6,4 @@ Werkzeug==0.5.1
 PIL==1.1.7
 tigre==0.1.6
 south==0.7.3
+-e git://github.com/varikin/django-ckeditor.git@130b3ed78d58dd3434a01702f60dbef6b00a009d#egg=ckeditor

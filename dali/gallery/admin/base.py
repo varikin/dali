@@ -10,12 +10,6 @@ class GalleryAdmin(admin.ModelAdmin):
     search_fields = ('name', 'slug', 'parent_gallery__name')
     prepopulated_fields = {'slug': ('name',)}
 
-    class Media:
-	    js = (
-	        '/static/js/ckeditor/ckeditor.js',
-	        '/static/js/ckeditor_init.js'
-	    )
-
 class PictureAdmin(admin.ModelAdmin):
     list_display = ('name', 'slug', 'gallery', 'order', 
         'date_created', 'date_modified')
@@ -26,11 +20,5 @@ class PictureAdmin(admin.ModelAdmin):
     fields = ('name', 'slug', 'description', 'original', 'gallery', 'order')
     prepopulated_fields = {'slug': ('name',)}
 
-    class Media:
-	    js = (
-	        '/static/js/ckeditor/ckeditor.js',
-	        '/static/js/ckeditor_init.js'
-	    )
-        
 admin.site.register(Gallery, GalleryAdmin)
 admin.site.register(Picture, PictureAdmin)

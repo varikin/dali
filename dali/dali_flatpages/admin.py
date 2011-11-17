@@ -10,6 +10,6 @@ class CustomFlatPageAdmin(FlatPageAdmin):
             )
 
 # We have to unregister it, and then reregister
-admin.site.unregister(FlatPage)
-admin.site.register(FlatPage, CustomFlatPageAdmin)
+#admin.site.unregister(FlatPage)
+#admin.site.register(FlatPage, CustomFlatPageAdmin)
 
