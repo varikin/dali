@@ -29,6 +29,10 @@ STATIC_ROOT = os.path.join(PROJECT_BASE, 'static')
 STATIC_URL = '/static/'
 ADMIN_MEDIA_PREFIX = '/static/admin/'
 
+STATICFILES_DIR = (
+	os.path.join(PROJECT_BASE, 'templates', 'static'),
+)
+
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
@@ -37,8 +41,8 @@ STATICFILES_FINDERS = (
 SECRET_KEY = 'ds(%#lzza1dpe1k@h@ikzuffk4cnr8zlldoms5dmrp!l7^k08s'
 
 TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.load_template_source',
-    'django.template.loaders.app_directories.load_template_source',
+	'django.template.loaders.filesystem.Loader',
+	'django.template.loaders.app_directories.Loader',
 )
 
 MIDDLEWARE_CLASSES = (
