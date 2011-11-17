@@ -1,9 +1,0 @@
-Django<1.2
-PyYAML
-Fabric
-BeautifulSoup
--e git://github.com/varikin/dali.git#egg=django-extensions
-Werkzeug
-PIL
-tigre
-
