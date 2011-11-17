@@ -65,8 +65,9 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_extensions',
     'django.contrib.flatpages',
+    'django_extensions',
+    'south',
     'dali_flatpages',
     'gallery',
 )

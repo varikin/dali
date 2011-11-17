@@ -5,3 +5,4 @@ django-extensions==0.4
 Werkzeug==0.5.1
 PIL==1.1.7
 tigre==0.1.6
+south==0.7.3
