@@ -11,8 +11,12 @@ ADMINS = (
 )
 MANAGERS = ADMINS
 
-DATABASE_ENGINE = 'sqlite3'
-DATABASE_NAME = os.path.join(PROJECT_BASE, 'dev.db')
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'dev.db',
+    }
+}
 
 TIME_ZONE = 'America/Chicago'
 SITE_ID = 1
@@ -20,7 +24,15 @@ USE_I18N = False
 
 MEDIA_ROOT = os.path.join(PROJECT_BASE, 'media')
 MEDIA_URL = '/media/'
-ADMIN_MEDIA_PREFIX = 'http://django.admin.s3.amazonaws.com/'
+
+STATIC_ROOT = os.path.join(PROJECT_BASE, 'static')
+STATIC_URL = '/static/'
+ADMIN_MEDIA_PREFIX = '/static/admin/'
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
 
 SECRET_KEY = 'ds(%#lzza1dpe1k@h@ikzuffk4cnr8zlldoms5dmrp!l7^k08s'
 
@@ -33,7 +45,10 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+
 )
 
 ROOT_URLCONF = 'urls'
@@ -48,17 +63,31 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.admin',
-    'django.contrib.comments',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
     'django_extensions',
     'django.contrib.flatpages',
     'dali_flatpages',
     'gallery',
 )
 
-LOG_FILENAME = os.path.join(PROJECT_BASE, 'dali.log')
-LOG_FORMAT = "%(asctime)s:%(levelname)s:%(module)s.%(funcName)s:%(lineno)d:%(message)s"
-logging.basicConfig(filename=LOG_FILENAME, level=logging.DEBUG, \
-    format=LOG_FORMAT)
+LOGGING = { 
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+        }   
+    },  
+    'loggers': {
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },  
+    }   
+}
 
 try:
     from local_settings import *
