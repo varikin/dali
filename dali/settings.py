@@ -1,5 +1,7 @@
 import os
 import logging
+import djcelery
+
 
 PROJECT_BASE = os.path.dirname(__file__)
 
@@ -72,6 +74,7 @@ INSTALLED_APPS = (
     'django.contrib.flatpages',
     'django_extensions',
     'south',
+    'djkombu',
     'ckeditor',
     'dali_flatpages',
     'gallery',
@@ -94,6 +97,16 @@ LOGGING = {
         },  
     }   
 }
+
+# Cellary setting
+
+djcelery.setup_loader()
+BROKER_BACKEND = "djkombu.transport.DatabaseTransport"
+BROKER_HOST = "localhost"
+BROKER_PORT = 5672
+BROKER_USER = "guest"
+BROKER_PASSWORD = "guest"
+BROKER_VHOST = "/"
 
 CKEDITOR_CONFIGS = {
     'default': {
