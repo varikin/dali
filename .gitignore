@@ -8,3 +8,4 @@ fabfile.py
 dali.wsgi
 dali.log
 dali/static
+.idea

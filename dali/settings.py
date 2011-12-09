@@ -98,6 +98,12 @@ LOGGING = {
     }   
 }
 
+# Gallery settings
+
+GALLERY_THUMBNAIL_SIZE = 75
+GALLERY_VIEWABLE_SIZE = 400
+GALLERY_IMAGE_TYPE = 'JPEG'
+
 # Cellary setting
 
 djcelery.setup_loader()

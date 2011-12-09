@@ -39,10 +39,6 @@ class Gallery(models.Model):
         
 
 class Picture(models.Model):
-    THUMBNAIL_SIZE = 75
-    VIEWABLE_SIZE = 400
-    IMAGE_TYPE = 'JPEG'
-
     name = models.CharField(max_length=100)
     slug = models.SlugField(unique=True)
     original = models.ImageField(upload_to='original')
@@ -84,7 +80,7 @@ class Picture(models.Model):
 
             # Save before generating image
             # The uploaded images are not avalable till after saving
-            super(Picture, self).save(**kwargs)            
+            super(Picture, self).save(**kwargs)
             try:
                 orig = Image.open(self.original.path)
                 orig.verify() # Need to reload image after verifying
@@ -97,89 +93,10 @@ class Picture(models.Model):
                 else:
                     self.original.save(self.name,File(file(old_path)), save=True)
                 raise
-            
+
             orig = Image.open(self.original.path)
             self.create_viewable(orig, name)
             self.create_thumbnail(orig, name)
-            generate_images = True
-        else:
-            generate_images = False
 
         # Lets see how many times we can save this fucking image
         super(Picture, self).save(**kwargs)
-        return generate_images # Return to ease testing
-
-    def create_viewable(self, image, name, save=False):
-        """
-        Creates a viewable for a Picture.
-        
-        image: A PIL image.  If not given, opens the original with PIL.
-        name: A name for the viewable.  If not given, uses basename of the 
-            original
-        save: Whether to save the object or not.
-        """
-        width, height = _get_viewable_size(image.size[0], image.size[1])
-        resized = image.resize((width, height), Image.ANTIALIAS)
-        tf = tempfile.NamedTemporaryFile('w+b')
-        resized.save(tf, Picture.IMAGE_TYPE)
-        self.viewable.save(name,File(tf), save)
-        tf.close()
-        
-    def create_thumbnail(self, image, name, save=False):
-        """
-        Creates a thumbnail for a Picture.
-        
-        The thumbnail is cropped to be square.
-        image: A PIL image.  If not given, opens the original with PIL.
-        name: A name for the viewable.  If not given, uses basename of the 
-            original
-        save: Whether to save the object or not.
-        """
-        width, height = _get_thumbnail_size(image.size[0], image.size[1])
-        resized = image.resize((width, height), Image.ANTIALIAS)
-
-        lower, remainder = divmod(Picture.THUMBNAIL_SIZE, 2)
-        upper = lower
-        if remainder != 0: 
-            upper += 1
-
-        if width > height:
-            center = resized.size[0] // 2
-            box = (center - lower, 0, center + upper, Picture.THUMBNAIL_SIZE)
-        else:
-            center = resized.size[1] // 2
-            box = (0, center - lower, Picture.THUMBNAIL_SIZE, center + upper)
-        
-        crop = resized.crop(box)
-        tf = tempfile.NamedTemporaryFile('w+b')
-        crop.save(tf, Picture.IMAGE_TYPE)
-        self.thumbnail.save(name,File(tf), save)
-        tf.close()
-
-def _get_viewable_size(width, height):
-    """
-    Returns a 2-tuple of (width, height).
-    
-    Calculates a new width and height given a width, height.
-    The larger of the width and height will be the Picture.VIEWABLE_SIZE. 
-    The smaller of the two will be calculated so that the ratio is the 
-    same for the new width and height.
-    """
-    if width > height:
-        return Picture.VIEWABLE_SIZE, int(Picture.VIEWABLE_SIZE * height / width)
-    else:
-        return int(Picture.VIEWABLE_SIZE * width / height), Picture.VIEWABLE_SIZE
-
-def _get_thumbnail_size(width, height):
-    """
-    Returns a 2-tuple of (width, height).
-    
-    Calculates a new width and height given a width, height.
-    The smaller of the width and height will be the Picture.THUMBNAILE_SIZE. 
-    The larger of the two will be calculated so that the ratio is the 
-    same for the new width and height.
-    """
-    if width > height:
-        return int(Picture.THUMBNAIL_SIZE * width / height), Picture.THUMBNAIL_SIZE
-    else:
-        return Picture.THUMBNAIL_SIZE, int(Picture.THUMBNAIL_SIZE * height / width)
