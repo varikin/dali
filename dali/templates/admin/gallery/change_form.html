@@ -1,0 +1,19 @@
+{% extends "admin/change_form.html" %}
+{% load i18n admin_modify adminmedia %}
+
+{% block extrahead %}{{ block.super }}
+<script type="text/javascript">
+    django.jQuery(document).ready(function(){
+        django.jQuery(document).data('submit', false);
+        django.jQuery('form').submit(function() {
+            django.jQuery(document).data('submit', true);
+        });
+
+        window.onbeforeunload = function() {
+            if(!django.jQuery(document).data('submit')) {
+                return "All unsaved data will be lost.";
+            }
+        };
+    });
+</script>
+{% endblock %}
