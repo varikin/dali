@@ -74,7 +74,7 @@ class Picture(models.Model):
         # If new Picture or change original file
         # create a celery task to generate the viewable and thumbnail.
         if old_path is None or self.original.path != old_path:
-            send_task("tasks.GenerateImages", self.id)
+            send_task("gallery.tasks.GenerateImages", [self.id])
 
 
 
