@@ -48,10 +48,10 @@ TEMPLATE_LOADERS = (
 )
 
 MIDDLEWARE_CLASSES = (
+
     'django.middleware.common.CommonMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
 
@@ -74,6 +74,7 @@ INSTALLED_APPS = (
     'django.contrib.flatpages',
     'django_extensions',
     'south',
+    'djcelery',
     'djkombu',
     'ckeditor',
     'dali_flatpages',

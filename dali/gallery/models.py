@@ -1,12 +1,6 @@
-from __future__ import division
-import os
-import tempfile
-from PIL import Image
-from ckeditor.fields import HTMLField
-
-from django.core.files import File
+from celery.execute import send_task
 from django.db import models
-
+from ckeditor.fields import HTMLField
 from gallery.managers import GalleryManager
 
 class Gallery(models.Model):    
@@ -73,30 +67,15 @@ class Picture(models.Model):
             old_path = Picture.objects.get(pk=self.id).original.path
         else:
             old_path = None
-        
-        # Generate images if new Picture or change original file
-        if old_path is None or self.original.path != old_path:
-            name = os.path.basename(self.original.name)
 
-            # Save before generating image
-            # The uploaded images are not avalable till after saving
-            super(Picture, self).save(**kwargs)
-            try:
-                orig = Image.open(self.original.path)
-                orig.verify() # Need to reload image after verifying
-            except:
-                # Treating errors to mean a bad image file. If new Picture,
-                # delete the Picture. Else, set original to the old original
-                # Then re-raise the exception
-                if old_path is None:
-                    self.delete()
-                else:
-                    self.original.save(self.name,File(file(old_path)), save=True)
-                raise
-
-            orig = Image.open(self.original.path)
-            self.create_viewable(orig, name)
-            self.create_thumbnail(orig, name)
-
-        # Lets see how many times we can save this fucking image
+        #Save the image before kicking off the celery task (we need the id)
         super(Picture, self).save(**kwargs)
+
+        # If new Picture or change original file
+        # create a celery task to generate the viewable and thumbnail.
+        if old_path is None or self.original.path != old_path:
+            send_task("tasks.GenerateImages", self.id)
+
+
+
+
