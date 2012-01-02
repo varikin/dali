@@ -3,7 +3,7 @@ import logging
 import djcelery
 
 
-PROJECT_BASE = os.path.dirname(__file__)
+PROJECT_BASE = os.path.abspath(os.path.dirname(__file__))
 
 DEBUG = False
 TEMPLATE_DEBUG = False
@@ -31,7 +31,7 @@ STATIC_ROOT = os.path.join(PROJECT_BASE, 'static')
 STATIC_URL = '/static/'
 ADMIN_MEDIA_PREFIX = '/static/admin/'
 
-STATICFILES_DIR = (
+STATICFILES_DIRS = (
 	os.path.join(PROJECT_BASE, 'templates', 'static'),
 )
 
