@@ -1,7 +1,7 @@
 from celery.execute import send_task
 from django.db import models
 from ckeditor.fields import HTMLField
-from gallery.managers import GalleryManager
+from dali.gallery.managers import GalleryManager
 
 class Gallery(models.Model):    
     name = models.CharField(max_length=100)

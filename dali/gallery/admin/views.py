@@ -1,8 +1,8 @@
 from django.contrib.auth.decorators import permission_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
-from gallery.admin.forms import ZipFileForm
-from gallery.models import Picture, Gallery
+from dali.gallery.admin.forms import ZipFileForm
+from dali.gallery.models import Picture, Gallery
 
 @permission_required('gallery.add_picture')
 def add_pictures_from_zip(request):

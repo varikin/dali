@@ -3,7 +3,7 @@ import Image
 from StringIO import StringIO
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db.models.query import QuerySet
-from gallery.models import Picture
+from dali.gallery.models import Picture
 
 def add_permission(user, perm):
     """

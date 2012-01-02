@@ -6,7 +6,7 @@ from celery.registry import tasks
 from celery.task import Task
 from django.core.files.base import File
 import os
-from gallery.models import Picture
+from dali.gallery.models import Picture
 from django.conf import settings
 
 class GenerateImages(Task):

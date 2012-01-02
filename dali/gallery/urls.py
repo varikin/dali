@@ -1,6 +1,5 @@
 from django.conf.urls.defaults import *
-from gallery.models import Gallery
-from gallery.views import *
+from dali.gallery.views import *
 
 #Generic views
 urlpatterns = patterns('',

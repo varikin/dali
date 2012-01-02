@@ -1,6 +1,6 @@
 from django.test import TestCase
-from gallery.models import Gallery, Picture, _get_viewable_size, _get_thumbnail_size
-from gallery.tests.utils import create_picture, get_image, get_temp_name
+from dali.gallery.models import Gallery, Picture, _get_viewable_size, _get_thumbnail_size
+from dali.gallery.tests.utils import create_picture, get_image, get_temp_name
 
 class GalleryTestCase(TestCase):
     fixtures = ['gallery.json']

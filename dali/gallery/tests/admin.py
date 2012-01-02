@@ -4,9 +4,9 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.http import HttpRequest, QueryDict
 from django.test import TestCase
 from django.test.client import Client
-from gallery.admin.forms import ZipFileForm, _normalize_name, _unique_slug
-from gallery.models import Gallery, Picture
-from gallery.tests.utils import add_permission, create_picture
+from dali.gallery.admin.forms import ZipFileForm, _normalize_name, _unique_slug
+from dali.gallery.models import Gallery, Picture
+from dali.gallery.tests.utils import add_permission, create_picture
 
 class UniqueSlugTestCase(TestCase):
     fixtures = ['gallery.json']

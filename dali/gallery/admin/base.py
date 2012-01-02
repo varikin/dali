@@ -1,5 +1,5 @@
 from django.contrib import admin
-from gallery.models import Gallery, Picture
+from dali.gallery.models import Gallery, Picture
 
 class GalleryAdmin(admin.ModelAdmin):
     list_display = ('name', 'slug', 'order', 'picture_count', 'parent_gallery',

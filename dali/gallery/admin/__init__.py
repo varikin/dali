@@ -1,1 +1,1 @@
-from gallery.admin.base import *
+from dali.gallery.admin.base import *

@@ -1,5 +1,5 @@
 from django.template import Library, Node, TemplateSyntaxError 
-from gallery.models import Picture
+from dali.gallery.models import Picture
 
 register = Library()
 

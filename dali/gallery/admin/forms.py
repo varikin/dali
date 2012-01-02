@@ -8,7 +8,7 @@ from django import forms
 from django.template.defaultfilters import slugify
 from django.core.files import File
 
-from gallery.models import Gallery, Picture
+from dali.gallery.models import Gallery, Picture
 
 class ZipFileForm(forms.Form):
     gallery = forms.ModelChoiceField(queryset=Gallery.objects.all())

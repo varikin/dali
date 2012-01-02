@@ -1,7 +1,6 @@
 from django.http import Http404
 from django.shortcuts import render_to_response
-from django.views.generic import list_detail
-from gallery.models import Picture, Gallery
+from dali.gallery.models import Picture, Gallery
 
 def privileged_gallery_queryset(view):
     """

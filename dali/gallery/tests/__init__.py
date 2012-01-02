@@ -1,3 +1,3 @@
-from gallery.tests.models import *
-from gallery.tests.admin import *
+from dali.gallery.tests.models import *
+from dali.gallery.tests.admin import *
 
