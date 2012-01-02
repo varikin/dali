@@ -57,7 +57,7 @@ MIDDLEWARE_CLASSES = (
 
 )
 
-ROOT_URLCONF = 'urls'
+ROOT_URLCONF = 'dali.urls'
 
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_BASE, 'templates'),    
