@@ -11,8 +11,8 @@ admin.autodiscover()
 urlpatterns = patterns('',
     (r'^admin/', include(admin.site.urls)),
     (r'^comments/', include('django.contrib.comments.urls')),
-    (r'^gallery/', include('gallery.admin.urls')),
-    (r'^gallery/', include('gallery.urls')),
+    (r'^gallery/', include('dali.gallery.admin.urls')),
+    (r'^gallery/', include('dali.gallery.urls')),
 	(r'^$', direct_to_template, {'template': 'home.html'})
 )
 
