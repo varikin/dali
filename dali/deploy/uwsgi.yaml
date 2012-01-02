@@ -1,0 +1,7 @@
+uwsgi:
+    socket: uwsgi.sock
+    workers: 3
+    harakiri: 60
+    daemonize: uwsgi.log
+    virtualenv: ../../..
+    module: dali.deploy.uwsgi
