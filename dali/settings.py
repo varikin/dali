@@ -75,7 +75,6 @@ INSTALLED_APPS = (
     'django_extensions',
     'south',
     'djcelery',
-    'djkombu',
     'ckeditor',
     
     'dali.dali_flatpages',

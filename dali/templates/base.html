@@ -1,27 +1,41 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <link rel="stylesheet" href="/static/css/main.css" type="text/css" media="screen, projection"/>
-  {% block extrahead %}{% endblock %}
-  <title>{% block title %}Jes Lee Photos{% endblock %}</title>
-  <script type="text/javascript" src="http://use.typekit.com/cfe6inb.js"></script>
-  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    <meta charset="utf-8">
+    <title>{% block title %}Jes Lee Photos{% endblock %}</title>
+    <meta name="description" content="Artwork by Jes Lee">
+    <meta name="author" content="Jes Lee">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/static/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/css/screen.css" rel="stylesheet">
+
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+
+    <script type="text/javascript" src="http://use.typekit.com/cfe6inb.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    {% block extrahead %}{% endblock %}
 </head>
 
+
 <body>
-  <div id="nav">
-    <span>
-      <a {% block gallery-nav %}{% endblock %} href="{% url gallery_list %}" class="museo">Galleries</a>
-	  <a {% block announcements-nav %}{% endblock %} href="/announcements/" class="museo">Announcements</a>
-      <a {% block about-nav %}{% endblock %} href="/about/" class="museo">About Me</a>
-      <a href="http://www.shadesofsilver.me" class="museo">Blog</a>
-	  <a href="http://store.jesleephotos.com/" class="museo">Shop</a>
-    </span>
-  </div>
-  <h1 id="header"><a href="/" class="museo">Jes Lee</a> </h1>
-  <div id="main">{% block content %}{% endblock %}</div>
-  <div id="footer">
+    <div class="container">
+    <h1 id="header"><a href="/" class="museo">Jes Lee</a> </h1>
+
+    <div id="main" class="row">
+        {% block content %}{% endblock %}
+    </div>
+  <div id="footer" class="row">
   {% block footer %}
     <p id="badges">
 		<a href="http://www.facebook.com/jesleephotos"> 
@@ -52,11 +66,11 @@
 			<img alt="Mnartists.org" src="/static/icons/social/mn_artists_org_icon.jpg" title="Mnartists.org" 			   />				
 				
 		</a>
-	</p><p>
-	    Copyright of Jes Lee Photos 2011
 	</p>
+      <p>Copyright of Jes Lee Photos 2011</p>
   {% endblock %}
   </div>
+    </div>
 
   {% include "jquery.html" %}
   {% if not debug %} 
