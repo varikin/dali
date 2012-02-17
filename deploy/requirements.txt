@@ -1,2 +1,3 @@
 uWSGI==1.0
 psycopg2==2.4.4
+redis==2.4.11

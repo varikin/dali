@@ -1,11 +1,12 @@
 *.pyc
 *.db
 *.swp
-dali/media
+*.log
+*.pid
+.idea
+.DS_Store
 local_settings.py
 fabfile.py
-.DS_Store
 dali.wsgi
-dali.log
 dali/static
-.idea
+dali/media

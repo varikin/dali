@@ -1,6 +1,5 @@
 import os
 import logging
-import djcelery
 
 
 PROJECT_BASE = os.path.abspath(os.path.dirname(__file__))
@@ -108,8 +107,6 @@ GALLERY_VIEWABLE_SIZE = 400
 GALLERY_IMAGE_TYPE = 'JPEG'
 
 # Cellary setting
-
-djcelery.setup_loader()
 BROKER_BACKEND = "djkombu.transport.DatabaseTransport"
 BROKER_HOST = "localhost"
 BROKER_PORT = 5672
@@ -120,7 +117,7 @@ BROKER_VHOST = "/"
 CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': [
-			['Cut','Copy','Paste','PasteText','PasteFromWord','-', 'SpellChecker', 'Scayt'],
+		['Cut','Copy','Paste','PasteText','PasteFromWord','-', 'SpellChecker', 'Scayt'],
      		['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
      		['Link','Unlink','Anchor', 'Image', 'MediaEmbed'],
      		['HorizontalRule','Smiley','SpecialChar','PageBreak'],
