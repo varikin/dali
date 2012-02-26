@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+
+{% block javascripts %}
+<script type="text/javascript" src="/static/js/dali.js"></script>
+{% endblock %}
+
+{% block content %}
+    <ul class="thumbnails">
+        {%  for page in object_list %}
+        <li class="span4">
+            {% if page.gallery %}
+            <a href="{{ page.gallery.get_absolute_url }}" class="span2 offset1">
+            {% else %}
+            <a href="{{ page.url }}" class="span2 offset1">
+            {% endif %}
+                <img src="{% thumbnail page.image 170x170 crop %}" alt="{{ page.name }}">
+            </a>
+        </li>
+        {% endfor %}
+
+    </ul>
+{% endblock %}

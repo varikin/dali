@@ -72,13 +72,14 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.flatpages',
     
-    'django_extensions',
     'south',
     'djcelery',
     'ckeditor',
+    'easy_thumbnails',
     
     'dali.dali_flatpages',
     'dali.gallery',
+    'dali.homepage',
 )
 
 LOGGING = { 
