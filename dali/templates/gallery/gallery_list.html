@@ -1,19 +1,20 @@
 {% extends "gallery/base_gallery.html" %}
 {% load gallery_utils %}
+{% load thumbnail %}
 
 {% block title %} Galleries | {{ block.super }}{% endblock %}
 
 {% block content %}
-{% for gallery in gallery_list %}								
-<div class="gallery">
-	<h1 class="above_line"><a href="{{ gallery.get_absolute_url }}">{{ gallery.name }}</a></h1>
-  <div class="below_line">{{ gallery.description }} - {{ gallery.picture_count }} Pictures</div>		
-	<div class="picture_list content">
-		{% get_random_pictures from gallery as pictures limit 5 %}
-		{% for picture in pictures %}
-				<img {% if forloop.counter0|divisibleby:"8" %}class="first"{% endif %} src="{{ picture.thumbnail.url }}" />
-		{% endfor %}
-	</div>
-</div>
-{% endfor %}
+    {% for gallery in gallery_list %}
+        <div class="gallery">
+            <h1 class="above_line"><a href="{{ gallery.get_absolute_url }}">{{ gallery.name }}</a></h1>
+            <div class="below_line">{{ gallery.description }} - {{ gallery.picture_count }} Pictures</div>
+            <div class="picture_list content">
+                {% get_random_pictures from gallery as pictures limit 5 %}
+                {% for picture in pictures %}
+                    <img {% if forloop.counter0|divisibleby:"9" %}class="first"{% endif %} src="{% thumbnail picture.original 75x75 crop %}" />
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
 {% endblock %}

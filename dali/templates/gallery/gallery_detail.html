@@ -1,6 +1,6 @@
 {% extends "gallery/base_gallery.html" %}
 {% load gallery_utils %}
-
+{% load thumbnail %}
 
 {% block title %}{% if gallery %}{{ gallery.name }} | {% endif %}{{ block.super }}{% endblock %}
 
@@ -14,33 +14,34 @@
 
 {% block content %}
 {% if gallery %}
-<div>
-  <h1 class="above_line">{{ gallery.name }}</h1>
-  <div class="below_line">{{ gallery.description }} - {{ gallery.picture_count }} Pictures</div>
-</div>
+    <div>
+      <h1 class="above_line">{{ gallery.name }}</h1>
+      <div class="below_line">{{ gallery.description }} - {{ gallery.picture_count }} Pictures</div>
+    </div>
 
-<div class="content">
-{% for picture in pictures %}
-  {% if forloop.counter0|divisibleby:"9" %}<div class="picture_list">{% endif %}
-    <a rel="lightbox-gallery" href="{{ picture.viewable.url }}">
-      <img {% if forloop.counter0|divisibleby:"9" %}class="first"{% endif %} src="{{ picture.thumbnail.url }}" title="{{ picture.name }}" alt="{{ picture|caption }}"/>
-    </a>
-  {% if forloop.counter|divisibleby:"9" or forloop.last %}</div>{% endif %}
-{% endfor %}
-</div>
+    <div class="content">
+        {% for picture in pictures %}
+            {% if forloop.counter0|divisibleby:"9" %}<div class="picture_list">{% endif %}
+            <a rel="lightbox-gallery" href="{% thumbnail picture.original 400x0 %}">
+                <img {% if forloop.counter0|divisibleby:"9" %}class="first"{% endif %}
+                     src="{% thumbnail picture.original 75x75 crop %}" title="{{ picture.name }}" alt="{{ picture|caption }}"/>
+            </a>
+            {% if forloop.counter|divisibleby:"9" or forloop.last %}</div>{% endif %}
+        {% endfor %}
+    </div>
 {% endif %}
 
 {% for gallery in gallery_list %}               
-<div class="gallery">
-  <h1 class="above_line"><a href="{{ gallery.get_absolute_url }}">{{ gallery.name }}</a></h1>
-  <div class="below_line">{{ gallery.description }} - {{ gallery.picture_count }} Pictures</div>    
-  <div class="picture_list content">
-    {% get_random_pictures from gallery as pictures limit 5 %}
-    {% for picture in pictures %}
-        <img {% if forloop.counter0|divisibleby:"9" %}class="first"{% endif %} src="{{ picture.thumbnail.url }}" />
-    {% endfor %}
-  </div>
-</div>
+    <div class="gallery">
+        <h1 class="above_line"><a href="{{ gallery.get_absolute_url }}">{{ gallery.name }}</a></h1>
+        <div class="below_line">{{ gallery.description }} - {{ gallery.picture_count }} Pictures</div>
+        <div class="picture_list content">
+        {% get_random_pictures from gallery as pictures limit 5 %}
+        {% for picture in pictures %}
+            <img {% if forloop.counter0|divisibleby:"9" %}class="first"{% endif %} src="{% thumbnail picture.original 75x75 crop %}" />
+        {% endfor %}
+      </div>
+    </div>
 {% endfor %}
 
 {% endblock %}

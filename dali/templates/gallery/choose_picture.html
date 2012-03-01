@@ -2,10 +2,11 @@
 Meant for dynamic loading via ajax so it is just an html fragment.
 {% endcomment %}
 
+{% load thumbnail %}
+
 <fieldset>
   <legend>Select Picture</legend>
   {% for picture in pictures %}
-  <img src="{{ picture.thumbnail.url }}" id="{{ picture.viewable.url }}" 
-    title="{{ picture.name }}" alt="{{ picture.description}}"/>
+      <img src="{% thumbnail picture.original 75x75 crop %}" id="{% thumbnail picture.original 400x0 %}" title="{{ picture.name }}" alt="{{ picture.description}}"/>
   {% endfor %}
 </fieldset>
