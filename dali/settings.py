@@ -47,13 +47,12 @@ TEMPLATE_LOADERS = (
 )
 
 MIDDLEWARE_CLASSES = (
-
     'django.middleware.common.CommonMiddleware',
-    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 )
 
 ROOT_URLCONF = 'dali.urls'
@@ -76,6 +75,7 @@ INSTALLED_APPS = (
     'djcelery',
     'ckeditor',
     'easy_thumbnails',
+    'debug_toolbar',
     
     'dali.dali_flatpages',
     'dali.gallery',
@@ -134,6 +134,8 @@ CKEDITOR_CONFIGS = {
 		'filebrowserImageBrowseUrl': '/gallery/choose_picture/',
     }
 }
+
+INTERNAL_IPS = ('127.0.0.1',)
 
 try:
     from local_settings import *

@@ -7,3 +7,4 @@ south==0.7.3
 celery==2.4.0
 django-celery==2.4.0
 easy-thumbnails==1.0-alpha-21
+django-debug-toolbar==0.9.4
